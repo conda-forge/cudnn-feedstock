@@ -17,7 +17,7 @@ source:
   sha256: 7dc08b6ab9331bfd12207d4802c61db1ad7cace7395b67a6e7b16efa0335668b  # [ppc64le and cuda_compiler_version == "10.2"]
 
 build:
-  number: 0
+  number: 1
   skip: True   # [cuda_compiler_version == "None"]
   script:
     - mkdir -p $PREFIX/include
