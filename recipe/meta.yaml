@@ -7,6 +7,7 @@ package:
 source:
   url: https://developer.download.nvidia.com/compute/redist/cudnn/v{{ ".".join(version.split(".")[:3]) }}/cudnn-{{ cuda_compiler_version }}-linux-x64-v{{ version }}.tgz  # [linux64]
   url: https://developer.download.nvidia.com/compute/redist/cudnn/v{{ ".".join(version.split(".")[:3]) }}/cudnn-{{ cuda_compiler_version }}-linux-ppc64le-v{{ version }}.tgz  # [ppc64le]
+  url: https://developer.download.nvidia.com/compute/redist/cudnn/v{{ ".".join(version.split(".")[:3]) }}/cudnn-{{ cuda_compiler_version }}-windows10-x64-v{{ version }}.zip  # [win]
   sha256: ffa553df2e9af1703bb7786a784356989dac5c415bf5bca73e52b1789ddd4984  # [win64 and cuda_compiler_version == "9.2"]
   sha256: 2767db23ae2cd869ac008235e2adab81430f951a92a62160884c80ab5902b9e8  # [win64 and cuda_compiler_version == "10.0"]
   sha256: 5e4275d738cc3a105cf6558b70b8a2ff514989ca1cd17bc8515086e20561a652  # [win64 and cuda_compiler_version == "10.1"]
