@@ -58,8 +58,11 @@ requirements:
 
 test:
   commands:
-    - test -f $PREFIX/include/cudnn.h
-    - test -f $PREFIX/lib/libcudnn.so
+    - if not exist %LIBRARY_INC%/cudnn.h exit 1        # [win]
+    - if not exist %LIBRARY_LIB%/cudnn.lib exit 1      # [win]
+    - if not exist %LIBRARY_BIN%/cudnn65_7.dll exit 1  # [win]
+    - test -f $PREFIX/include/cudnn.h                  # [linux]
+    - test -f $PREFIX/lib/libcudnn.so                  # [linux]
 
 about:
   home: https://developer.nvidia.com/cudnn
