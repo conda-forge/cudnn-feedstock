@@ -7,6 +7,10 @@ package:
 source:
   url: https://developer.download.nvidia.com/compute/redist/cudnn/v{{ ".".join(version.split(".")[:3]) }}/cudnn-{{ cuda_compiler_version }}-linux-x64-v{{ version }}.tgz  # [linux64]
   url: https://developer.download.nvidia.com/compute/redist/cudnn/v{{ ".".join(version.split(".")[:3]) }}/cudnn-{{ cuda_compiler_version }}-linux-ppc64le-v{{ version }}.tgz  # [ppc64le]
+  sha256: ffa553df2e9af1703bb7786a784356989dac5c415bf5bca73e52b1789ddd4984  # [win64 and cuda_compiler_version == "9.2"]
+  sha256: 2767db23ae2cd869ac008235e2adab81430f951a92a62160884c80ab5902b9e8  # [win64 and cuda_compiler_version == "10.0"]
+  sha256: 5e4275d738cc3a105cf6558b70b8a2ff514989ca1cd17bc8515086e20561a652  # [win64 and cuda_compiler_version == "10.1"]
+  sha256: ffa553df2e9af1703bb7786a784356989dac5c415bf5bca73e52b1789ddd4984  # [win64 and cuda_compiler_version == "10.2"]
   sha256: a2a2c7a8ba7b16d323b651766ee37dcfdbc2b50d920f73f8fde85005424960e4  # [linux64 and cuda_compiler_version == "9.2"]
   sha256: 28355e395f0b2b93ac2c83b61360b35ba6cd0377e44e78be197b6b61b4b492ba  # [linux64 and cuda_compiler_version == "10.0"]
   sha256: 7eaec8039a2c30ab0bc758d303588767693def6bf49b22485a2c00bf2e136cb3  # [linux64 and cuda_compiler_version == "10.1"]
@@ -20,12 +24,19 @@ build:
   number: 1
   skip: True   # [cuda_compiler_version == "None"]
   script:
-    - mkdir -p $PREFIX/include
-    - cp include/cudnn.h $PREFIX/include/
-    - mkdir -p $PREFIX/lib
-    - mv lib64/libcudnn.so* $PREFIX/lib/
+    - mkdir -p $PREFIX/include              # [unix]
+    - cp include/cudnn.h $PREFIX/include/   # [unix]
+    - mkdir -p $PREFIX/lib                  # [unix]
+    - mv lib64/libcudnn.so* $PREFIX/lib/    # [linux64]
+    - mv lib/libcudnn.so* $PREFIX/lib/      # [ppc64le]
+    - mkdir %LIBRARY_INC%                   # [win]
+    - copy include/cudnn.h %LIBRARY_INC%/   # [win]
+    - mkdir %LIBRARY_LIB%                   # [win]
+    - copy lib/x64/cudnn.lib %LIBRARY_LIB%  # [win]
+    - mkdir %LIBRARY_BIN%                   # [win]
+    - copy bin/cudnn64_7.dll %LIBRARY_BIN%  # [win]
   ignore_run_exports_from:
-    - {{ compiler('c') }}
+    - {{ compiler('c') }}    # [linux]
   run_exports:
     - {{ pin_subpackage('cudnn') }}
 
@@ -41,7 +52,9 @@ requirements:
     - libstdcxx-ng >=3.4  # [linux]
   run_constrained:
     # Only GLIBC_2.4 or older symbols present
-    - __glibc >=2.4       # [linux]
+    - __glibc >=2.4       # [linux64]
+    # Only GLIBC_2.17 or older symbols present
+    - __glibc >=2.17      # [ppc64le]
 
 test:
   commands:
