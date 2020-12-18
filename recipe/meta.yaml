@@ -11,7 +11,7 @@ source:
   sha256: ffa553df2e9af1703bb7786a784356989dac5c415bf5bca73e52b1789ddd4984  # [win64 and cuda_compiler_version == "9.2"]
   sha256: 2767db23ae2cd869ac008235e2adab81430f951a92a62160884c80ab5902b9e8  # [win64 and cuda_compiler_version == "10.0"]
   sha256: 5e4275d738cc3a105cf6558b70b8a2ff514989ca1cd17bc8515086e20561a652  # [win64 and cuda_compiler_version == "10.1"]
-  sha256: ffa553df2e9af1703bb7786a784356989dac5c415bf5bca73e52b1789ddd4984  # [win64 and cuda_compiler_version == "10.2"]
+  sha256: fba812f60c61bc33b81db06cd55e8d769774d036186571d724295c71c9936064  # [win64 and cuda_compiler_version == "10.2"]
   sha256: a2a2c7a8ba7b16d323b651766ee37dcfdbc2b50d920f73f8fde85005424960e4  # [linux64 and cuda_compiler_version == "9.2"]
   sha256: 28355e395f0b2b93ac2c83b61360b35ba6cd0377e44e78be197b6b61b4b492ba  # [linux64 and cuda_compiler_version == "10.0"]
   sha256: 7eaec8039a2c30ab0bc758d303588767693def6bf49b22485a2c00bf2e136cb3  # [linux64 and cuda_compiler_version == "10.1"]
@@ -23,7 +23,7 @@ source:
 
 build:
   number: 1
-  skip: True   # [cuda_compiler_version == "None"]
+  skip: True   # [cuda_compiler_version == "None" or cuda_compiler_version == "11.0"]
   script:
     - mkdir -p $PREFIX/include               # [unix]
     - cp include/cudnn.h $PREFIX/include/    # [unix]
@@ -61,7 +61,7 @@ test:
   commands:
     - if not exist %LIBRARY_INC%/cudnn.h exit 1        # [win]
     - if not exist %LIBRARY_LIB%/cudnn.lib exit 1      # [win]
-    - if not exist %LIBRARY_BIN%/cudnn65_7.dll exit 1  # [win]
+    - if not exist %LIBRARY_BIN%/cudnn64_7.dll exit 1  # [win]
     - test -f $PREFIX/include/cudnn.h                  # [linux]
     - test -f $PREFIX/lib/libcudnn.so                  # [linux]
 
