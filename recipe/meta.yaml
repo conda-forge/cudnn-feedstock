@@ -19,7 +19,7 @@ source:
 
 build:
   number: 0
-  skip: True   # [cuda_compiler_version == "None" or cuda_compiler_version == "11.0"]
+  skip: True   # [cuda_compiler_version == "None" or cuda_compiler_version == "9.2" or cuda_compiler_version == "10.0"]
   script:
     - mkdir -p $PREFIX/include               # [unix]
     - cp include/cudnn.h $PREFIX/include/    # [unix]
@@ -31,7 +31,7 @@ build:
     - mkdir %LIBRARY_LIB%                    # [win]
     - copy %SRC_DIR%\\lib\\x64\\cudnn.lib %LIBRARY_LIB%\\cudnn.lib  # [win]
     - mkdir %LIBRARY_BIN%                    # [win]
-    - copy %SRC_DIR%\\bin\\cudnn64_7.dll %LIBRARY_BIN%\\cudnn64_7.dll  # [win]
+    - copy %SRC_DIR%\\bin\\cudnn64_8.dll %LIBRARY_BIN%\\cudnn64_8.dll  # [win]
   ignore_run_exports_from:
     - {{ compiler('c') }}    # [linux]
   run_exports:
@@ -40,13 +40,13 @@ build:
 requirements:
   build:
     - {{ compiler('c') }}
+    - {{ compiler('cuda') }}
   host:
   run:
     # Only GCC_3.0 or older symbols present
     - libgcc-ng >=3.0     # [linux]
     # Only GLIBCXX_3.4 or older symbols present
     - libstdcxx-ng >=3.4  # [linux]
-    - cudatoolkit {{ cuda_compiler_version }}
   run_constrained:
     # Only GLIBC_2.14 or older symbols present
     - __glibc >=2.14       # [linux64]
@@ -57,7 +57,7 @@ test:
   commands:
     - if not exist %LIBRARY_INC%/cudnn.h exit 1        # [win]
     - if not exist %LIBRARY_LIB%/cudnn.lib exit 1      # [win]
-    - if not exist %LIBRARY_BIN%/cudnn64_7.dll exit 1  # [win]
+    - if not exist %LIBRARY_BIN%/cudnn64_8.dll exit 1  # [win]
     - test -f $PREFIX/include/cudnn.h                  # [linux]
     - test -f $PREFIX/lib/libcudnn.so                  # [linux]
 
