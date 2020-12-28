@@ -1,4 +1,4 @@
-{% set version = "7.6.5.32" %}
+{% set version = "8.0.5.39" %}
 
 package:
   name: cudnn
@@ -8,21 +8,17 @@ source:
   url: https://developer.download.nvidia.com/compute/redist/cudnn/v{{ ".".join(version.split(".")[:3]) }}/cudnn-{{ cuda_compiler_version }}-linux-x64-v{{ version }}.tgz  # [linux64]
   url: https://developer.download.nvidia.com/compute/redist/cudnn/v{{ ".".join(version.split(".")[:3]) }}/cudnn-{{ cuda_compiler_version }}-linux-ppc64le-v{{ version }}.tgz  # [ppc64le]
   url: https://developer.download.nvidia.com/compute/redist/cudnn/v{{ ".".join(version.split(".")[:3]) }}/cudnn-{{ cuda_compiler_version }}-windows10-x64-v{{ version }}.zip  # [win]
-  sha256: ffa553df2e9af1703bb7786a784356989dac5c415bf5bca73e52b1789ddd4984  # [win64 and cuda_compiler_version == "9.2"]
   sha256: 2767db23ae2cd869ac008235e2adab81430f951a92a62160884c80ab5902b9e8  # [win64 and cuda_compiler_version == "10.0"]
   sha256: 5e4275d738cc3a105cf6558b70b8a2ff514989ca1cd17bc8515086e20561a652  # [win64 and cuda_compiler_version == "10.1"]
   sha256: fba812f60c61bc33b81db06cd55e8d769774d036186571d724295c71c9936064  # [win64 and cuda_compiler_version == "10.2"]
-  sha256: a2a2c7a8ba7b16d323b651766ee37dcfdbc2b50d920f73f8fde85005424960e4  # [linux64 and cuda_compiler_version == "9.2"]
+  sha256: fba812f60c61bc33b81db06cd55e8d769774d036186571d724295c71c9936064  # [win64 and cuda_compiler_version == "11.0"]
   sha256: 28355e395f0b2b93ac2c83b61360b35ba6cd0377e44e78be197b6b61b4b492ba  # [linux64 and cuda_compiler_version == "10.0"]
   sha256: 7eaec8039a2c30ab0bc758d303588767693def6bf49b22485a2c00bf2e136cb3  # [linux64 and cuda_compiler_version == "10.1"]
   sha256: 600267f2caaed2fd58eb214ba669d8ea35f396a7d19b94822e6b36f9f7088c20  # [linux64 and cuda_compiler_version == "10.2"]
-  sha256: a11f44f9a827b7e69f527a9d260f1637694ff7c1674a3e46bd9ec054a08f9a76  # [ppc64le and cuda_compiler_version == "9.2"]
-  sha256: b1717f4570083bbfc6b8b59f280bae4e4197cc1cb50e9d873c05adf670084c5b  # [ppc64le and cuda_compiler_version == "10.0"]
-  sha256: 97b2faf73eedfc128f2f5762784d21467a95b2d5ba719825419c058f427cbf56  # [ppc64le and cuda_compiler_version == "10.1"]
-  sha256: 7dc08b6ab9331bfd12207d4802c61db1ad7cace7395b67a6e7b16efa0335668b  # [ppc64le and cuda_compiler_version == "10.2"]
+  sha256: 600267f2caaed2fd58eb214ba669d8ea35f396a7d19b94822e6b36f9f7088c20  # [linux64 and cuda_compiler_version == "11.0"]
 
 build:
-  number: 1
+  number: 0
   skip: True   # [cuda_compiler_version == "None" or cuda_compiler_version == "11.0"]
   script:
     - mkdir -p $PREFIX/include               # [unix]
@@ -43,7 +39,6 @@ build:
 
 requirements:
   build:
-    - {{ compiler('cuda') }}
     - {{ compiler('c') }}
   host:
   run:
@@ -51,9 +46,10 @@ requirements:
     - libgcc-ng >=3.0     # [linux]
     # Only GLIBCXX_3.4 or older symbols present
     - libstdcxx-ng >=3.4  # [linux]
+    - cudatoolkit {{ cuda_compiler_version }}
   run_constrained:
-    # Only GLIBC_2.4 or older symbols present
-    - __glibc >=2.4       # [linux64]
+    # Only GLIBC_2.14 or older symbols present
+    - __glibc >=2.14       # [linux64]
     # Only GLIBC_2.17 or older symbols present
     - __glibc >=2.17      # [ppc64le]
 
