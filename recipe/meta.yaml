@@ -7,17 +7,18 @@ package:
 source:
   url: https://developer.download.nvidia.com/compute/redist/cudnn/v{{ ".".join(version.split(".")[:3]) }}/cudnn-{{ cuda_compiler_version }}-linux-x64-v{{ version }}.tgz  # [linux64]
   url: https://developer.download.nvidia.com/compute/redist/cudnn/v{{ ".".join(version.split(".")[:3]) }}/cudnn-{{ cuda_compiler_version }}-linux-ppc64le-v{{ version }}.tgz  # [ppc64le]
-  url: https://developer.download.nvidia.com/compute/redist/cudnn/v{{ ".".join(version.split(".")[:3]) }}/cudnn-{{ cuda_compiler_version }}-windows10-x64-v{{ version }}.zip  # [win]
-  sha256: 5e4275d738cc3a105cf6558b70b8a2ff514989ca1cd17bc8515086e20561a652  # [win64 and cuda_compiler_version == "10.1"]
-  sha256: fba812f60c61bc33b81db06cd55e8d769774d036186571d724295c71c9936064  # [win64 and cuda_compiler_version == "10.2"]
-  sha256: fba812f60c61bc33b81db06cd55e8d769774d036186571d724295c71c9936064  # [win64 and cuda_compiler_version == "11.0"]
-  sha256: 7eaec8039a2c30ab0bc758d303588767693def6bf49b22485a2c00bf2e136cb3  # [linux64 and cuda_compiler_version == "10.1"]
-  sha256: 600267f2caaed2fd58eb214ba669d8ea35f396a7d19b94822e6b36f9f7088c20  # [linux64 and cuda_compiler_version == "10.2"]
+  url: https://developer.download.nvidia.com/compute/redist/cudnn/v{{ ".".join(version.split(".")[:3]) }}/cudnn-{{ cuda_compiler_version }}-windows10-x64-v{{ version }}.zip  # [win and cuda_compiler_version in ("10.1", "10.2")]
+  url: https://developer.download.nvidia.com/compute/redist/cudnn/v{{ ".".join(version.split(".")[:3]) }}/cudnn-{{ cuda_compiler_version }}-windows-x64-v{{ version }}.zip  # [win and cuda_compiler_version not in ("10.1", "10.2")]
+  sha256: 3726c58065187f5fc196652481ed05f0b8291dc0ebb6cc274dd7205a11f83d11  # [win64 and cuda_compiler_version == "10.1"]
+  sha256: 6a79e51776eef2d0653c9b457d79c0c14b27b64f0e675db9617f03e08e184da4  # [win64 and cuda_compiler_version == "10.2"]
+  sha256: a982fbfdecb7a632190c5d2346c19a3cbff86fb2780663b57f3ce547fdd3ce75  # [win64 and cuda_compiler_version == "11.0"]
+  sha256: 90908495298896b33aa95063a3471f93c36627d7ac01c17dc36d75c65eea4a00  # [linux64 and cuda_compiler_version == "10.1"]
+  sha256: 21f84c05c67bf1ec859e77c38ccd5bf154964fa1c308f449959be4c356e382f3  # [linux64 and cuda_compiler_version == "10.2"]
   sha256: 4e16ee7895deb4a8b1c194b812ba49586ef7d26902051401d3717511898a9b73  # [linux64 and cuda_compiler_version == "11.0"]
 
 build:
   number: 0
-  skip: True   # [cuda_compiler_version == "None" or cuda_compiler_version == "9.2" or cuda_compiler_version == "10.0"]
+  skip: True   # [cuda_compiler_version in ("None", "9.2", "10.0")]
   script:
     - mkdir -p $PREFIX/include               # [unix]
     - cp include/cudnn.h $PREFIX/include/    # [unix]
