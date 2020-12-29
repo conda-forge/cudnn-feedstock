@@ -17,20 +17,20 @@ source:
   sha256: 4e16ee7895deb4a8b1c194b812ba49586ef7d26902051401d3717511898a9b73  # [linux64 and cuda_compiler_version == "11.0"]
 
 build:
-  number: 0
+  number: 1
   skip: True   # [cuda_compiler_version in ("None", "9.2", "10.0")]
   script:
     - mkdir -p $PREFIX/include               # [unix]
-    - cp include/cudnn.h $PREFIX/include/    # [unix]
+    - cp include/cudnn*.h $PREFIX/include/    # [unix]
     - mkdir -p $PREFIX/lib                   # [unix]
-    - mv lib64/libcudnn.so* $PREFIX/lib/     # [linux64]
-    - mv lib/libcudnn.so* $PREFIX/lib/       # [ppc64le]
+    - mv lib64/libcudnn*.so* $PREFIX/lib/     # [linux64]
+    - mv lib/libcudnn*.so* $PREFIX/lib/       # [ppc64le]
     - mkdir %LIBRARY_INC%                    # [win]
-    - copy %SRC_DIR%\\include\\cudnn.h %LIBRARY_INC%\\cudnn.h  # [win]
+    - copy %SRC_DIR%\\include\\cudnn*.h %LIBRARY_INC%\\     # [win]
     - mkdir %LIBRARY_LIB%                    # [win]
-    - copy %SRC_DIR%\\lib\\x64\\cudnn.lib %LIBRARY_LIB%\\cudnn.lib  # [win]
+    - copy %SRC_DIR%\\lib\\x64\\cudnn*.lib %LIBRARY_LIB%\\  # [win]
     - mkdir %LIBRARY_BIN%                    # [win]
-    - copy %SRC_DIR%\\bin\\cudnn64_8.dll %LIBRARY_BIN%\\cudnn64_8.dll  # [win]
+    - copy %SRC_DIR%\\bin\\cudnn*_8.dll %LIBRARY_BIN%\\     # [win]
   ignore_run_exports_from:
     - {{ compiler('c') }}    # [linux]
   run_exports:
@@ -40,6 +40,7 @@ requirements:
   build:
     - {{ compiler('c') }}
     - {{ compiler('cuda') }}
+    - sysroot_linux-64 2.17  # [linux64]
   host:
   run:
     # Only GCC_3.0 or older symbols present
@@ -47,18 +48,21 @@ requirements:
     # Only GLIBCXX_3.4 or older symbols present
     - libstdcxx-ng >=3.4  # [linux]
   run_constrained:
-    # Only GLIBC_2.14 or older symbols present
-    - __glibc >=2.14       # [linux64]
     # Only GLIBC_2.17 or older symbols present
     - __glibc >=2.17      # [ppc64le]
 
 test:
   commands:
     - if not exist %LIBRARY_INC%/cudnn.h exit 1        # [win]
+    - if not exist %LIBRARY_INC%/cudnn_adv_train.h exit 1  # [win]
     - if not exist %LIBRARY_LIB%/cudnn.lib exit 1      # [win]
+    - if not exist %LIBRARY_LIB%/cudnn_adv_train.lib exit 1      # [win]
     - if not exist %LIBRARY_BIN%/cudnn64_8.dll exit 1  # [win]
+    - if not exist %LIBRARY_BIN%/cudnn_adv_train64_8.dll exit 1  # [win]
     - test -f $PREFIX/include/cudnn.h                  # [linux]
+    - test -f $PREFIX/include/cudnn_adv_train.h        # [linux]
     - test -f $PREFIX/lib/libcudnn.so                  # [linux]
+    - test -f $PREFIX/lib/libcudnn_adv_train.so        # [linux]
 
 about:
   home: https://developer.nvidia.com/cudnn
