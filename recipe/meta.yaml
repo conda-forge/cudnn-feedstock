@@ -8,14 +8,12 @@ source:
   url: https://developer.download.nvidia.com/compute/redist/cudnn/v{{ ".".join(version.split(".")[:3]) }}/cudnn-{{ cuda_compiler_version }}-linux-x64-v{{ version }}.tgz  # [linux64]
   url: https://developer.download.nvidia.com/compute/redist/cudnn/v{{ ".".join(version.split(".")[:3]) }}/cudnn-{{ cuda_compiler_version }}-linux-ppc64le-v{{ version }}.tgz  # [ppc64le]
   url: https://developer.download.nvidia.com/compute/redist/cudnn/v{{ ".".join(version.split(".")[:3]) }}/cudnn-{{ cuda_compiler_version }}-windows10-x64-v{{ version }}.zip  # [win]
-  sha256: 2767db23ae2cd869ac008235e2adab81430f951a92a62160884c80ab5902b9e8  # [win64 and cuda_compiler_version == "10.0"]
   sha256: 5e4275d738cc3a105cf6558b70b8a2ff514989ca1cd17bc8515086e20561a652  # [win64 and cuda_compiler_version == "10.1"]
   sha256: fba812f60c61bc33b81db06cd55e8d769774d036186571d724295c71c9936064  # [win64 and cuda_compiler_version == "10.2"]
   sha256: fba812f60c61bc33b81db06cd55e8d769774d036186571d724295c71c9936064  # [win64 and cuda_compiler_version == "11.0"]
-  sha256: 28355e395f0b2b93ac2c83b61360b35ba6cd0377e44e78be197b6b61b4b492ba  # [linux64 and cuda_compiler_version == "10.0"]
   sha256: 7eaec8039a2c30ab0bc758d303588767693def6bf49b22485a2c00bf2e136cb3  # [linux64 and cuda_compiler_version == "10.1"]
   sha256: 600267f2caaed2fd58eb214ba669d8ea35f396a7d19b94822e6b36f9f7088c20  # [linux64 and cuda_compiler_version == "10.2"]
-  sha256: 600267f2caaed2fd58eb214ba669d8ea35f396a7d19b94822e6b36f9f7088c20  # [linux64 and cuda_compiler_version == "11.0"]
+  sha256: 4e16ee7895deb4a8b1c194b812ba49586ef7d26902051401d3717511898a9b73  # [linux64 and cuda_compiler_version == "11.0"]
 
 build:
   number: 0
