@@ -47,6 +47,55 @@ Current build status
                   <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/cudnn-feedstock?branchName=master&jobName=linux&configuration=linux_64_cuda_compiler_version10.2" alt="variant">
                 </a>
               </td>
+            </tr><tr>
+              <td>linux_64_cuda_compiler_version11.0</td>
+              <td>
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=11465&branchName=master">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/cudnn-feedstock?branchName=master&jobName=linux&configuration=linux_64_cuda_compiler_version11.0" alt="variant">
+                </a>
+              </td>
+            </tr><tr>
+              <td>linux_64_cuda_compiler_version11.1</td>
+              <td>
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=11465&branchName=master">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/cudnn-feedstock?branchName=master&jobName=linux&configuration=linux_64_cuda_compiler_version11.1" alt="variant">
+                </a>
+              </td>
+            </tr><tr>
+              <td>linux_64_cuda_compiler_version11.2</td>
+              <td>
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=11465&branchName=master">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/cudnn-feedstock?branchName=master&jobName=linux&configuration=linux_64_cuda_compiler_version11.2" alt="variant">
+                </a>
+              </td>
+            </tr><tr>
+              <td>win_64_cuda_compiler_version10.2</td>
+              <td>
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=11465&branchName=master">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/cudnn-feedstock?branchName=master&jobName=win&configuration=win_64_cuda_compiler_version10.2" alt="variant">
+                </a>
+              </td>
+            </tr><tr>
+              <td>win_64_cuda_compiler_version11.0</td>
+              <td>
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=11465&branchName=master">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/cudnn-feedstock?branchName=master&jobName=win&configuration=win_64_cuda_compiler_version11.0" alt="variant">
+                </a>
+              </td>
+            </tr><tr>
+              <td>win_64_cuda_compiler_version11.1</td>
+              <td>
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=11465&branchName=master">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/cudnn-feedstock?branchName=master&jobName=win&configuration=win_64_cuda_compiler_version11.1" alt="variant">
+                </a>
+              </td>
+            </tr><tr>
+              <td>win_64_cuda_compiler_version11.2</td>
+              <td>
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=11465&branchName=master">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/cudnn-feedstock?branchName=master&jobName=win&configuration=win_64_cuda_compiler_version11.2" alt="variant">
+                </a>
+              </td>
             </tr>
           </tbody>
         </table>
@@ -139,9 +188,9 @@ build distinct package versions.
 
 In order to produce a uniquely identifiable distribution:
  * If the version of a package **is not** being increased, please add or increase
-   the [``build/number``](https://docs.conda.io/projects/conda-build/en/latest/resources/define-metadata.html#build-number-and-string).
+   the [``build/number``](https://conda.io/docs/user-guide/tasks/build-packages/define-metadata.html#build-number-and-string).
  * If the version of a package **is** being increased, please remember to return
-   the [``build/number``](https://docs.conda.io/projects/conda-build/en/latest/resources/define-metadata.html#build-number-and-string)
+   the [``build/number``](https://conda.io/docs/user-guide/tasks/build-packages/define-metadata.html#build-number-and-string)
    back to 0.
 
 Feedstock Maintainers
