@@ -17,7 +17,7 @@ source:
   sha256: 4e16ee7895deb4a8b1c194b812ba49586ef7d26902051401d3717511898a9b73  # [linux64 and cuda_compiler_version == "11.0"]
 
 build:
-  number: 1
+  number: 2
   skip: True   # [cuda_compiler_version in ("None", "9.2", "10.0")]
   script:
     - mkdir -p $PREFIX/include               # [unix]
