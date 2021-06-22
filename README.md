@@ -3,7 +3,7 @@ About cudnn
 
 Home: https://developer.nvidia.com/cudnn
 
-Package license: [cuDNN Software License Agreement](https://docs.nvidia.com/deeplearning/cudnn/sla/index.html)
+Package license: [LicenseRef-cuDNN-Software-License-Agreement](https://docs.nvidia.com/deeplearning/cudnn/sla/index.html)
 
 Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/cudnn-feedstock/blob/master/LICENSE.txt)
 
