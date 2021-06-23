@@ -3,7 +3,7 @@ About cudnn
 
 Home: https://developer.nvidia.com/cudnn
 
-Package license: [cuDNN Software License Agreement](https://docs.nvidia.com/deeplearning/cudnn/sla/index.html)
+Package license: [LicenseRef-cuDNN-Software-License-Agreement](https://docs.nvidia.com/deeplearning/cudnn/sla/index.html)
 
 Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/cudnn-feedstock/blob/master/LICENSE.txt)
 
@@ -41,31 +41,31 @@ Current build status
         <table>
           <thead><tr><th>Variant</th><th>Status</th></tr></thead>
           <tbody><tr>
-              <td>linux_64_cuda_compiler_version10.2</td>
+              <td>linux_64_cuda_compiler_version10.2cudnn7</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=11465&branchName=master">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/cudnn-feedstock?branchName=master&jobName=linux&configuration=linux_64_cuda_compiler_version10.2" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/cudnn-feedstock?branchName=master&jobName=linux&configuration=linux_64_cuda_compiler_version10.2cudnn7" alt="variant">
                 </a>
               </td>
             </tr><tr>
-              <td>linux_64_cuda_compiler_version11.2</td>
+              <td>linux_64_cuda_compiler_version11.2cudnn8</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=11465&branchName=master">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/cudnn-feedstock?branchName=master&jobName=linux&configuration=linux_64_cuda_compiler_version11.2" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/cudnn-feedstock?branchName=master&jobName=linux&configuration=linux_64_cuda_compiler_version11.2cudnn8" alt="variant">
                 </a>
               </td>
             </tr><tr>
-              <td>win_64_cuda_compiler_version10.2</td>
+              <td>win_64_cuda_compiler_version10.2cudnn7</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=11465&branchName=master">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/cudnn-feedstock?branchName=master&jobName=win&configuration=win_64_cuda_compiler_version10.2" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/cudnn-feedstock?branchName=master&jobName=win&configuration=win_64_cuda_compiler_version10.2cudnn7" alt="variant">
                 </a>
               </td>
             </tr><tr>
-              <td>win_64_cuda_compiler_version11.2</td>
+              <td>win_64_cuda_compiler_version11.2cudnn8</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=11465&branchName=master">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/cudnn-feedstock?branchName=master&jobName=win&configuration=win_64_cuda_compiler_version11.2" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/cudnn-feedstock?branchName=master&jobName=win&configuration=win_64_cuda_compiler_version11.2cudnn8" alt="variant">
                 </a>
               </td>
             </tr>
@@ -90,6 +90,7 @@ Installing `cudnn` from the `conda-forge` channel can be achieved by adding `con
 
 ```
 conda config --add channels conda-forge
+conda config --set channel_priority strict
 ```
 
 Once the `conda-forge` channel has been enabled, `cudnn` can be installed with:
@@ -169,4 +170,5 @@ Feedstock Maintainers
 =====================
 
 * [@kkraus14](https://github.com/kkraus14/)
+* [@leofang](https://github.com/leofang/)
 
