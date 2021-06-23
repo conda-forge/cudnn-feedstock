@@ -3,24 +3,21 @@
 # cuDNN v8.2.0 supports CUDA versions 10.2 - 11.3
 # For CUDA 10.2 there is a separate cuDNN distribution and a link for download
 # For CUDA 11.x there is one cuDNN distribution that works with all CUDA 11 versions
-
-# This Jinja code below causes early expansion of cuda_compiler_version, leading to
-# unexpected zippping with the key "cudnn" in the .ci_support files...
-# {% if cuda_compiler_version[:2] == "11" %}
-# {% set cudnn_cuda_version = "11.3" %}
-# {% else %}
-# {% set cudnn_cuda_version = cuda_compiler_version %}
-# {% endif %}
+{% if cuda_compiler_version[:2] == "11" %}
+{% set cudnn_cuda_version = "11.3" %}
+{% else %}
+{% set cudnn_cuda_version = cuda_compiler_version %}
+{% endif %}
 
 package:
   name: cudnn
   version: {{ version }}
 
 source:
-  url: https://developer.download.nvidia.com/compute/redist/cudnn/v{{ ".".join(version.split(".")[:3]) }}/cudnn-{{ "11.3" if cuda_compiler_version[:2] == "11" else "10.2" }}-linux-x64-v{{ version }}.tgz  # [linux64]
-  url: https://developer.download.nvidia.com/compute/redist/cudnn/v{{ ".".join(version.split(".")[:3]) }}/cudnn-{{ "11.3" if cuda_compiler_version[:2] == "11" else "10.2" }}-linux-ppc64le-v{{ version }}.tgz  # [ppc64le]
-  url: https://developer.download.nvidia.com/compute/redist/cudnn/v{{ ".".join(version.split(".")[:3]) }}/cudnn-{{ "11.3" if cuda_compiler_version[:2] == "11" else "10.2" }}-windows10-x64-v{{ version }}.zip  # [win and cuda_compiler_version == "10.2"]
-  url: https://developer.download.nvidia.com/compute/redist/cudnn/v{{ ".".join(version.split(".")[:3]) }}/cudnn-{{ "11.3" if cuda_compiler_version[:2] == "11" else "10.2" }}-windows-x64-v{{ version }}.zip  # [win and cuda_compiler_version == "11.2"]
+  url: https://developer.download.nvidia.com/compute/redist/cudnn/v{{ ".".join(version.split(".")[:3]) }}/cudnn-{{ cudnn_cuda_version }}-linux-x64-v{{ version }}.tgz  # [linux64]
+  url: https://developer.download.nvidia.com/compute/redist/cudnn/v{{ ".".join(version.split(".")[:3]) }}/cudnn-{{ cudnn_cuda_version }}-linux-ppc64le-v{{ version }}.tgz  # [ppc64le]
+  url: https://developer.download.nvidia.com/compute/redist/cudnn/v{{ ".".join(version.split(".")[:3]) }}/cudnn-{{ cudnn_cuda_version }}-windows10-x64-v{{ version }}.zip  # [win and cuda_compiler_version == "10.2"]
+  url: https://developer.download.nvidia.com/compute/redist/cudnn/v{{ ".".join(version.split(".")[:3]) }}/cudnn-{{ cudnn_cuda_version }}-windows-x64-v{{ version }}.zip  # [win and cuda_compiler_version == "11.2"]
   sha256: 1dc2182e2c8ff995e81cf812dd81d628fc5e4b9bcd5eb838ac71acc2928409d8  # [win64 and cuda_compiler_version == "10.2"]
   sha256: c8f108f8b646fd22ab35da7a7d73e2d977f671a1abd3364d372292102e0d7429  # [win64 and cuda_compiler_version == "11.2"]
   sha256: 6ecbc98b3795e940ce0831ffb7cd2c0781830fdd6b1911f950bcaf6d569f807c  # [linux64 and cuda_compiler_version == "10.2"]
