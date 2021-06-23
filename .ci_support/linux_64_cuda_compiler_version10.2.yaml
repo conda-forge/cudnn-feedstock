@@ -17,6 +17,6 @@ docker_image:
 target_platform:
 - linux-64
 zip_keys:
-- - cuda_compiler_version
-  - cdt_name
+- - cdt_name
+  - cuda_compiler_version
   - docker_image
