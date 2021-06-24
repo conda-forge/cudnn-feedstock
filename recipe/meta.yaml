@@ -11,6 +11,9 @@ source:
 build:
   number: 2
   skip: True   # [(not ppc64le) or (cuda_compiler_version != "10.2")]
+  script_env:
+    # for some reason /usr/local/cuda is not added to $PATH in ppc64le's docker image
+    - CUDA_HOME  # [ppc64le]
   script:
     - mkdir -p $PREFIX/include               # [unix]
     - cp include/cudnn*.h $PREFIX/include/    # [unix]
