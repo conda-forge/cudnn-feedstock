@@ -1,4 +1,9 @@
+{% if not ppc64le %}
 {% set version = "8.2.0.53" %}
+{% else %}
+{% set version = "8.0.5.39" %}
+{% endif %}
+
 
 # cuDNN v8.2.0 supports CUDA versions 10.2 - 11.3
 # For CUDA 10.2 there is a separate cuDNN distribution and a link for download
@@ -22,10 +27,14 @@ source:
   sha256: c8f108f8b646fd22ab35da7a7d73e2d977f671a1abd3364d372292102e0d7429  # [win64 and cuda_compiler_version == "11.2"]
   sha256: 6ecbc98b3795e940ce0831ffb7cd2c0781830fdd6b1911f950bcaf6d569f807c  # [linux64 and cuda_compiler_version == "10.2"]
   sha256: 7a195dc93a7cda2bdd4d9b73958d259c784be422cd941a9a625aab75309f19dc  # [linux64 and cuda_compiler_version == "11.2"]
+  sha256: ce128ea090b05e36d00ffe921e45982ca10e8207e40cfc2e0067d0f62d9b36f9  # [ppc64le and cuda_compiler_version == "10.2"]
 
 build:
   number: 0
-  skip: True   # [cuda_compiler_version in ("None", "9.2", "10.0", "10.1", "11.0", "11.1")]
+  skip: True   # [(not ppc64le and cuda_compiler_version in ("None", "9.2", "10.0", "10.1", "11.0", "11.1")) or (ppc64le and cuda_compiler_version != "10.2")]
+  script_env:
+    # for some reason /usr/local/cuda is not added to $PATH in ppc64le's docker image
+    - CUDA_HOME  # [ppc64le]
   script:
     - mkdir -p $PREFIX/include               # [unix]
     - cp include/cudnn*.h $PREFIX/include/    # [unix]
@@ -48,7 +57,7 @@ requirements:
   build:
     - {{ compiler('c') }}
     - {{ compiler('cuda') }}
-    - sysroot_linux-64 2.17  # [linux64]
+    - sysroot_linux-64 2.17  # [linux]
   host:
   run:
     # Only GCC_3.0 or older symbols present
