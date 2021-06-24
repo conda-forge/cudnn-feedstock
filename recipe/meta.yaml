@@ -16,8 +16,7 @@ build:
     - CUDA_HOME  # [ppc64le]
   script:
     - mkdir -p $PREFIX/include               # [unix]
-    - ls -l  # [ppc64le]
-    - cd cuda/targets/ppc64le-linux          # [ppc64le]
+    - cd targets/ppc64le-linux          # [ppc64le]
     - cp include/cudnn*.h $PREFIX/include/    # [unix]
     - mkdir -p $PREFIX/lib                   # [unix]
     - mv lib64/libcudnn*.so* $PREFIX/lib/     # [linux64]
