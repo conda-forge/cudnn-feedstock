@@ -1,0 +1,38 @@
+# When adding or removing cuda versions, make sure that the following entries are "zipped";
+# e.g. each entry in cuda_compiler_version must have a matching entry in the other keys,
+# considering the effect of the selector:
+#   cuda_compiler_version
+#   cudnn
+#   cdt_name
+#   docker_image
+
+zip_keys:
+  - - cuda_compiler_version   # [ppc64le]
+    - cdt_name                # [ppc64le]
+    - docker_image            # [ppc64le and os.environ.get("BUILD_PLATFORM") == "linux-ppc64le"]
+    - cudnn                   # [ppc64le]
+
+docker_image:                                    # [os.environ.get("BUILD_PLATFORM", "").startswith("linux")]
+   - quay.io/condaforge/linux-anvil-ppc64le      # [os.environ.get("BUILD_PLATFORM") == "linux-ppc64le"]
+   - quay.io/condaforge/linux-anvil-ppc64le-cuda:10.2   # [ppc64le and os.environ.get("BUILD_PLATFORM") == "linux-ppc64le"]
+
+c_compiler_version:     # [ppc64le]
+  - 8                   # [ppc64le]
+cxx_compiler_version:   # [ppc64le]
+  - 8                   # [ppc64le]
+
+cuda_compiler:   # [ppc64le]
+  - nvcc         # [ppc64le]
+
+cuda_compiler_version:
+  - None
+  - 10.2                       # [ppc64le]
+
+cudnn:
+  - undefined
+  # TODO: fix this once https://github.com/conda-forge/cudnn-feedstock/issues/18 is fixed
+  - undefined                  # [ppc64le]
+
+cdt_name:  # [linux]
+  - cos7   # [ppc64le]
+  - cos7   # [ppc64le]
