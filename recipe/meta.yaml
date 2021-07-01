@@ -1,6 +1,6 @@
 {% set version = "8.2.1.32" %}
 
-# cuDNN v8.x supports CUDA versions 10.2 - 11.3
+# cuDNN v8.2.x supports CUDA versions 10.2 - 11.3
 # For CUDA 10.2 there is a separate cuDNN distribution and a link for download
 # For CUDA 11.x there is one cuDNN distribution that works with all CUDA 11 versions
 {% if cuda_compiler_version[:2] == "11" %}
