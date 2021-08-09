@@ -3,3 +3,6 @@ conda_forge_output_validation: true
 #   linux_ppc64le: default
 os_version:
   linux_64: cos7
+bot:
+  abi_migration_branches:
+    - ppc64le
