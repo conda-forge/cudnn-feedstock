@@ -52,7 +52,7 @@ requirements:
     - __glibc >=2.17      # [ppc64le]
 
 test:
-  build:
+  requires:
     - {{ compiler('c') }}  # [ppc64le]
   files:
     - test_elf_integrity.c  # [ppc64le]
