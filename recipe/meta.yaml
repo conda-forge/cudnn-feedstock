@@ -9,8 +9,9 @@ source:
   sha256: ce128ea090b05e36d00ffe921e45982ca10e8207e40cfc2e0067d0f62d9b36f9  # [ppc64le and cuda_compiler_version == "10.2"]
 
 build:
-  number: 2
+  number: 3
   skip: True   # [(not ppc64le) or (cuda_compiler_version != "10.2")]
+  rpaths_patcher: LIEF  # [ppc64le]
   script_env:
     # for some reason /usr/local/cuda is not added to $PATH in ppc64le's docker image
     - CUDA_HOME  # [ppc64le]

@@ -3,3 +3,5 @@ provider:
   linux_ppc64le: default
 os_version:
   linux_64: cos7
+azure:
+  store_build_artifacts: true
