@@ -54,7 +54,7 @@ test:
   requires:
     - {{ compiler('c') }}  # [ppc64le]
   files:
-    - test_load_elf.c  # [ppc64le]
+    - test_load_elf.c      # [ppc64le]
   commands:
     - if not exist %LIBRARY_INC%/cudnn.h exit 1        # [win]
     - if not exist %LIBRARY_INC%/cudnn_adv_train.h exit 1  # [win]
@@ -67,7 +67,7 @@ test:
     - test -f $PREFIX/lib/libcudnn.so                  # [linux]
     - test -f $PREFIX/lib/libcudnn_adv_train.so        # [linux]
     - ${GCC} test_load_elf.c -std=c99 -Werror -ldl -o test_load_elf  # [ppc64le]
-    - test_load_elf $PREFIX/lib/libcudnn.so       # [ppc64le]
+    - ./test_load_elf $PREFIX/lib/libcudnn.so          # [ppc64le]
 
 about:
   home: https://developer.nvidia.com/cudnn
