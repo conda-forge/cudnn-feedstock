@@ -54,6 +54,8 @@ requirements:
 test:
   build:
     - {{ compiler('c') }}  # [ppc64le]
+  files:
+    - test_elf_integrity.c  # [ppc64le]
   commands:
     - if not exist %LIBRARY_INC%/cudnn.h exit 1        # [win]
     - if not exist %LIBRARY_INC%/cudnn_adv_train.h exit 1  # [win]
