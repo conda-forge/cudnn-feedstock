@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 #include <dlfcn.h>
 
 int main(int argc, char** argv) {
@@ -13,7 +12,7 @@ int main(int argc, char** argv) {
     }
     full_lib = argv[1];
 
-    handle = dlopen(full_lib, RTLD_NOW);
+    handle = dlopen(full_lib, RTLD_LAZY);
     if (!handle) {
         fprintf(stderr, "error: %s\n", dlerror());
         exit(EXIT_FAILURE);
