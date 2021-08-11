@@ -68,7 +68,7 @@ test:
     - test -f $PREFIX/lib/libcudnn.so                  # [linux]
     - test -f $PREFIX/lib/libcudnn_adv_train.so        # [linux]
     - ${GCC} test_load_elf.c -std=c99 -Werror -ldl -o test_load_elf  # [ppc64le]
-    - ./test_load_elf $PREFIX/lib/libcudnn.so          # [ppc64le]
+    - LD_DEBUG=libs ./test_load_elf $PREFIX/lib/libcudnn.so          # [ppc64le]
 
 about:
   home: https://developer.nvidia.com/cudnn
