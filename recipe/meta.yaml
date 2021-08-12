@@ -9,7 +9,7 @@ source:
   sha256: ce128ea090b05e36d00ffe921e45982ca10e8207e40cfc2e0067d0f62d9b36f9  # [ppc64le and cuda_compiler_version == "10.2"]
 
 build:
-  number: 2
+  number: 3
   skip: True   # [(not ppc64le) or (cuda_compiler_version != "10.2")]
   script_env:
     # for some reason /usr/local/cuda is not added to $PATH in ppc64le's docker image
@@ -39,6 +39,7 @@ requirements:
     - {{ compiler('cuda') }}
     - sysroot_linux-64 2.17  # [linux]
   host:
+    - patchelf >=0.12  # [linux]
   run:
     # Only GCC_3.0 or older symbols present
     - libgcc-ng >=3.0     # [linux]
@@ -51,6 +52,10 @@ requirements:
     - __glibc >=2.17      # [ppc64le]
 
 test:
+  requires:
+    - {{ compiler('c') }}  # [ppc64le]
+  files:
+    - test_load_elf.c      # [ppc64le]
   commands:
     - if not exist %LIBRARY_INC%/cudnn.h exit 1        # [win]
     - if not exist %LIBRARY_INC%/cudnn_adv_train.h exit 1  # [win]
@@ -62,6 +67,8 @@ test:
     - test -f $PREFIX/include/cudnn_adv_train.h        # [linux]
     - test -f $PREFIX/lib/libcudnn.so                  # [linux]
     - test -f $PREFIX/lib/libcudnn_adv_train.so        # [linux]
+    - ${GCC} test_load_elf.c -std=c99 -Werror -ldl -o test_load_elf  # [ppc64le]
+    - for f in $PREFIX/lib/libcudnn*.so; do ./test_load_elf $f; done  # [ppc64le]
 
 about:
   home: https://developer.nvidia.com/cudnn
