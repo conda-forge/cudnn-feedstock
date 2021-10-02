@@ -1,8 +1,9 @@
-conda_forge_output_validation: true
-# provider:
-#   linux_ppc64le: default
-os_version:
-  linux_64: cos7
 bot:
   abi_migration_branches:
-    - ppc64le
+  - ppc64le
+conda_forge_output_validation: true
+os_version:
+  linux_64: cos7
+provider:
+  linux_aarch64: default
+  linux_ppc64le: default
