@@ -15,22 +15,25 @@ package:
 
 source:
   url: https://developer.download.nvidia.com/compute/redist/cudnn/v{{ ".".join(version.split(".")[:3]) }}/cudnn-{{ cudnn_cuda_version }}-linux-x64-v{{ version }}.tgz  # [linux64]
-  url: https://developer.download.nvidia.com/compute/redist/cudnn/v{{ ".".join(version.split(".")[:3]) }}/cudnn-{{ cudnn_cuda_version }}-linux-ppc64le-v{{ version }}.tgz  # [ppc64le]
+  url: https://developer.download.nvidia.com/compute/redist/cudnn/v{{ ".".join(version.split(".")[:3]) }}/cudnn-{{ cudnn_cuda_version }}-linux-aarch64sbsa-v{{ version }}.tgz  # [aarch64 and cuda_compiler_version == "11.2"]
+  url: https://developer.download.nvidia.com/compute/redist/cudnn/v{{ ".".join(version.split(".")[:3]) }}/cudnn-{{ cudnn_cuda_version }}-linux-ppc64le-v{{ version }}.tgz  # [ppc64le and cuda_compiler_version == "11.2"]
   url: https://developer.download.nvidia.com/compute/redist/cudnn/v{{ ".".join(version.split(".")[:3]) }}/cudnn-{{ cudnn_cuda_version }}-windows10-x64-v{{ version }}.zip  # [win and cuda_compiler_version == "10.2"]
   url: https://developer.download.nvidia.com/compute/redist/cudnn/v{{ ".".join(version.split(".")[:3]) }}/cudnn-{{ cudnn_cuda_version }}-windows-x64-v{{ version }}.zip  # [win and cuda_compiler_version == "11.2"]
   sha256: 3e70876bdcf44f856d9c9dbdbde07ceec43005e97d5ffe83338b255c8466151f  # [win64 and cuda_compiler_version == "10.2"]
   sha256: 5b9bf2dc4670fb1519ef55e13da5123f0b6b39fac5e6138e31388b269808d5f2  # [win64 and cuda_compiler_version == "11.2"]
   sha256: fd6321ff3bce4ce0cb3342e5bd38c96dcf3b073d44d0808962711c518b6d61e2  # [linux64 and cuda_compiler_version == "10.2"]
   sha256: 39412acd9ef5dd27954b6b9f5df75bd381c5d7ceb7979af6c743a7f4521f9c77  # [linux64 and cuda_compiler_version == "11.2"]
+  sha256: e3a0e570cb8ba01d5d45e6eb1ebe29ff22fd5fb8ad45bfe7a448f4f95065ec1e  # [aarch64 and cuda_compiler_version == "11.2"]
+  sha256: 4ee4f2afeaae34fdb06da8d4942a6802aae94ecc51f307292c45966eecbe5fb9  # [ppc64le and cuda_compiler_version == "11.2"]
 
 build:
-  number: 0
+  number: 1
   skip: True   # [cuda_compiler_version in ("None", "9.2", "10.0", "10.1", "11.0", "11.1")]
   script:
     - mkdir -p $PREFIX/include               # [unix]
     - cp include/cudnn*.h $PREFIX/include/    # [unix]
     - mkdir -p $PREFIX/lib                   # [unix]
-    - mv lib64/libcudnn*.so* $PREFIX/lib/     # [linux64]
+    - mv lib64/libcudnn*.so* $PREFIX/lib/     # [linux64 or aarch64]
     - mv lib/libcudnn*.so* $PREFIX/lib/       # [ppc64le]
     - mkdir %LIBRARY_INC%                    # [win]
     - copy %SRC_DIR%\\include\\cudnn*.h %LIBRARY_INC%\\     # [win]
@@ -59,7 +62,7 @@ requirements:
     - cudatoolkit 11.*  # [cuda_compiler_version == "11.2"]
   run_constrained:
     # Only GLIBC_2.17 or older symbols present
-    - __glibc >=2.17      # [ppc64le]
+    - __glibc >=2.17      # [ppc64le or aarch64]
 
 test:
   commands:
