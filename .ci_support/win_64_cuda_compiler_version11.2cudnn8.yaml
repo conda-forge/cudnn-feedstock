@@ -10,6 +10,8 @@ cuda_compiler_version:
 - '11.2'
 cudnn:
 - '8'
+cxx_compiler:
+- vs2017
 target_platform:
 - win-64
 zip_keys:

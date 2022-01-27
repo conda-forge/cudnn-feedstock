@@ -8,8 +8,8 @@ jobs:
     vmImage: ubuntu-latest
   strategy:
     matrix:
-      linux_64_c_compiler_version9cuda_compiler_version11.2cudnn8:
-        CONFIG: linux_64_c_compiler_version9cuda_compiler_version11.2cudnn8
+      linux_64_c_compiler_version9cuda_compiler_version11.2cudnn8cxx_compiler_version9:
+        CONFIG: linux_64_c_compiler_version9cuda_compiler_version11.2cudnn8cxx_compiler_version9
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cuda:11.2
       linux_aarch64_cuda_compiler_version11.2:
