@@ -32,12 +32,13 @@ build:
     - cp include/cudnn*.h $PREFIX/include/   # [linux]
     - mkdir -p $PREFIX/lib                   # [linux]
     - mv lib/libcudnn*.so* $PREFIX/lib/      # [linux]
-    - mkdir %LIBRARY_INC%                    # [win]
-    - copy %SRC_DIR%\\include\\cudnn*.h %LIBRARY_INC%\\     # [win]
-    - mkdir %LIBRARY_LIB%                    # [win]
-    - copy %SRC_DIR%\\lib\\x64\\cudnn*.lib %LIBRARY_LIB%\\  # [win]
-    - mkdir %LIBRARY_BIN%                    # [win]
-    - copy %SRC_DIR%\\bin\\cudnn*_8.dll %LIBRARY_BIN%\\     # [win]
+
+    - mkdir %LIBRARY_INC%                                # [win]
+    - copy %SRC_DIR%\\include\\cudnn*.h %LIBRARY_INC%\\  # [win]
+    - mkdir %LIBRARY_LIB%                                # [win]
+    - copy %SRC_DIR%\\lib\\cudnn*.lib %LIBRARY_LIB%\\    # [win]
+    - mkdir %LIBRARY_BIN%                                # [win]
+    - copy %SRC_DIR%\\bin\\cudnn*.dll %LIBRARY_BIN%\\    # [win]
   run_exports:
     - {{ pin_subpackage('cudnn') }}
 
@@ -49,6 +50,8 @@ requirements:
     - sysroot_linux-64 2.17  # [linux64]
   host:
     - patchelf >=0.12  # [linux]
+    # to suppress ".so not found" errors
+    - zlib
   run:
     - cudatoolkit 11.*
     - zlib
