@@ -12,14 +12,16 @@ package:
   version: {{ version }}
 
 source:
-  url: https://developer.download.nvidia.com/compute/redist/cudnn/v{{ ".".join(version.split(".")[:3]) }}/local_installers/{{ cudnn_cuda_version }}/cudnn-linux-x86_64-{{ version }}_cuda{{ cudnn_cuda_version }}-archive.tar.xz  # [linux64]
-  url: https://developer.download.nvidia.com/compute/redist/cudnn/v{{ ".".join(version.split(".")[:3]) }}/local_installers/{{ cudnn_cuda_version }}/cudnn-linux-ppc64le-{{ version }}_cuda{{ cudnn_cuda_version }}-archive.tar.xz  # [ppc64le]
-  url: https://developer.download.nvidia.com/compute/redist/cudnn/v{{ ".".join(version.split(".")[:3]) }}/local_installers/{{ cudnn_cuda_version }}/cudnn-linux-sbsa-{{ version }}_cuda{{ cudnn_cuda_version }}-archive.tar.xz  # [aarch64]
-  url: https://developer.download.nvidia.com/compute/redist/cudnn/v{{ ".".join(version.split(".")[:3]) }}/local_installers/{{ cudnn_cuda_version }}/cudnn-windows-x86_64-{{ version }}_cuda{{ cudnn_cuda_version }}-archive.zip  # [win64]
-  sha256: 5500953c08c5e5d1dddcfda234f9efbddcdbe43a53b26dc0a82c723fa170c457  # [linux64 and cuda_compiler_version == "11.2"]
-  sha256: 0581bce48023a3ee71c3a819aaefcabe693eca18b61e2521dc5f8e6e71567b1b  # [ppc64le and cuda_compiler_version == "11.2"]
-  sha256: 7eb8c96bfeec98e8aa7cea1e95633d2a9481fc99040eb0311d31bf137a7aa6ea  # [aarch64 and cuda_compiler_version == "11.2"]
-  sha256: 9e36eef803f1cf9ab24846dc133a3014fdc548775ee29073e8466d415957a1c0  # [win64 and cuda_compiler_version == "11.2"]
+  - url: https://developer.download.nvidia.com/compute/redist/cudnn/v{{ ".".join(version.split(".")[:3]) }}/local_installers/{{ cudnn_cuda_version }}/cudnn-linux-x86_64-{{ version }}_cuda{{ cudnn_cuda_version }}-archive.tar.xz  # [linux64]
+    sha256: 5500953c08c5e5d1dddcfda234f9efbddcdbe43a53b26dc0a82c723fa170c457  # [linux64 and cuda_compiler_version == "11.2"]
+  - url: https://developer.download.nvidia.com/compute/redist/cudnn/v{{ ".".join(version.split(".")[:3]) }}/local_installers/{{ cudnn_cuda_version }}/cudnn-linux-ppc64le-{{ version }}_cuda{{ cudnn_cuda_version }}-archive.tar.xz  # [ppc64le]
+    sha256: 0581bce48023a3ee71c3a819aaefcabe693eca18b61e2521dc5f8e6e71567b1b  # [ppc64le and cuda_compiler_version == "11.2"]
+  - url: https://developer.download.nvidia.com/compute/redist/cudnn/v{{ ".".join(version.split(".")[:3]) }}/local_installers/{{ cudnn_cuda_version }}/cudnn-linux-sbsa-{{ version }}_cuda{{ cudnn_cuda_version }}-archive.tar.xz  # [aarch64]
+    sha256: 7eb8c96bfeec98e8aa7cea1e95633d2a9481fc99040eb0311d31bf137a7aa6ea  # [aarch64 and cuda_compiler_version == "11.2"]
+  - url: https://developer.download.nvidia.com/compute/redist/cudnn/v{{ ".".join(version.split(".")[:3]) }}/local_installers/{{ cudnn_cuda_version }}/cudnn-windows-x86_64-{{ version }}_cuda{{ cudnn_cuda_version }}-archive.zip  # [win64]
+    sha256: 9e36eef803f1cf9ab24846dc133a3014fdc548775ee29073e8466d415957a1c0  # [win64 and cuda_compiler_version == "11.2"]
+  - url: http://www.winimage.com/zLibDll/zlib123dllx64.zip  # [win64]
+    sha256: fd324c6923aa4f45a60413665e0b68bb34a7779d0861849e02d2711ff8efb9a4  # [win64 and cuda_compiler_version == "11.2"]
 
 build:
   number: 0
@@ -37,8 +39,10 @@ build:
     - copy %SRC_DIR%\\include\\cudnn*.h %LIBRARY_INC%\\  # [win]
     - mkdir %LIBRARY_LIB%                                # [win]
     - copy %SRC_DIR%\\lib\\cudnn*.lib %LIBRARY_LIB%\\    # [win]
+    - copy %SRC_DIR%\\dll_x64\\*.lib %LIBRARY_LIB%\\     # [win]
     - mkdir %LIBRARY_BIN%                                # [win]
     - copy %SRC_DIR%\\bin\\cudnn*.dll %LIBRARY_BIN%\\    # [win]
+    - copy %SRC_DIR%\\dll_x64\\*.dll %LIBRARY_BIN%\\     # [win]
   run_exports:
     - {{ pin_subpackage('cudnn') }}
 
@@ -51,10 +55,9 @@ requirements:
   host:
     - patchelf >=0.12  # [linux]
     # to suppress ".so not found" errors
-    - zlib
+    - libzlib  # [linux]
   run:
     - cudatoolkit 11.*
-    - zlib
   run_constrained:
     # Only GLIBC_2.17 or older symbols present
     - __glibc >=2.17  # [linux]
@@ -69,8 +72,10 @@ test:
     - if not exist %LIBRARY_INC%/cudnn_adv_train.h exit 1  # [win]
     - if not exist %LIBRARY_LIB%/cudnn.lib exit 1      # [win]
     - if not exist %LIBRARY_LIB%/cudnn_adv_train.lib exit 1      # [win]
+    - if not exist %LIBRARY_LIB%/zlibwapi.lib exit 1   # [win]
     - if not exist %LIBRARY_BIN%/cudnn64_8.dll exit 1  # [win]
     - if not exist %LIBRARY_BIN%/cudnn_adv_train64_8.dll exit 1  # [win]
+    - if not exist %LIBRARY_BIN%/zlibwapi.dll exit 1   # [win]
     - test -f $PREFIX/include/cudnn.h                  # [linux]
     - test -f $PREFIX/include/cudnn_adv_train.h        # [linux]
     - test -f $PREFIX/lib/libcudnn.so                  # [linux]
