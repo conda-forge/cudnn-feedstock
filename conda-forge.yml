@@ -5,4 +5,7 @@ os_version:
   linux_64: cos7
 bot:
   abi_migration_branches:
-    - ppc64le
+  - ppc64le
+github:
+  branch_name: main
+  tooling_branch_name: main
