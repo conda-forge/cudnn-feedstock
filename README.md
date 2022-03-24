@@ -5,7 +5,7 @@ Home: https://developer.nvidia.com/cudnn
 
 Package license: [LicenseRef-cuDNN-Software-License-Agreement](https://docs.nvidia.com/deeplearning/cudnn/sla/index.html)
 
-Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/cudnn-feedstock/blob/master/LICENSE.txt)
+Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/cudnn-feedstock/blob/main/LICENSE.txt)
 
 Summary: NVIDIA's cuDNN deep neural network acceleration library
 
@@ -34,38 +34,38 @@ Current build status
     <td>
       <details>
         <summary>
-          <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=11465&branchName=master">
-            <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/cudnn-feedstock?branchName=master">
+          <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=11465&branchName=main">
+            <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/cudnn-feedstock?branchName=main">
           </a>
         </summary>
         <table>
           <thead><tr><th>Variant</th><th>Status</th></tr></thead>
           <tbody><tr>
-              <td>linux_64_cuda_compiler_version10.2cudnn7</td>
+              <td>linux_64_c_compiler_version10cuda_compiler_version11.2cudnn8</td>
               <td>
-                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=11465&branchName=master">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/cudnn-feedstock?branchName=master&jobName=linux&configuration=linux_64_cuda_compiler_version10.2cudnn7" alt="variant">
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=11465&branchName=main">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/cudnn-feedstock?branchName=main&jobName=linux&configuration=linux_64_c_compiler_version10cuda_compiler_version11.2cudnn8" alt="variant">
                 </a>
               </td>
             </tr><tr>
-              <td>linux_64_cuda_compiler_version11.2cudnn8</td>
+              <td>linux_64_c_compiler_version7cuda_compiler_version10.2cudnn7</td>
               <td>
-                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=11465&branchName=master">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/cudnn-feedstock?branchName=master&jobName=linux&configuration=linux_64_cuda_compiler_version11.2cudnn8" alt="variant">
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=11465&branchName=main">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/cudnn-feedstock?branchName=main&jobName=linux&configuration=linux_64_c_compiler_version7cuda_compiler_version10.2cudnn7" alt="variant">
                 </a>
               </td>
             </tr><tr>
               <td>win_64_cuda_compiler_version10.2cudnn7</td>
               <td>
-                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=11465&branchName=master">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/cudnn-feedstock?branchName=master&jobName=win&configuration=win_64_cuda_compiler_version10.2cudnn7" alt="variant">
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=11465&branchName=main">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/cudnn-feedstock?branchName=main&jobName=win&configuration=win_64_cuda_compiler_version10.2cudnn7" alt="variant">
                 </a>
               </td>
             </tr><tr>
               <td>win_64_cuda_compiler_version11.2cudnn8</td>
               <td>
-                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=11465&branchName=master">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/cudnn-feedstock?branchName=master&jobName=win&configuration=win_64_cuda_compiler_version11.2cudnn8" alt="variant">
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=11465&branchName=main">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/cudnn-feedstock?branchName=main&jobName=win&configuration=win_64_cuda_compiler_version11.2cudnn8" alt="variant">
                 </a>
               </td>
             </tr>
@@ -109,7 +109,8 @@ conda search cudnn --channel conda-forge
 About conda-forge
 =================
 
-[![Powered by NumFOCUS](https://img.shields.io/badge/powered%20by-NumFOCUS-orange.svg?style=flat&colorA=E1523D&colorB=007D8A)](http://numfocus.org)
+[![Powered by
+NumFOCUS](https://img.shields.io/badge/powered%20by-NumFOCUS-orange.svg?style=flat&colorA=E1523D&colorB=007D8A)](https://numfocus.org)
 
 conda-forge is a community-led conda channel of installable packages.
 In order to provide high-quality builds, the process has been automated into the
