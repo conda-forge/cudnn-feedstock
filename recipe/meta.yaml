@@ -24,9 +24,6 @@ source:
 build:
   number: 0
   skip: True   # [cuda_compiler_version != "11.2"]
-  script_env:
-    # for some reason /usr/local/cuda is not added to $PATH in the docker image
-    - CUDA_HOME  # [ppc64le or aarch64]
   script:
     - mkdir -p $PREFIX/include               # [linux]
     - cp include/cudnn*.h $PREFIX/include/   # [linux]
