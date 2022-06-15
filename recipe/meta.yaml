@@ -34,10 +34,8 @@ build:
     - copy %SRC_DIR%\\include\\cudnn*.h %LIBRARY_INC%\\  # [win]
     - mkdir %LIBRARY_LIB%                                # [win]
     - copy %SRC_DIR%\\lib\\cudnn*.lib %LIBRARY_LIB%\\    # [win]
-    - copy %SRC_DIR%\\dll_x64\\*.lib %LIBRARY_LIB%\\     # [win]
     - mkdir %LIBRARY_BIN%                                # [win]
     - copy %SRC_DIR%\\bin\\cudnn*.dll %LIBRARY_BIN%\\    # [win]
-    - copy %SRC_DIR%\\dll_x64\\*.dll %LIBRARY_BIN%\\     # [win]
   run_exports:
     - {{ pin_subpackage('cudnn') }}
 
