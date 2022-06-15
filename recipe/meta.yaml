@@ -13,7 +13,7 @@ package:
 
 source:
   - url: https://developer.download.nvidia.com/compute/redist/cudnn/v{{ ".".join(version.split(".")[:3]) }}/local_installers/{{ cudnn_cuda_version }}/cudnn-linux-x86_64-{{ version }}_cuda{{ cudnn_cuda_version }}-archive.tar.xz  # [linux64]
-    sha256: 5500953c08c5e5d1dddcfda234f9efbddcdbe43a53b26dc0a82c723fa170c457  # [linux64 and cuda_compiler_version == "11.2"]
+    sha256: ec96d2376d81fca42bdd3d4c3d705a99b29a065bab57f920561c763e29c67d01  # [linux64 and cuda_compiler_version == "11.2"]
   - url: https://developer.download.nvidia.com/compute/redist/cudnn/v{{ ".".join(version.split(".")[:3]) }}/local_installers/{{ cudnn_cuda_version }}/cudnn-linux-ppc64le-{{ version }}_cuda{{ cudnn_cuda_version }}-archive.tar.xz  # [ppc64le]
     sha256: 0581bce48023a3ee71c3a819aaefcabe693eca18b61e2521dc5f8e6e71567b1b  # [ppc64le and cuda_compiler_version == "11.2"]
   - url: https://developer.download.nvidia.com/compute/redist/cudnn/v{{ ".".join(version.split(".")[:3]) }}/local_installers/{{ cudnn_cuda_version }}/cudnn-linux-sbsa-{{ version }}_cuda{{ cudnn_cuda_version }}-archive.tar.xz  # [aarch64]
@@ -24,6 +24,7 @@ source:
 build:
   number: 0
   skip: True   # [cuda_compiler_version != "11.2"]
+  skip: True   # [not linux64]
   script:
     - mkdir -p $PREFIX/include               # [linux]
     - cp include/cudnn*.h $PREFIX/include/   # [linux]
