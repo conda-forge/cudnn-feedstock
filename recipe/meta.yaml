@@ -20,8 +20,6 @@ source:
     sha256: 7eb8c96bfeec98e8aa7cea1e95633d2a9481fc99040eb0311d31bf137a7aa6ea  # [aarch64 and cuda_compiler_version == "11.2"]
   - url: https://developer.download.nvidia.com/compute/redist/cudnn/v{{ ".".join(version.split(".")[:3]) }}/local_installers/{{ cudnn_cuda_version }}/cudnn-windows-x86_64-{{ version }}_cuda{{ cudnn_cuda_version }}-archive.zip  # [win64]
     sha256: 9e36eef803f1cf9ab24846dc133a3014fdc548775ee29073e8466d415957a1c0  # [win64 and cuda_compiler_version == "11.2"]
-  - url: http://www.winimage.com/zLibDll/zlib123dllx64.zip  # [win64]
-    sha256: fd324c6923aa4f45a60413665e0b68bb34a7779d0861849e02d2711ff8efb9a4  # [win64 and cuda_compiler_version == "11.2"]
 
 build:
   number: 0
@@ -56,6 +54,7 @@ requirements:
     - patchelf >=0.12  # [linux]
     # to suppress ".so not found" errors
     - libzlib  # [linux]
+    - libzlib-wapi  # [win64]
   run:
     - cudatoolkit 11.*
   run_constrained:
