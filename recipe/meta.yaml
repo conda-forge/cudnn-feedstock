@@ -15,11 +15,11 @@ source:
   - url: https://developer.download.nvidia.com/compute/redist/cudnn/v{{ ".".join(version.split(".")[:3]) }}/local_installers/{{ cudnn_cuda_version }}/cudnn-linux-x86_64-{{ version }}_cuda{{ cudnn_cuda_version }}-archive.tar.xz  # [linux64]
     sha256: ec96d2376d81fca42bdd3d4c3d705a99b29a065bab57f920561c763e29c67d01  # [linux64 and cuda_compiler_version == "11.2"]
   - url: https://developer.download.nvidia.com/compute/redist/cudnn/v{{ ".".join(version.split(".")[:3]) }}/local_installers/{{ cudnn_cuda_version }}/cudnn-linux-ppc64le-{{ version }}_cuda{{ cudnn_cuda_version }}-archive.tar.xz  # [ppc64le]
-    sha256: 0581bce48023a3ee71c3a819aaefcabe693eca18b61e2521dc5f8e6e71567b1b  # [ppc64le and cuda_compiler_version == "11.2"]
+    sha256: 8b806cbfdc81352bf76716d1e53b42537665d110c6ffc068be910505c10e1b98  # [ppc64le and cuda_compiler_version == "11.2"]
   - url: https://developer.download.nvidia.com/compute/redist/cudnn/v{{ ".".join(version.split(".")[:3]) }}/local_installers/{{ cudnn_cuda_version }}/cudnn-linux-sbsa-{{ version }}_cuda{{ cudnn_cuda_version }}-archive.tar.xz  # [aarch64]
-    sha256: 7eb8c96bfeec98e8aa7cea1e95633d2a9481fc99040eb0311d31bf137a7aa6ea  # [aarch64 and cuda_compiler_version == "11.2"]
+    sha256: 0b1b9fac5b78974e2fdaaa74843db18f636ce8f3d999d62ff2a615b9978fc360  # [aarch64 and cuda_compiler_version == "11.2"]
   - url: https://developer.download.nvidia.com/compute/redist/cudnn/v{{ ".".join(version.split(".")[:3]) }}/local_installers/{{ cudnn_cuda_version }}/cudnn-windows-x86_64-{{ version }}_cuda{{ cudnn_cuda_version }}-archive.zip  # [win64]
-    sha256: 9e36eef803f1cf9ab24846dc133a3014fdc548775ee29073e8466d415957a1c0  # [win64 and cuda_compiler_version == "11.2"]
+    sha256: ebecec4be0ba36102d01d50fbdc5f88276648c89a2fa0d7d68bdb35430a72c30  # [win64 and cuda_compiler_version == "11.2"]
 
 build:
   number: 0
