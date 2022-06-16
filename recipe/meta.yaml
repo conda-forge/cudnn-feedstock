@@ -22,7 +22,7 @@ source:
     sha256: 9e36eef803f1cf9ab24846dc133a3014fdc548775ee29073e8466d415957a1c0  # [win64 and cuda_compiler_version == "11.2"]
 
 build:
-  number: 0
+  number: 1
   skip: True   # [cuda_compiler_version != "11.2"]
   script:
     - mkdir -p $PREFIX/include               # [linux]
@@ -36,6 +36,8 @@ build:
     - copy %SRC_DIR%\\lib\\cudnn*.lib %LIBRARY_LIB%\\    # [win]
     - mkdir %LIBRARY_BIN%                                # [win]
     - copy %SRC_DIR%\\bin\\cudnn*.dll %LIBRARY_BIN%\\    # [win]
+  ignore_run_exports:
+    - cudatoolkit
   run_exports:
     - {{ pin_subpackage('cudnn') }}
 
