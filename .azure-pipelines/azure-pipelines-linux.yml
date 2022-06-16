@@ -8,14 +8,14 @@ jobs:
     vmImage: ubuntu-latest
   strategy:
     matrix:
-      linux_64_cuda_compiler_version10.2cudnn7:
-        CONFIG: linux_64_cuda_compiler_version10.2cudnn7
-        UPLOAD_PACKAGES: 'True'
-        DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cos7-cuda:10.2
-      linux_64_cuda_compiler_version11.2cudnn8:
-        CONFIG: linux_64_cuda_compiler_version11.2cudnn8
+      linux_64_c_compiler_version10cuda_compiler_version11.2cudnn8cxx_compiler_version10:
+        CONFIG: linux_64_c_compiler_version10cuda_compiler_version11.2cudnn8cxx_compiler_version10
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cuda:11.2
+      linux_ppc64le_cuda_compiler_version11.2cudnn8:
+        CONFIG: linux_ppc64le_cuda_compiler_version11.2cudnn8
+        UPLOAD_PACKAGES: 'True'
+        DOCKER_IMAGE: quay.io/condaforge/linux-anvil-ppc64le-cuda:11.2
   timeoutInMinutes: 360
 
   steps:
@@ -36,6 +36,11 @@ jobs:
         export CI=azure
         export GIT_BRANCH=$BUILD_SOURCEBRANCHNAME
         export FEEDSTOCK_NAME=$(basename ${BUILD_REPOSITORY_NAME})
+        if [[ "${BUILD_REASON:-}" == "PullRequest" ]]; then
+          export IS_PR_BUILD="True"
+        else
+          export IS_PR_BUILD="False"
+        fi
         .scripts/run_docker_build.sh
     displayName: Run docker build
     env:
