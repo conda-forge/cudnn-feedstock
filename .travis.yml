@@ -7,7 +7,7 @@ language: generic
 
 matrix:
   include:
-    - env: CONFIG=linux_aarch64_ UPLOAD_PACKAGES=True PLATFORM=linux-aarch64 DOCKER_IMAGE=quay.io/condaforge/linux-anvil-aarch64-cuda:11.2
+    - env: CONFIG=linux_aarch64_cuda_compiler_version11.2cudnn8 UPLOAD_PACKAGES=True PLATFORM=linux-aarch64 DOCKER_IMAGE=quay.io/condaforge/linux-anvil-aarch64-cuda:11.2
       os: linux
       arch: arm64
       dist: focal
