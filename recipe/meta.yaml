@@ -36,6 +36,8 @@ build:
     - copy %SRC_DIR%\\lib\\cudnn*.lib %LIBRARY_LIB%\\    # [win]
     - mkdir %LIBRARY_BIN%                                # [win]
     - copy %SRC_DIR%\\bin\\cudnn*.dll %LIBRARY_BIN%\\    # [win]
+  ignore_run_exports:
+    - cudatoolkit
   run_exports:
     - {{ pin_subpackage('cudnn') }}
 
