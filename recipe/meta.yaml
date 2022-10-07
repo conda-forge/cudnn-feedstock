@@ -19,7 +19,7 @@ source:
   - url: https://developer.download.nvidia.com/compute/redist/cudnn/v{{ ".".join(version.split(".")[:3]) }}/local_installers/{{ cudnn_cuda_version }}/cudnn-linux-sbsa-{{ version }}_cuda{{ cudnn_cuda_version[:2] }}-archive.tar.xz  # [aarch64]
     sha256: 86780abbecd4634e7363fad1d000ae23b7905a5f8383bddbf7332c6934791dde  # [aarch64 and cuda_compiler_version == "11.2"]
   - url: https://developer.download.nvidia.com/compute/redist/cudnn/v{{ ".".join(version.split(".")[:3]) }}/local_installers/{{ cudnn_cuda_version }}/cudnn-windows-x86_64-{{ version }}_cuda{{ cudnn_cuda_version[:2] }}-archive.zip  # [win64]
-    sha256: ebecec4be0ba36102d01d50fbdc5f88276648c89a2fa0d7d68bdb35430a72c30  # [win64 and cuda_compiler_version == "11.2"]
+    sha256: bf277ed350addb8f97e0ab6a20b6fad869abe49ea24277d38ca79f5f23fbec6b  # [win64 and cuda_compiler_version == "11.2"]
 
 build:
   number: 0
