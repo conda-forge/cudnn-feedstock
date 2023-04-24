@@ -24,7 +24,8 @@ source:
 
 build:
   number: 0
-  skip: True  # [win32 or osx]
+  # TODO: Enable Windows with CUDA 12 when it is supported in CI
+  skip: True  # [win32 or osx or (win and cuda_major == "12")]
   script:
     - mkdir -p $PREFIX/include               # [linux]
     - cp include/cudnn*.h $PREFIX/include/   # [linux]
