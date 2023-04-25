@@ -61,7 +61,6 @@ requirements:
     {% if cuda_major == "11" %}
     - cudatoolkit 11.*
     {% else %}
-    - cuda-cudart-dev
     - cuda-nvrtc
     - libcublas
     {% endif %}
