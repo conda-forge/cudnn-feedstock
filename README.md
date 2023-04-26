@@ -1,11 +1,11 @@
-About cudnn
-===========
+About cudnn-feedstock
+=====================
+
+Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/cudnn-feedstock/blob/main/LICENSE.txt)
 
 Home: https://developer.nvidia.com/cudnn
 
 Package license: [LicenseRef-cuDNN-Software-License-Agreement](https://docs.nvidia.com/deeplearning/cudnn/sla/index.html)
-
-Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/cudnn-feedstock/blob/main/LICENSE.txt)
 
 Summary: NVIDIA's cuDNN deep neural network acceleration library
 
@@ -48,31 +48,52 @@ Current build status
         <table>
           <thead><tr><th>Variant</th><th>Status</th></tr></thead>
           <tbody><tr>
-              <td>linux_64_c_compiler_version10cuda_compiler_version11.2cudnn8cxx_compiler_version10</td>
+              <td>linux_64_c_compiler_version10cuda_compiler_version11.2cxx_compiler_version10</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=11465&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/cudnn-feedstock?branchName=main&jobName=linux&configuration=linux_64_c_compiler_version10cuda_compiler_version11.2cudnn8cxx_compiler_version10" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/cudnn-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_64_c_compiler_version10cuda_compiler_version11.2cxx_compiler_version10" alt="variant">
                 </a>
               </td>
             </tr><tr>
-              <td>linux_aarch64_cuda_compiler_version11.2cudnn8</td>
+              <td>linux_64_c_compiler_version12cuda_compiler_version12.0cxx_compiler_version12</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=11465&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/cudnn-feedstock?branchName=main&jobName=linux&configuration=linux_aarch64_cuda_compiler_version11.2cudnn8" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/cudnn-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_64_c_compiler_version12cuda_compiler_version12.0cxx_compiler_version12" alt="variant">
                 </a>
               </td>
             </tr><tr>
-              <td>linux_ppc64le_cuda_compiler_version11.2cudnn8</td>
+              <td>linux_aarch64_c_compiler_version10cuda_compiler_version11.2cxx_compiler_version10</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=11465&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/cudnn-feedstock?branchName=main&jobName=linux&configuration=linux_ppc64le_cuda_compiler_version11.2cudnn8" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/cudnn-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_aarch64_c_compiler_version10cuda_compiler_version11.2cxx_compiler_version10" alt="variant">
                 </a>
               </td>
             </tr><tr>
-              <td>win_64_cuda_compiler_version11.2cudnn8</td>
+              <td>linux_aarch64_c_compiler_version12cuda_compiler_version12.0cxx_compiler_version12</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=11465&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/cudnn-feedstock?branchName=main&jobName=win&configuration=win_64_cuda_compiler_version11.2cudnn8" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/cudnn-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_aarch64_c_compiler_version12cuda_compiler_version12.0cxx_compiler_version12" alt="variant">
+                </a>
+              </td>
+            </tr><tr>
+              <td>linux_ppc64le_c_compiler_version10cuda_compiler_version11.2cxx_compiler_version10</td>
+              <td>
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=11465&branchName=main">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/cudnn-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_ppc64le_c_compiler_version10cuda_compiler_version11.2cxx_compiler_version10" alt="variant">
+                </a>
+              </td>
+            </tr><tr>
+              <td>linux_ppc64le_c_compiler_version12cuda_compiler_version12.0cxx_compiler_version12</td>
+              <td>
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=11465&branchName=main">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/cudnn-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_ppc64le_c_compiler_version12cuda_compiler_version12.0cxx_compiler_version12" alt="variant">
+                </a>
+              </td>
+            </tr><tr>
+              <td>win_64</td>
+              <td>
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=11465&branchName=main">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/cudnn-feedstock?branchName=main&jobName=win&configuration=win%20win_64_" alt="variant">
                 </a>
               </td>
             </tr>
@@ -204,5 +225,8 @@ In order to produce a uniquely identifiable distribution:
 Feedstock Maintainers
 =====================
 
-* [@kkraus14](https://github.com/kkraus14/)
+* [@adibbley](https://github.com/adibbley/)
+* [@bdice](https://github.com/bdice/)
+* [@jakirkham](https://github.com/jakirkham/)
+* [@vyasr](https://github.com/vyasr/)
 
