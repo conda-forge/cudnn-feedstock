@@ -23,9 +23,12 @@ source:
   sha256: e362e1fbf6b101ad71aa5314f21d00a4353b90efbe5cdedc5fcfb0f3b68cd791  # [win and cuda_major == "12"]
 
 build:
-  number: 0
+  number: 1
   # TODO: Enable Windows with CUDA 12 when it is supported in CI
   skip: True  # [win32 or osx or (win and cuda_major == "12")]
+  # Disable binary relocation to workaround patchelf issue
+  # xref: https://github.com/NixOS/patchelf/issues/492
+  binary_relocation: false
   script:
     - mkdir -p $PREFIX/include               # [linux]
     - cp include/cudnn*.h $PREFIX/include/   # [linux]
