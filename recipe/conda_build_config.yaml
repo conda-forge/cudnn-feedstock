@@ -35,7 +35,13 @@ cuda_compiler_version:
   - 11.2        # [win]
 
 cuda_compiler:
-  - nvcc
+  - cuda-nvcc   # [linux and aarch64]
+  - cuda-nvcc   # [linux and ppc64le]
+  - cuda-nvcc   # [linux and x86_64]
+  - nvcc        # [linux and aarch64]
+  - nvcc        # [linux and ppc64le]
+  - nvcc        # [linux and x86_64]
+  - nvcc        # [win]
 
 cudnn:
   - undefined   # [linux and aarch64]
