@@ -26,6 +26,9 @@ build:
   number: 1
   # TODO: Enable Windows with CUDA 12 when it is supported in CI
   skip: True  # [win32 or osx or (win and cuda_major == "12")]
+  # Disable binary relocation to workaround patchelf issue
+  # xref: https://github.com/NixOS/patchelf/issues/492
+  binary_relocation: false
   script:
     - mkdir -p $PREFIX/include               # [linux]
     - cp include/cudnn*.h $PREFIX/include/   # [linux]
