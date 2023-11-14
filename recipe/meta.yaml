@@ -1,4 +1,4 @@
-{% set version = "8.8.0.121" %}
+{% set version = "8.9.1.23" %}
 {% set cuda_major = (cuda_compiler_version|default("12.0.0")).split(".")[0] %}
 {% set platform = "linux-x86_64" %}  # [linux64]
 {% set platform = "linux-ppc64le" %}  # [ppc64le]
@@ -13,14 +13,14 @@ package:
 
 source:
   url: https://developer.download.nvidia.com/compute/cudnn/redist/cudnn/{{ platform }}/cudnn-{{ platform }}-{{ version }}_cuda{{ cuda_major }}-archive.{{ extension }}
-  sha256: 62046476076d1b455fb13fb78b38d3496bacafbfdbb0494fb3392240a04466ea  # [linux64 and cuda_major == "11"]
-  sha256: a0792b666caaf593a9dd4130979578fd3a78230f4407645c295700ef8e7aaaf2  # [linux64 and cuda_major == "12"]
-  sha256: a019f2c8a300991d94d718a3524377d978efadaa62349858741f17ef859a9e55  # [aarch64 and cuda_major == "11"]
-  sha256: fc668519a8344e9d05335bad4bc5d23a504cdc7579aea41f12d6aa0f3079e709  # [aarch64 and cuda_major == "12"]
-  sha256: 521c4b6ef579582953e4df2f5fe95a106bfc6d9dc30c6ac26ed6fd92fd0767b9  # [ppc64le and cuda_major == "11"]
-  sha256: cd41ab8b61f5beb54e32c3668ecd311ce926c39006fba256b053dd7d248419d4  # [ppc64le and cuda_major == "12"]
-  sha256: 4f0105a51ac6ea947154e252c8b220baf3345803f55644b5aad84e22ae4f8986  # [win and cuda_major == "11"]
-  sha256: e362e1fbf6b101ad71aa5314f21d00a4353b90efbe5cdedc5fcfb0f3b68cd791  # [win and cuda_major == "12"]
+  sha256: a6d9887267e28590c9db95ce65cbe96a668df0352338b7d337e0532ded33485c  # [linux-x86_64 and cuda_major == "11"]
+  sha256: 35163c5c542be0c511738b27e25235193cbeedc5e0e006e44b1cdeaf1922e83e  # [linux-x86_64 and cuda_major == "12"]
+  sha256: aaa5582ba9951c3645b103abe08a0b8b046da2b277b2c1d696216f3392225394  # [linux-ppc64le and cuda_major == "11"]
+  sha256: 8dc6e639688979f5cc424560f06e41aed26199396c905db22151dbf81314f559  # [linux-ppc64le and cuda_major == "12"]
+  sha256: 0a61fae873a046a0a86b2e6d8cdb039da155bc2fcfa215acef6fc61ce618cb2f  # [linux-sbsa and cuda_major == "11"]
+  sha256: 823e0e2e19849cf645500d1239b8bd7e7aa1f21d5c98309eada363f943e2f486  # [linux-sbsa and cuda_major == "12"]
+  sha256: 5a1522fd8351f2c00f0afc12bb6970458d1ba171f11c9cb483fb7f281e7dea1a  # [windows-x86_64 and cuda_major == "11"]
+  sha256: 474c75d809e15d023de83e96715dce28ccfba19cdf43c47377ae80384ff96c96  # [windows-x86_64 and cuda_major == "12"]
 
 build:
   number: 3
