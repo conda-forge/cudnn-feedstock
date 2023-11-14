@@ -23,7 +23,7 @@ source:
   sha256: 474c75d809e15d023de83e96715dce28ccfba19cdf43c47377ae80384ff96c96  # [windows-x86_64 and cuda_major == "12"]
 
 build:
-  number: 3
+  number: 0
   # TODO: Enable Windows with CUDA 12 when it is supported in CI
   skip: True  # [win32 or osx or (win and cuda_major == "12")]
   # Disable binary relocation to workaround patchelf issue
