@@ -23,9 +23,8 @@ source:
   sha256: 474c75d809e15d023de83e96715dce28ccfba19cdf43c47377ae80384ff96c96  # [win and cuda_major == "12"]
 
 build:
-  number: 0
-  # TODO: Enable Windows with CUDA 12 when it is supported in CI
-  skip: True  # [win32 or osx or (win and cuda_major == "12")]
+  number: 4
+  skip: True  # [osx]
   # Disable binary relocation to workaround patchelf issue
   # xref: https://github.com/NixOS/patchelf/issues/492
   binary_relocation: false
