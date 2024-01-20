@@ -18,9 +18,9 @@ cxx_compiler_version:
   - 10          # [linux and x86_64]
 
 fortran_compiler_version:
-  - 10          # [linux and aarch64]
-  - 10          # [linux and ppc64le]
-  - 10          # [linux and x86_64]
+  - 12          # [linux and aarch64]
+  - 12          # [linux and ppc64le]
+  - 12          # [linux and x86_64]
   - 10          # [linux and aarch64]
   - 10          # [linux and ppc64le]
   - 10          # [linux and x86_64]
