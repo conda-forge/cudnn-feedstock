@@ -1,6 +1,3 @@
-arm_variant_type:  # [aarch64]
-  - sbsa           # [aarch64]
-
 c_compiler_version:
   - 12          # [linux and aarch64]
   - 12          # [linux and ppc64le]
