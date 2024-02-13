@@ -1,5 +1,4 @@
 {% set version = "8.9.7.29" %}
-{% set cuda_major = (cuda_compiler_version|default("12.0.0")).split(".")[0] %}
 {% set platform = "linux-x86_64" %}  # [linux64]
 {% set platform = "linux-ppc64le" %}  # [ppc64le]
 {% set platform = "linux-sbsa" %}  # [aarch64]
@@ -12,15 +11,16 @@ package:
   version: {{ version }}
 
 source:
-  url: https://developer.download.nvidia.com/compute/cudnn/redist/cudnn/{{ platform }}/cudnn-{{ platform }}-{{ version }}_cuda{{ cuda_major }}-archive.{{ extension }}
-  sha256: a3e2509028cecda0117ce5a0f42106346e82e86d390f4bb9475afc976c77402e  # [linux64 and cuda_major == "11"]
-  sha256: 475333625c7e42a7af3ca0b2f7506a106e30c93b1aa0081cd9c13efb6e21e3bb  # [linux64 and cuda_major == "12"]
-  sha256: 91c37cfb458f541419e98510f13aaf5975c0232c613e18b776385490074eea17  # [aarch64 and cuda_major == "11"]
-  sha256: e98b7c80010785e5d5ca01ee4ce9b5b0c8c73587ea6f8648be34d3f8d1d47bd1  # [aarch64 and cuda_major == "12"]
-  sha256: f23fd7d59f9d4f743fa926f317dab0d37f6ea21edb2726ceb607bea45b0f9f36  # [ppc64le and cuda_major == "11"]
-  sha256: 8574d291b299f9cc0134304473c9933bd098cc717e8d0876f4aba9f9eebe1b76  # [ppc64le and cuda_major == "12"]
-  sha256: 5e45478efe71a96329e6c0d2a3a2f79c747c15b2a51fead4b84c89b02cbf1671  # [win and cuda_major == "11"]
-  sha256: 94fc17af8e83a26cc5d231ed23981b28c29c3fc2e87b1844ea3f46486f481df5  # [win and cuda_major == "12"]
+  url: https://developer.download.nvidia.com/compute/cudnn/redist/cudnn/{{ platform }}/cudnn-{{ platform }}-{{ version }}_cuda11-archive.{{ extension }}  # [(cuda_compiler_version or "").startswith("11")]
+  url: https://developer.download.nvidia.com/compute/cudnn/redist/cudnn/{{ platform }}/cudnn-{{ platform }}-{{ version }}_cuda12-archive.{{ extension }}  # [(cuda_compiler_version or "").startswith("12")]
+  sha256: a3e2509028cecda0117ce5a0f42106346e82e86d390f4bb9475afc976c77402e  # [linux64 and (cuda_compiler_version or "").startswith("11")]
+  sha256: 475333625c7e42a7af3ca0b2f7506a106e30c93b1aa0081cd9c13efb6e21e3bb  # [linux64 and (cuda_compiler_version or "").startswith("12")]
+  sha256: 91c37cfb458f541419e98510f13aaf5975c0232c613e18b776385490074eea17  # [aarch64 and (cuda_compiler_version or "").startswith("11")]
+  sha256: e98b7c80010785e5d5ca01ee4ce9b5b0c8c73587ea6f8648be34d3f8d1d47bd1  # [aarch64 and (cuda_compiler_version or "").startswith("12")]
+  sha256: f23fd7d59f9d4f743fa926f317dab0d37f6ea21edb2726ceb607bea45b0f9f36  # [ppc64le and (cuda_compiler_version or "").startswith("11")]
+  sha256: 8574d291b299f9cc0134304473c9933bd098cc717e8d0876f4aba9f9eebe1b76  # [ppc64le and (cuda_compiler_version or "").startswith("12")]
+  sha256: 5e45478efe71a96329e6c0d2a3a2f79c747c15b2a51fead4b84c89b02cbf1671  # [win and (cuda_compiler_version or "").startswith("11")]
+  sha256: 94fc17af8e83a26cc5d231ed23981b28c29c3fc2e87b1844ea3f46486f481df5  # [win and (cuda_compiler_version or "").startswith("12")]
 
 build:
   number: 0
@@ -54,19 +54,17 @@ requirements:
     - arm-variant * {{ arm_variant_type }}  # [aarch64]
     - sysroot_{{ target_platform }} 2.17  # [linux]
   host:
-    - cuda-version {{ cuda_major }}.0
+    - cuda-version 11.0  # [(cuda_compiler_version or "").startswith("11")]
+    - cuda-version 12.0  # [(cuda_compiler_version or "").startswith("12")]
     - patchelf >=0.12  # [linux]
     # to suppress ".so not found" errors
     - libzlib       # [linux]
     - libzlib-wapi  # [win64]
   run:
     - {{ pin_compatible("cuda-version", max_pin="x") }}
-    {% if cuda_major == "11" %}
-    - cudatoolkit 11.*
-    {% else %}
-    - cuda-nvrtc
-    - libcublas
-    {% endif %}
+    - cudatoolkit 11.*  # [(cuda_compiler_version or "").startswith("11")]
+    - cuda-nvrtc        # [(cuda_compiler_version or "").startswith("12")]
+    - libcublas         # [(cuda_compiler_version or "").startswith("12")]
   run_constrained:
     - __glibc >=2.17                        # [linux and not aarch64]
     - __glibc >=2.28                        # [linux and aarch64]
