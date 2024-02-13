@@ -12,7 +12,9 @@ package:
   version: {{ version }}
 
 source:
-  url: https://developer.download.nvidia.com/compute/cudnn/redist/cudnn/{{ platform }}/cudnn-{{ platform }}-{{ version }}_cuda{{ cuda_major }}-archive.{{ extension }}
+  # Hard-code `cuda_major` in the URLs as the bot can't parse it
+  url: https://developer.download.nvidia.com/compute/cudnn/redist/cudnn/{{ platform }}/cudnn-{{ platform }}-{{ version }}_cuda11-archive.{{ extension }}  # [cuda_major == "11"]
+  url: https://developer.download.nvidia.com/compute/cudnn/redist/cudnn/{{ platform }}/cudnn-{{ platform }}-{{ version }}_cuda12-archive.{{ extension }}  # [cuda_major == "12"]
   sha256: a6d9887267e28590c9db95ce65cbe96a668df0352338b7d337e0532ded33485c  # [linux64 and cuda_major == "11"]
   sha256: 35163c5c542be0c511738b27e25235193cbeedc5e0e006e44b1cdeaf1922e83e  # [linux64 and cuda_major == "12"]
   sha256: 0a61fae873a046a0a86b2e6d8cdb039da155bc2fcfa215acef6fc61ce618cb2f  # [aarch64 and cuda_major == "11"]
