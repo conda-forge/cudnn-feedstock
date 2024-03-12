@@ -23,7 +23,7 @@ source:
   sha256: 94fc17af8e83a26cc5d231ed23981b28c29c3fc2e87b1844ea3f46486f481df5  # [win and (cuda_compiler_version or "").startswith("12")]
 
 build:
-  number: 1
+  number: 2
   skip: True  # [osx]
   skip: True  # [cuda_compiler_version == "11.2"]
   # Disable binary relocation to workaround patchelf issue
@@ -53,6 +53,9 @@ requirements:
     - {{ compiler('cuda') }}
     - arm-variant * {{ arm_variant_type }}  # [aarch64]
     - sysroot_{{ target_platform }} 2.17  # [linux]
+    # TODO: Update aarch64 to use sysroot 2.28 when compatible CI images are
+    # available on conda-forge
+    #- sysroot_{{ target_platform }} 2.28  # [aarch64]
   host:
     - cuda-version 11.0  # [(cuda_compiler_version or "").startswith("11")]
     - cuda-version 12.0  # [(cuda_compiler_version or "").startswith("12")]
@@ -66,8 +69,6 @@ requirements:
     - cuda-nvrtc        # [(cuda_compiler_version or "").startswith("12")]
     - libcublas         # [(cuda_compiler_version or "").startswith("12")]
   run_constrained:
-    - __glibc >=2.17                        # [linux and not aarch64]
-    - __glibc >=2.28                        # [linux and aarch64]
     - arm-variant * {{ arm_variant_type }}  # [aarch64]
 
 test:
