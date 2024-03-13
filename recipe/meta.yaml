@@ -23,7 +23,7 @@ source:
   sha256: 94fc17af8e83a26cc5d231ed23981b28c29c3fc2e87b1844ea3f46486f481df5  # [win and (cuda_compiler_version or "").startswith("12")]
 
 build:
-  number: 2
+  number: 3
   skip: True  # [osx]
   skip: True  # [cuda_compiler_version == "11.2"]
   # Disable binary relocation to workaround patchelf issue
