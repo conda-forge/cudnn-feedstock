@@ -23,7 +23,7 @@ source:
   sha256: 94fc17af8e83a26cc5d231ed23981b28c29c3fc2e87b1844ea3f46486f481df5  # [win and (cuda_compiler_version or "").startswith("12")]
 
 build:
-  number: 2
+  number: 3
   skip: True  # [osx]
   skip: True  # [cuda_compiler_version == "11.2"]
   # Disable binary relocation to workaround patchelf issue
@@ -61,8 +61,8 @@ requirements:
     - cuda-version 12.0  # [(cuda_compiler_version or "").startswith("12")]
     - patchelf >=0.12  # [linux]
     # to suppress ".so not found" errors
-    - libzlib       # [linux]
-    - libzlib-wapi  # [win64]
+    - libzlib {{ zlib }}       # [linux]
+    - libzlib-wapi {{ zlib }}  # [win64]
   run:
     - {{ pin_compatible("cuda-version", max_pin="x") }}
     - cudatoolkit 11.*  # [(cuda_compiler_version or "").startswith("11")]
