@@ -83,6 +83,13 @@ Current build status
                 </a>
               </td>
             </tr><tr>
+              <td>linux_ppc64le_c_compiler_version12cuda_compilerNonecuda_compiler_versionNonecxx_compiler_version12</td>
+              <td>
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=11465&branchName=main">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/cudnn-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_ppc64le_c_compiler_version12cuda_compilerNonecuda_compiler_versionNonecxx_compiler_version12" alt="variant">
+                </a>
+              </td>
+            </tr><tr>
               <td>linux_ppc64le_c_compiler_version12cuda_compilercuda-nvcccuda_compiler_version12.0cxx_compiler_version12</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=11465&branchName=main">
@@ -234,6 +241,7 @@ Feedstock Maintainers
 
 * [@adibbley](https://github.com/adibbley/)
 * [@bdice](https://github.com/bdice/)
+* [@billysuh7](https://github.com/billysuh7/)
 * [@jakirkham](https://github.com/jakirkham/)
 * [@vyasr](https://github.com/vyasr/)
 
