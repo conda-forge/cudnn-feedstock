@@ -45,11 +45,11 @@ build:
 
 requirements:
   build:
+    - {{ stdlib('c') }} # https://github.com/conda-forge/conda-forge.github.io/issues/2102
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
     - {{ compiler('cuda') }}
     - arm-variant * {{ arm_variant_type }}  # [aarch64]
-    - sysroot_{{ target_platform }} 2.28  # [linux or aarch64]
   host:
     - cuda-version 11.0  # [(cuda_compiler_version or "").startswith("11")]
     - cuda-version 12.0  # [(cuda_compiler_version or "").startswith("12")]
@@ -104,8 +104,8 @@ about:
 
 extra:
   recipe-maintainers:
-    - adibbley
-    - bdice
     - billysuh7
-    - jakirkham
-    - vyasr
+#    - adibbley
+#    - bdice
+#    - jakirkham
+#    - vyasr
