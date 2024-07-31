@@ -5,7 +5,7 @@ arm_variant_type:
 c_compiler:
 - gcc
 c_compiler_version:
-- '12'
+- '11'
 c_stdlib:
 - sysroot
 c_stdlib_version:
@@ -19,15 +19,15 @@ channel_sources:
 channel_targets:
 - conda-forge main
 cuda_compiler:
-- cuda-nvcc
+- nvcc
 cuda_compiler_version:
-- '12.0'
+- '11.8'
 cxx_compiler:
 - gxx
 cxx_compiler_version:
-- '12'
+- '11'
 docker_image:
-- quay.io/condaforge/linux-anvil-aarch64-cuda:11.8
+- quay.io/condaforge/linux-anvil-aarch64
 target_platform:
 - linux-aarch64
 zip_keys:
