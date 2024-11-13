@@ -1,4 +1,4 @@
-{% set version = "9.3.0.75" %}
+{% set version = "9.4.0.58" %}
 {% set platform = "linux-x86_64" %}  # [linux64]
 {% set platform = "linux-sbsa" %}  # [aarch64]
 {% set platform = "windows-x86_64" %}  # [win]
@@ -12,12 +12,12 @@ package:
 source:
   url: https://developer.download.nvidia.com/compute/cudnn/redist/cudnn/{{ platform }}/cudnn-{{ platform }}-{{ version }}_cuda11-archive.{{ extension }}  # [(cuda_compiler_version or "").startswith("11")]
   url: https://developer.download.nvidia.com/compute/cudnn/redist/cudnn/{{ platform }}/cudnn-{{ platform }}-{{ version }}_cuda12-archive.{{ extension }}  # [(cuda_compiler_version or "").startswith("12")]
-  sha256: 069da084cd368f39fb830d4c4e931803064fb65e766f4cf7df2da4a346a2ba9f  # [linux64 and (cuda_compiler_version or "").startswith("11")]
-  sha256: 3d6ef10aa06dc9339a477e2b057e085ff8500bbdee79e42c7e13655c9eff2c26  # [linux64 and (cuda_compiler_version or "").startswith("12")]
-  sha256: 04b56fbf7bee15c24e339c2ba94d17aa88b9e334d0cd19e75853dc5452794bf7  # [aarch64 and (cuda_compiler_version or "").startswith("11")]
-  sha256: 1226dd9b989c898638552963d000a3cfbb8a0a0cb9baf8cb09e6abd77ed7d639  # [aarch64 and (cuda_compiler_version or "").startswith("12")]
-  sha256: 0e6f9d39343b88208b1daea280d62d6f7a90355395999806de6624c8361c36fc  # [win and (cuda_compiler_version or "").startswith("11")]
-  sha256: 864a85dc67c7f92b9a8639f323acb4af63ad65de2ca82dccdf2c0b6a701c27c0  # [win and (cuda_compiler_version or "").startswith("12")]
+  sha256: 34a3c798764b8fc10c7145065798fb530d62073e88a3b0cfdcec458e2ace4467  # [linux64 and (cuda_compiler_version or "").startswith("11")]
+  sha256: 1ae128159a8c01b1fd8709050a30813ed9a4dd95824c0d3ddf841c52c8e25218  # [linux64 and (cuda_compiler_version or "").startswith("12")]
+  sha256: aa39d5a1d52fbf8c92a5a0c0cdb9b8d2772f99be15ee91c1a22932ac81d0f0dd  # [aarch64 and (cuda_compiler_version or "").startswith("11")]
+  sha256: 07c1b686b3dfa3a976dfc03e886fe44190c49c55f05795ea912d49518bf7d0cd  # [aarch64 and (cuda_compiler_version or "").startswith("12")]
+  sha256: 2f5389d9769fc7b13fcc08ae050f8f911506e76a3b785abcc53cde97d4b3a5a5  # [win and (cuda_compiler_version or "").startswith("11")]
+  sha256: c7c642c8db950d32c283acbb6a3d2aaeb484ae3fcef2eb7fee5523b72303a452  # [win and (cuda_compiler_version or "").startswith("12")]
 
 build:
   number: 0
