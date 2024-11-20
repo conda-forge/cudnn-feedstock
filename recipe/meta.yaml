@@ -104,6 +104,7 @@ about:
 
 extra:
   recipe-maintainers:
+    - conda-forge/cuda
     - billysuh7
     - adibbley
     - bdice
