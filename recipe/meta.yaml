@@ -21,7 +21,6 @@ source:
 
 build:
   number: 0
-  skip: True  # [osx]
   skip: True  # [cuda_compiler_version in ("None", None)]
   # Disable binary relocation to workaround patchelf issue
   # xref: https://github.com/NixOS/patchelf/issues/492
