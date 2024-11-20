@@ -4,7 +4,7 @@ provider:
 # NOTE: For binary redists os_version should match oldest supported glibc
 os_version:
   linux_64: cos7
-  linux_aarch64: cos7
+  linux_aarch64: alma8
 github:
   branch_name: main
   tooling_branch_name: main
