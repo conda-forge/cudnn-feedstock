@@ -25,12 +25,7 @@ build:
   # Disable binary relocation to workaround patchelf issue
   # xref: https://github.com/NixOS/patchelf/issues/492
   binary_relocation: false
-  script:
-    - mkdir -p $PREFIX/include               # [linux]
-    - cp include/cudnn*.h $PREFIX/include/   # [linux]
-    - mkdir -p $PREFIX/lib                   # [linux]
-    - mv lib/libcudnn*.so* $PREFIX/lib/      # [linux]
-
+  script:  # [win]
     - mkdir %LIBRARY_INC%                                   # [win]
     - copy %SRC_DIR%\\include\\cudnn*.h %LIBRARY_INC%\\     # [win]
     - mkdir %LIBRARY_LIB%                                   # [win]
