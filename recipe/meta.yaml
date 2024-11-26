@@ -53,8 +53,10 @@ requirements:
     - patchelf >=0.12  # [linux]
   host:
     - cuda-version={{ cuda_compiler_version }}
-    # to suppress ".so not found" errors
-    - zlib
+    # For Windows, zlib is statically linked into CUDNN since version 9.2
+    # https://docs.nvidia.com/deeplearning/cudnn/latest/release-notes.html#cudnn-9-2-0
+    # For Linux, zlib remains a dynamically linked dependency
+    - zlib  # [not win]
   run:
     - {{ pin_compatible("cuda-version", min_pin="x", max_pin="x") }}
     - cudatoolkit       # [(cuda_compiler_version or "").startswith("11")]
