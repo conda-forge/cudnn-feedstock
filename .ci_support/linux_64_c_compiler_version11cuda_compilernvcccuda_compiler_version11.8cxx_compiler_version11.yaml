@@ -5,9 +5,9 @@ c_compiler_version:
 c_stdlib:
 - sysroot
 c_stdlib_version:
-- '2.17'
+- '2.28'
 cdt_name:
-- cos7
+- conda
 channel_sources:
 - conda-forge
 channel_targets:
@@ -21,7 +21,7 @@ cxx_compiler:
 cxx_compiler_version:
 - '11'
 docker_image:
-- quay.io/condaforge/linux-anvil-cuda:11.8
+- quay.io/condaforge/linux-anvil-x86_64-cuda11.8:ubi8
 target_platform:
 - linux-64
 xz:
@@ -29,8 +29,6 @@ xz:
 zip_keys:
 - - c_compiler_version
   - cxx_compiler_version
-  - c_stdlib_version
-  - cdt_name
   - cuda_compiler
   - cuda_compiler_version
   - docker_image

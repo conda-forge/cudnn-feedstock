@@ -20,9 +20,8 @@ source:
   sha256: 864a85dc67c7f92b9a8639f323acb4af63ad65de2ca82dccdf2c0b6a701c27c0  # [win and (cuda_compiler_version or "").startswith("12")]
 
 build:
-  number: 0
-  skip: True  # [osx]
-  skip: True  # [cuda_compiler_version == "11.2"]
+  number: 1
+  skip: True  # [cuda_compiler_version in ("None", None)]
   # Disable binary relocation to workaround patchelf issue
   # xref: https://github.com/NixOS/patchelf/issues/492
   binary_relocation: false
@@ -38,28 +37,29 @@ build:
     - copy %SRC_DIR%\\lib\\x64\\cudnn*.lib %LIBRARY_LIB%\\  # [win]
     - mkdir %LIBRARY_BIN%                                   # [win]
     - copy %SRC_DIR%\\bin\\cudnn*.dll %LIBRARY_BIN%\\       # [win]
-  ignore_run_exports:
-    - cudatoolkit
+  ignore_run_exports_from:
+    - {{ compiler('cuda') }}
+    - libcublas-dev  # [(cuda_compiler_version or "").startswith("12")]
   run_exports:
     - {{ pin_subpackage('cudnn') }}
 
 requirements:
   build:
-    - {{ stdlib('c') }} # https://github.com/conda-forge/conda-forge.github.io/issues/2102
+    - {{ stdlib('c') }}
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
     - {{ compiler('cuda') }}
     - arm-variant * {{ arm_variant_type }}  # [aarch64]
-  host:
-    - cuda-version 11.0  # [(cuda_compiler_version or "").startswith("11")]
-    - cuda-version 12.0  # [(cuda_compiler_version or "").startswith("12")]
     - patchelf >=0.12  # [linux]
-    # to suppress ".so not found" errors
-    - libzlib {{ zlib }}  # [linux]
-    - libzlib-wapi {{ zlib }}  # [win64]
+  host:
+    - cuda-version {{ cuda_compiler_version }}
+    # For Windows, zlib is statically linked into CUDNN since version 9.2
+    # https://docs.nvidia.com/deeplearning/cudnn/latest/release-notes.html#cudnn-9-2-0
+    # For Linux, zlib remains a dynamically linked dependency
+    - zlib  # [not win]
   run:
-    - {{ pin_compatible("cuda-version", max_pin="x") }}
-    - cudatoolkit 11.*  # [(cuda_compiler_version or "").startswith("11")]
+    - {{ pin_compatible("cuda-version", min_pin="x", max_pin="x") }}
+    - cudatoolkit       # [(cuda_compiler_version or "").startswith("11")]
     - cuda-nvrtc        # [(cuda_compiler_version or "").startswith("12")]
     - libcublas         # [(cuda_compiler_version or "").startswith("12")]
   run_constrained:
