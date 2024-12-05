@@ -214,6 +214,7 @@ Feedstock Maintainers
 * [@adibbley](https://github.com/adibbley/)
 * [@bdice](https://github.com/bdice/)
 * [@billysuh7](https://github.com/billysuh7/)
+* [@conda-forge/cuda](https://github.com/orgs/conda-forge/teams/cuda/)
 * [@jakirkham](https://github.com/jakirkham/)
 * [@vyasr](https://github.com/vyasr/)
 
