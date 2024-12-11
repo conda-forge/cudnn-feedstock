@@ -1,6 +1,7 @@
 {% set version = "9.3.0.75" %}
 {% set platform = "linux-x86_64" %}  # [linux64]
-{% set platform = "linux-sbsa" %}  # [aarch64]
+{% set platform = "linux-sbsa" %}  # [aarch64 and arm_variant_type=="sbsa"]
+{% set platform = "linux-aarch64" %}  # [aarch64 and arm_variant_type=="tegra"]
 {% set platform = "windows-x86_64" %}  # [win]
 {% set extension = "tar.xz" %}  # [not win]
 {% set extension = "zip" %}  # [win]
@@ -14,14 +15,16 @@ source:
   url: https://developer.download.nvidia.com/compute/cudnn/redist/cudnn/{{ platform }}/cudnn-{{ platform }}-{{ version }}_cuda12-archive.{{ extension }}  # [(cuda_compiler_version or "").startswith("12")]
   sha256: 069da084cd368f39fb830d4c4e931803064fb65e766f4cf7df2da4a346a2ba9f  # [linux64 and (cuda_compiler_version or "").startswith("11")]
   sha256: 3d6ef10aa06dc9339a477e2b057e085ff8500bbdee79e42c7e13655c9eff2c26  # [linux64 and (cuda_compiler_version or "").startswith("12")]
-  sha256: 04b56fbf7bee15c24e339c2ba94d17aa88b9e334d0cd19e75853dc5452794bf7  # [aarch64 and (cuda_compiler_version or "").startswith("11")]
-  sha256: 1226dd9b989c898638552963d000a3cfbb8a0a0cb9baf8cb09e6abd77ed7d639  # [aarch64 and (cuda_compiler_version or "").startswith("12")]
+  sha256: 04b56fbf7bee15c24e339c2ba94d17aa88b9e334d0cd19e75853dc5452794bf7  # [aarch64 and arm_variant_type=="sbsa" and (cuda_compiler_version or "").startswith("11")]
+  sha256: 1226dd9b989c898638552963d000a3cfbb8a0a0cb9baf8cb09e6abd77ed7d639  # [aarch64 and arm_variant_type=="sbsa" and (cuda_compiler_version or "").startswith("12")]
+  sha256: 1226dd9b989c898638552963d000a3cfbb8a0a0cb9baf8cb09e6abd77ed7d639  # [aarch64 and arm_variant_type=="tegra" and (cuda_compiler_version or "").startswith("12")]
   sha256: 0e6f9d39343b88208b1daea280d62d6f7a90355395999806de6624c8361c36fc  # [win and (cuda_compiler_version or "").startswith("11")]
   sha256: 864a85dc67c7f92b9a8639f323acb4af63ad65de2ca82dccdf2c0b6a701c27c0  # [win and (cuda_compiler_version or "").startswith("12")]
 
 build:
   number: 1
   skip: True  # [cuda_compiler_version in ("None", None)]
+  skip: True  # [aarch64 and arm_variant_type=="tegra" and (cuda_compiler_version or "").startswith("11")]
   # Disable binary relocation to workaround patchelf issue
   # xref: https://github.com/NixOS/patchelf/issues/492
   binary_relocation: false
