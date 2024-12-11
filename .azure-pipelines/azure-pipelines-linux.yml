@@ -16,12 +16,20 @@ jobs:
         CONFIG: linux_64_c_compiler_version12cuda_compilercuda-nvcccuda_compiler_version12.6cxx_compiler_version12
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: quay.io/condaforge/linux-anvil-x86_64:alma8
-      linux_aarch64_c_compiler_version11cuda_compilernvcccuda_compiler_version11.8cxx_compiler_version11:
-        CONFIG: linux_aarch64_c_compiler_version11cuda_compilernvcccuda_compiler_version11.8cxx_compiler_version11
+      linux_aarch64_arm_variant_typesbsac_compiler_version11cuda_compilernvcccuda_compiler_version11.8cxx_compiler_version11:
+        CONFIG: linux_aarch64_arm_variant_typesbsac_compiler_version11cuda_compilernvcccuda_compiler_version11.8cxx_compiler_version11
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: quay.io/condaforge/linux-anvil-x86_64-cuda11.8:ubi8
-      linux_aarch64_c_compiler_version12cuda_compilercuda-nvcccuda_compiler_version12.6cxx_compiler_version12:
-        CONFIG: linux_aarch64_c_compiler_version12cuda_compilercuda-nvcccuda_compiler_version12.6cxx_compiler_version12
+      ? linux_aarch64_arm_variant_typesbsac_compiler_version12cuda_compilercuda-nvcccuda_compiler_version12.6cxx_compiler_version12
+      : CONFIG: linux_aarch64_arm_variant_typesbsac_compiler_version12cuda_compilercuda-nvcccuda_compiler_version12.6cxx_compiler_version12
+        UPLOAD_PACKAGES: 'True'
+        DOCKER_IMAGE: quay.io/condaforge/linux-anvil-x86_64:alma8
+      linux_aarch64_arm_variant_typetegrac_compiler_version11cuda_compilernvcccuda_compiler_version11.8cxx_compiler_version11:
+        CONFIG: linux_aarch64_arm_variant_typetegrac_compiler_version11cuda_compilernvcccuda_compiler_version11.8cxx_compiler_version11
+        UPLOAD_PACKAGES: 'True'
+        DOCKER_IMAGE: quay.io/condaforge/linux-anvil-x86_64-cuda11.8:ubi8
+      ? linux_aarch64_arm_variant_typetegrac_compiler_version12cuda_compilercuda-nvcccuda_compiler_version12.6cxx_compiler_version12
+      : CONFIG: linux_aarch64_arm_variant_typetegrac_compiler_version12cuda_compilercuda-nvcccuda_compiler_version12.6cxx_compiler_version12
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: quay.io/condaforge/linux-anvil-x86_64:alma8
   timeoutInMinutes: 360
