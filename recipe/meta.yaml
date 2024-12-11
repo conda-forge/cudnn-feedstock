@@ -87,7 +87,9 @@ test:
     - test -f $PREFIX/lib/libcudnn.so                                 # [linux]
     - test -f $PREFIX/lib/libcudnn_adv.so                             # [linux]
     - ${GCC} test_load_elf.c -std=c99 -Werror -ldl -o test_load_elf   # [linux]
-    - for f in $PREFIX/lib/libcudnn*.so; do ./test_load_elf $f; done  # [linux]
+    # workaround: this fails on tegra builds with error: 
+    # /lib64/libm.so.6: version `GLIBC_2.29' not found (required by [..]/libcudnn_engines_runtime_compiled.so)
+    - for f in $PREFIX/lib/libcudnn*.so; do ./test_load_elf $f; done  # [linux and not (arm_variant_type or "").startswith("tegra")]
 
 about:
   home: https://developer.nvidia.com/cudnn
