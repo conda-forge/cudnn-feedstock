@@ -55,17 +55,31 @@ Current build status
                 </a>
               </td>
             </tr><tr>
-              <td>linux_aarch64_c_compiler_version11cuda_compilernvcccuda_compiler_version11.8cxx_compiler_version11</td>
+              <td>linux_aarch64_arm_variant_typesbsac_compiler_version11cuda_compilernvcccuda_compiler_version11.8cxx_compiler_version11</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=11465&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/cudnn-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_aarch64_c_compiler_version11cuda_compilernvcccuda_compiler_version11.8cxx_compiler_version11" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/cudnn-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_aarch64_arm_variant_typesbsac_compiler_version11cuda_compilernvcccuda_compiler_version11.8cxx_compiler_version11" alt="variant">
                 </a>
               </td>
             </tr><tr>
-              <td>linux_aarch64_c_compiler_version12cuda_compilercuda-nvcccuda_compiler_version12.6cxx_compiler_version12</td>
+              <td>linux_aarch64_arm_variant_typesbsac_compiler_version12cuda_compilercuda-nvcccuda_compiler_version12.6cxx_compiler_version12</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=11465&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/cudnn-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_aarch64_c_compiler_version12cuda_compilercuda-nvcccuda_compiler_version12.6cxx_compiler_version12" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/cudnn-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_aarch64_arm_variant_typesbsac_compiler_version12cuda_compilercuda-nvcccuda_compiler_version12.6cxx_compiler_version12" alt="variant">
+                </a>
+              </td>
+            </tr><tr>
+              <td>linux_aarch64_arm_variant_typetegrac_compiler_version11cuda_compilernvcccuda_compiler_version11.8cxx_compiler_version11</td>
+              <td>
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=11465&branchName=main">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/cudnn-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_aarch64_arm_variant_typetegrac_compiler_version11cuda_compilernvcccuda_compiler_version11.8cxx_compiler_version11" alt="variant">
+                </a>
+              </td>
+            </tr><tr>
+              <td>linux_aarch64_arm_variant_typetegrac_compiler_version12cuda_compilercuda-nvcccuda_compiler_version12.6cxx_compiler_version12</td>
+              <td>
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=11465&branchName=main">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/cudnn-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_aarch64_arm_variant_typetegrac_compiler_version12cuda_compilercuda-nvcccuda_compiler_version12.6cxx_compiler_version12" alt="variant">
                 </a>
               </td>
             </tr><tr>
@@ -214,6 +228,7 @@ Feedstock Maintainers
 * [@adibbley](https://github.com/adibbley/)
 * [@bdice](https://github.com/bdice/)
 * [@billysuh7](https://github.com/billysuh7/)
+* [@conda-forge/cuda](https://github.com/orgs/conda-forge/teams/cuda/)
 * [@jakirkham](https://github.com/jakirkham/)
 * [@vyasr](https://github.com/vyasr/)
 
