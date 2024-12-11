@@ -22,7 +22,7 @@ source:
   sha256: 864a85dc67c7f92b9a8639f323acb4af63ad65de2ca82dccdf2c0b6a701c27c0  # [win and (cuda_compiler_version or "").startswith("12")]
 
 build:
-  number: 1
+  number: 2
   skip: True  # [cuda_compiler_version in ("None", None)]
   skip: True  # [aarch64 and arm_variant_type=="tegra" and (cuda_compiler_version or "").startswith("11")]
   # Disable binary relocation to workaround patchelf issue
