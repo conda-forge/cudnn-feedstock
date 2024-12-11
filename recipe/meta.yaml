@@ -51,7 +51,9 @@ requirements:
     - {{ stdlib('c') }}
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
-    - {{ compiler('cuda') }}
+    # Workaround, apparently there is no cuda compielr on conda-forge for tegra
+    - {{ compiler('cuda') }}  # [not aarch64]
+    - {{ compiler('cuda') }}  # [aarch64 and arm_variant_type=="sbsa"]
     - arm-variant * {{ arm_variant_type }}  # [aarch64]
     - patchelf >=0.12  # [linux]
   host:
