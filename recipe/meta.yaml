@@ -20,17 +20,12 @@ source:
   sha256: 864a85dc67c7f92b9a8639f323acb4af63ad65de2ca82dccdf2c0b6a701c27c0  # [win and (cuda_compiler_version or "").startswith("12")]
 
 build:
-  number: 1
+  number: 2
   skip: True  # [cuda_compiler_version in ("None", None)]
   # Disable binary relocation to workaround patchelf issue
   # xref: https://github.com/NixOS/patchelf/issues/492
   binary_relocation: false
-  script:
-    - mkdir -p $PREFIX/include               # [linux]
-    - cp include/cudnn*.h $PREFIX/include/   # [linux]
-    - mkdir -p $PREFIX/lib                   # [linux]
-    - mv lib/libcudnn*.so* $PREFIX/lib/      # [linux]
-
+  script:  # [win]
     - mkdir %LIBRARY_INC%                                   # [win]
     - copy %SRC_DIR%\\include\\cudnn*.h %LIBRARY_INC%\\     # [win]
     - mkdir %LIBRARY_LIB%                                   # [win]
