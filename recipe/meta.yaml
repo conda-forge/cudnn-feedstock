@@ -99,6 +99,7 @@ about:
 
 extra:
   recipe-maintainers:
+    - sfc-gh-aponnusamy
     - conda-forge/cuda
     - billysuh7
     - adibbley
