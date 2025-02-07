@@ -20,7 +20,7 @@ source:
   sha256: fecb6b911b6fc74cce40180bc6cb932a66bd03f1ae678987b92ce0dc896ef52b  # [win and (cuda_compiler_version or "").startswith("12")]
 
 build:
-  number: 2
+  number: 0
   skip: True  # [cuda_compiler_version in ("None", None)]
   # Disable binary relocation to workaround patchelf issue
   # xref: https://github.com/NixOS/patchelf/issues/492
