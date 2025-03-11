@@ -6,7 +6,7 @@
 {% set extension = "zip" %}  # [win]
 
 package:
-  name: cudnn
+  name: cudnn-split
   version: {{ version }}
 
 source:
@@ -26,32 +26,93 @@ build:
   # xref: https://github.com/NixOS/patchelf/issues/492
   binary_relocation: false
   ignore_run_exports_from:
-    - {{ compiler('cuda') }}
+    - {{ compiler("cuda") }}
     - libcublas-dev  # [(cuda_compiler_version or "").startswith("12")]
   run_exports:
-    - {{ pin_subpackage('cudnn') }}
+    - {{ pin_subpackage("cudnn") }}
 
 requirements:
   build:
-    - {{ stdlib('c') }}
-    - {{ compiler('c') }}
-    - {{ compiler('cxx') }}
-    - {{ compiler('cuda') }}
+    - {{ stdlib("c") }}
+    - {{ compiler("c") }}
+    - {{ compiler("cxx") }}
+    - {{ compiler("cuda") }}
     - arm-variant * {{ arm_variant_type }}  # [aarch64]
     - patchelf >=0.12  # [linux]
-  host:
-    - cuda-version {{ cuda_compiler_version }}
-    # For Windows, zlib is statically linked into CUDNN since version 9.2
-    # https://docs.nvidia.com/deeplearning/cudnn/latest/release-notes.html#cudnn-9-2-0
-    # For Linux, zlib remains a dynamically linked dependency
-    - zlib  # [not win]
-  run:
-    - {{ pin_compatible("cuda-version", min_pin="x", max_pin="x") }}
-    - cudatoolkit       # [(cuda_compiler_version or "").startswith("11")]
-    - cuda-nvrtc        # [(cuda_compiler_version or "").startswith("12")]
-    - libcublas         # [(cuda_compiler_version or "").startswith("12")]
-  run_constrained:
-    - arm-variant * {{ arm_variant_type }}  # [aarch64]
+
+outputs:
+  - name: cudnn
+    build:
+      ignore_run_exports_from:
+        - {{ compiler("cuda") }}
+    requirements:
+      build:
+        - {{ stdlib("c") }}
+        - {{ compiler("c") }}
+        - {{ compiler("cxx") }}
+        - {{ compiler("cuda") }}
+        - arm-variant * {{ arm_variant_type }}  # [aarch64]
+      host:
+        - arm-variant * {{ arm_variant_type }}  # [aarch64]
+        - cuda-version {{ cuda_compiler_version }}
+        - {{ pin_subpackage("libcudnn", exact=True) }}
+        - {{ pin_subpackage("libcudnn-dev", exact=True) }}
+      run:
+        - arm-variant * {{ arm_variant_type }}  # [aarch64]
+        - {{ pin_compatible("cuda-version", min_pin="x", max_pin="x") }}
+        - {{ pin_subpackage("libcudnn", exact=True) }}
+        - {{ pin_subpackage("libcudnn-dev", exact=True) }}
+  - name: libcudnn
+    build:
+      ignore_run_exports_from:
+        - {{ compiler("cuda") }}
+    files:
+      - lib/libcudnn*.so.*                  # [linux]
+      - Library/bin/cudnn*.dll              # [win]
+    requirements:
+      build:
+        - {{ stdlib("c") }}
+        - {{ compiler("c") }}
+        - {{ compiler("cxx") }}
+        - {{ compiler("cuda") }}
+        - arm-variant * {{ arm_variant_type }}  # [aarch64]
+      host:
+        - arm-variant * {{ arm_variant_type }}  # [aarch64]
+        - cuda-version {{ cuda_compiler_version }}
+        # For Windows, zlib is statically linked into CUDNN since version 9.2
+        # https://docs.nvidia.com/deeplearning/cudnn/latest/release-notes.html#cudnn-9-2-0
+        # For Linux, zlib remains a dynamically linked dependency
+        - zlib  # [not win]
+      run:
+        - arm-variant * {{ arm_variant_type }}  # [aarch64]
+        - {{ pin_compatible("cuda-version", min_pin="x", max_pin="x") }}
+        - cudatoolkit       # [(cuda_compiler_version or "").startswith("11")]
+        - cuda-nvrtc        # [(cuda_compiler_version or "").startswith("12")]
+        - libcublas         # [(cuda_compiler_version or "").startswith("12")]
+  - name: libcudnn-dev
+    build:
+      ignore_run_exports_from:
+        - {{ compiler("cuda") }}
+    files:
+      - include/cudnn*.h                    # [linux]
+      - Library/include/cudnn*.h            # [win]
+      - lib/libcudnn*.so                    # [linux]
+      - Library/lib/cudnn*.lib              # [win]
+    requirements:
+      build:
+        - {{ stdlib("c") }}
+        - {{ compiler("c") }}
+        - {{ compiler("cxx") }}
+        - {{ compiler("cuda") }}
+        - arm-variant * {{ arm_variant_type }}  # [aarch64]
+      host:
+        - arm-variant * {{ arm_variant_type }}  # [aarch64]
+        - cuda-version {{ cuda_compiler_version }}
+        - {{ pin_subpackage("libcudnn", exact=True) }}
+      run:
+        - arm-variant * {{ arm_variant_type }}  # [aarch64]
+        - {{ pin_compatible("cuda-version", min_pin="x", max_pin="x") }}
+        - {{ pin_subpackage("libcudnn", exact=True) }}
 
 test:
   requires:
@@ -91,6 +152,7 @@ about:
   dev_url: https://developer.nvidia.com/rdp/cudnn-download
 
 extra:
+  feedstock-name: cudnn
   recipe-maintainers:
     - conda-forge/cuda
     - billysuh7
