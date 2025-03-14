@@ -99,6 +99,7 @@ about:
 
 extra:
   recipe-maintainers:
+    - jhaigh0
     - conda-forge/cuda
     - billysuh7
     - adibbley
