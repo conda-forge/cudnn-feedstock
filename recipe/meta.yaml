@@ -1,4 +1,6 @@
 {% set version = "9.8.0.87" %}
+{% set soname = version.split('.')[0] %}
+{% set majorminorpatch = '.'.join(version.split('.')[:3]) %}
 {% set platform = "linux-x86_64" %}  # [linux64]
 {% set platform = "linux-sbsa" %}  # [aarch64]
 {% set platform = "windows-x86_64" %}  # [win]
@@ -22,48 +24,25 @@ source:
 build:
   number: 0
   skip: True  # [cuda_compiler_version in ("None", None)]
-  # Disable binary relocation to workaround patchelf issue
-  # xref: https://github.com/NixOS/patchelf/issues/492
-  binary_relocation: false
-  ignore_run_exports_from:
-    - {{ compiler("cuda") }}
-    - libcublas-dev  # [(cuda_compiler_version or "").startswith("12")]
-  run_exports:
-    - {{ pin_subpackage("cudnn") }}
 
 requirements:
   build:
-    - {{ stdlib("c") }}
-    - {{ compiler("c") }}
-    - {{ compiler("cxx") }}
-    - {{ compiler("cuda") }}
-    - arm-variant * {{ arm_variant_type }}  # [aarch64]
-    - patchelf >=0.12  # [linux]
+    - cf-nvidia-tools 1 # [linux]
 
 outputs:
   - name: cudnn
-    build:
-      ignore_run_exports_from:
-        - {{ compiler("cuda") }}
     requirements:
-      build:
-        - {{ stdlib("c") }}
-        - {{ compiler("c") }}
-        - {{ compiler("cxx") }}
-        - {{ compiler("cuda") }}
-        - arm-variant * {{ arm_variant_type }}  # [aarch64]
-      host:
-        - arm-variant * {{ arm_variant_type }}  # [aarch64]
-        - cuda-version {{ cuda_compiler_version }}
-        - {{ pin_subpackage("libcudnn", exact=True) }}
-        - {{ pin_subpackage("libcudnn-dev", exact=True) }}
       run:
-        - arm-variant * {{ arm_variant_type }}  # [aarch64]
-        - {{ pin_compatible("cuda-version", min_pin="x", max_pin="x") }}
         - {{ pin_subpackage("libcudnn", exact=True) }}
         - {{ pin_subpackage("libcudnn-dev", exact=True) }}
+      run_constrained:
+        - cudnn-jit <0a
+
   - name: libcudnn
     build:
+      # Disable binary relocation to workaround patchelf issue
+      # xref: https://github.com/NixOS/patchelf/issues/492
+      binary_relocation: false
       ignore_run_exports_from:
         - {{ compiler("cuda") }}
     files:
@@ -71,13 +50,12 @@ outputs:
       - Library/bin/cudnn*.dll              # [win]
     requirements:
       build:
-        - {{ stdlib("c") }}
         - {{ compiler("c") }}
         - {{ compiler("cxx") }}
         - {{ compiler("cuda") }}
+        - {{ stdlib("c") }}
         - arm-variant * {{ arm_variant_type }}  # [aarch64]
       host:
-        - arm-variant * {{ arm_variant_type }}  # [aarch64]
         - cuda-version {{ cuda_compiler_version }}
         # For Windows, zlib is statically linked into CUDNN since version 9.2
         # https://docs.nvidia.com/deeplearning/cudnn/latest/release-notes.html#cudnn-9-2-0
@@ -89,49 +67,224 @@ outputs:
         - cudatoolkit       # [(cuda_compiler_version or "").startswith("11")]
         - cuda-nvrtc        # [(cuda_compiler_version or "").startswith("12")]
         - libcublas         # [(cuda_compiler_version or "").startswith("12")]
+      run_constrained:
+        - libcudnn-jit <0a
+    test:
+      requires:
+        - {{ compiler('c') }}  # [linux]
+      files:
+        - test_load_elf.c      # [linux]
+      commands:
+        - if not exist %LIBRARY_BIN%/cudnn64_{{ soname }}.dll exit 1                                 # [win]
+        - if not exist %LIBRARY_BIN%/cudnn_adv64_{{ soname }}.dll exit 1                             # [win]
+        - if not exist %LIBRARY_BIN%/cudnn_cnn64_{{ soname }}.dll exit 1                             # [win]
+        - if not exist %LIBRARY_BIN%/cudnn_engines_precompiled64_{{ soname }}.dll exit 1             # [win]
+        - if not exist %LIBRARY_BIN%/cudnn_engines_runtime_compiled64_{{ soname }}.dll exit 1        # [win]
+        - if not exist %LIBRARY_BIN%/cudnn_graph64_{{ soname }}.dll exit 1                           # [win]
+        - if not exist %LIBRARY_BIN%/cudnn_heuristic64_{{ soname }}.dll exit 1                       # [win]
+        - if not exist %LIBRARY_BIN%/cudnn_ops64_{{ soname }}.dll exit 1                             # [win]
+        - test -f $PREFIX/lib/libcudnn.so.{{ majorminorpatch }}                                      # [linux]
+        - test -f $PREFIX/lib/libcudnn.so.{{ soname }}                                               # [linux]
+        - test -f $PREFIX/lib/libcudnn_adv.so.{{ majorminorpatch }}                                  # [linux]
+        - test -f $PREFIX/lib/libcudnn_adv.so.{{ soname }}                                           # [linux]
+        - test -f $PREFIX/lib/libcudnn_cnn.so.{{ majorminorpatch }}                                  # [linux]
+        - test -f $PREFIX/lib/libcudnn_cnn.so.{{ soname }}                                           # [linux]
+        - test -f $PREFIX/lib/libcudnn_engines_precompiled.so.{{ majorminorpatch }}                  # [linux]
+        - test -f $PREFIX/lib/libcudnn_engines_precompiled.so.{{ soname }}                           # [linux]
+        - test -f $PREFIX/lib/libcudnn_engines_runtime_compiled.so.{{ majorminorpatch }}             # [linux]
+        - test -f $PREFIX/lib/libcudnn_engines_runtime_compiled.so.{{ soname }}                      # [linux]
+        - test -f $PREFIX/lib/libcudnn_graph.so.{{ majorminorpatch }}                                # [linux]
+        - test -f $PREFIX/lib/libcudnn_graph.so.{{ soname }}                                         # [linux]
+        - test -f $PREFIX/lib/libcudnn_heuristic.so.{{ majorminorpatch }}                            # [linux]
+        - test -f $PREFIX/lib/libcudnn_heuristic.so.{{ soname }}                                     # [linux]
+        - test -f $PREFIX/lib/libcudnn_ops.so.{{ majorminorpatch }}                                  # [linux]
+        - test -f $PREFIX/lib/libcudnn_ops.so.{{ soname }}                                           # [linux]
+        - ${GCC} test_load_elf.c -std=c99 -Werror -ldl -o test_load_elf                              # [linux]
+        - for f in $PREFIX/lib/libcudnn*.so.{{ majorminorpatch }}; do ./test_load_elf $f; done       # [linux]
+
   - name: libcudnn-dev
-    build:
-      ignore_run_exports_from:
-        - {{ compiler("cuda") }}
     files:
-      - include/cudnn*.h                    # [linux]
-      - Library/include/cudnn*.h            # [win]
-      - lib/libcudnn*.so                    # [linux]
-      - Library/lib/cudnn*.lib              # [win]
+      - include/cudnn*.h                                                                           # [linux]
+      - Library/include/cudnn*.h                                                                   # [win]
+      - lib/libcudnn*.so                                                                           # [linux]
+      - Library/lib/cudnn*.lib                                                                     # [win]
     requirements:
-      build:
-        - {{ stdlib("c") }}
-        - {{ compiler("c") }}
-        - {{ compiler("cxx") }}
-        - {{ compiler("cuda") }}
-        - arm-variant * {{ arm_variant_type }}  # [aarch64]
       host:
-        - arm-variant * {{ arm_variant_type }}  # [aarch64]
-        - cuda-version {{ cuda_compiler_version }}
         - {{ pin_subpackage("libcudnn", exact=True) }}
       run:
         - arm-variant * {{ arm_variant_type }}  # [aarch64]
-        - {{ pin_compatible("cuda-version", min_pin="x", max_pin="x") }}
         - {{ pin_subpackage("libcudnn", exact=True) }}
+      run_constrained:
+        - libcudnn-jit-dev <0a
+    test:
+      commands:
+        - if not exist %LIBRARY_INC%/cudnn.h exit 1                                                  # [win]
+        - if not exist %LIBRARY_INC%/cudnn_adv.h exit 1                                              # [win]
+        - if not exist %LIBRARY_INC%/cudnn_backend.h exit 1                                          # [win]
+        - if not exist %LIBRARY_INC%/cudnn_cnn.h exit 1                                              # [win]
+        - if not exist %LIBRARY_INC%/cudnn_graph.h exit 1                                            # [win]
+        - if not exist %LIBRARY_INC%/cudnn_ops.h exit 1                                              # [win]
+        - if not exist %LIBRARY_INC%/cudnn_version.h exit 1                                          # [win]
+        - if not exist %LIBRARY_LIB%/cudnn.lib exit 1                                                # [win]
+        - if not exist %LIBRARY_LIB%/cudnn64_{{ soname }}.lib exit 1                                 # [win]
+        - if not exist %LIBRARY_LIB%/cudnn_adv.lib exit 1                                            # [win]
+        - if not exist %LIBRARY_LIB%/cudnn_adv64_{{ soname }}.lib exit 1                             # [win]
+        - if not exist %LIBRARY_LIB%/cudnn_cnn.lib exit 1                                            # [win]
+        - if not exist %LIBRARY_LIB%/cudnn_cnn64_{{ soname }}.lib exit 1                             # [win]
+        - if not exist %LIBRARY_LIB%/cudnn_engines_precompiled.lib exit 1                            # [win]
+        - if not exist %LIBRARY_LIB%/cudnn_engines_precompiled64_{{ soname }}.lib exit 1             # [win]
+        - if not exist %LIBRARY_LIB%/cudnn_engines_runtime_compiled.lib exit 1                       # [win]
+        - if not exist %LIBRARY_LIB%/cudnn_engines_runtime_compiled64_{{ soname }}.lib exit 1        # [win]
+        - if not exist %LIBRARY_LIB%/cudnn_graph.lib exit 1                                          # [win]
+        - if not exist %LIBRARY_LIB%/cudnn_graph64_{{ soname }}.lib exit 1                           # [win]
+        - if not exist %LIBRARY_LIB%/cudnn_heuristic.lib exit 1                                      # [win]
+        - if not exist %LIBRARY_LIB%/cudnn_heuristic64_{{ soname }}.lib exit 1                       # [win]
+        - if not exist %LIBRARY_LIB%/cudnn_ops.lib exit 1                                            # [win]
+        - if not exist %LIBRARY_LIB%/cudnn_ops64_{{ soname }}.lib exit 1                             # [win]
+        - test -f $PREFIX/include/cudnn.h                                                            # [linux]
+        - test -f $PREFIX/include/cudnn_adv.h                                                        # [linux]
+        - test -f $PREFIX/include/cudnn_adv_v{{ soname }}.h                                          # [linux]
+        - test -f $PREFIX/include/cudnn_backend.h                                                    # [linux]
+        - test -f $PREFIX/include/cudnn_backend_v{{ soname }}.h                                      # [linux]
+        - test -f $PREFIX/include/cudnn_cnn.h                                                        # [linux]
+        - test -f $PREFIX/include/cudnn_cnn_v{{ soname }}.h                                          # [linux]
+        - test -f $PREFIX/include/cudnn_graph.h                                                      # [linux]
+        - test -f $PREFIX/include/cudnn_graph_v{{ soname }}.h                                        # [linux]
+        - test -f $PREFIX/include/cudnn_ops.h                                                        # [linux]
+        - test -f $PREFIX/include/cudnn_ops_v{{ soname }}.h                                          # [linux]
+        - test -f $PREFIX/include/cudnn_v{{ soname }}.h                                              # [linux]
+        - test -f $PREFIX/include/cudnn_version.h                                                    # [linux]
+        - test -f $PREFIX/include/cudnn_version_v{{ soname }}.h                                      # [linux]
+        - test -L $PREFIX/lib/libcudnn.so                                                            # [linux]
+        - test -L $PREFIX/lib/libcudnn_adv.so                                                        # [linux]
+        - test -L $PREFIX/lib/libcudnn_cnn.so                                                        # [linux]
+        - test -L $PREFIX/lib/libcudnn_engines_precompiled.so                                        # [linux]
+        - test -L $PREFIX/lib/libcudnn_engines_runtime_compiled.so                                   # [linux]
+        - test -L $PREFIX/lib/libcudnn_graph.so                                                      # [linux]
+        - test -L $PREFIX/lib/libcudnn_heuristic.so                                                  # [linux]
+        - test -L $PREFIX/lib/libcudnn_ops.so                                                        # [linux]
 
-test:
-  requires:
-    - {{ compiler('c') }}  # [linux]
-  files:
-    - test_load_elf.c      # [linux]
-  commands:
-    - if not exist %LIBRARY_INC%/cudnn.h exit 1                       # [win]
-    - if not exist %LIBRARY_INC%/cudnn_adv.h exit 1                   # [win]
-    - if not exist %LIBRARY_LIB%/cudnn.lib exit 1                     # [win]
-    - if not exist %LIBRARY_LIB%/cudnn_adv.lib exit 1                 # [win]
-    - if not exist %LIBRARY_BIN%/cudnn64_9.dll exit 1                 # [win]
-    - if not exist %LIBRARY_BIN%/cudnn_adv64_9.dll exit 1             # [win]
-    - test -f $PREFIX/include/cudnn.h                                 # [linux]
-    - test -f $PREFIX/include/cudnn_adv.h                             # [linux]
-    - test -f $PREFIX/lib/libcudnn.so                                 # [linux]
-    - test -f $PREFIX/lib/libcudnn_adv.so                             # [linux]
-    - ${GCC} test_load_elf.c -std=c99 -Werror -ldl -o test_load_elf   # [linux]
-    - for f in $PREFIX/lib/libcudnn*.so; do ./test_load_elf $f; done  # [linux]
+  - name: cudnn-jit
+    requirements:
+      run:
+        - {{ pin_subpackage("libcudnn-jit", exact=True) }}
+        - {{ pin_subpackage("libcudnn-jit-dev", exact=True) }}
+
+  - name: libcudnn-jit
+    build:
+      # Disable binary relocation to workaround patchelf issue
+      # xref: https://github.com/NixOS/patchelf/issues/492
+      binary_relocation: false
+      ignore_run_exports_from:
+        - {{ compiler("cuda") }}
+    files:
+      - Library/bin/cudnn64_{{ soname }}.dll                                          # [win]
+      - Library/bin/cudnn_engines_runtime_compiled64_{{ soname }}.dll                 # [win]
+      - Library/bin/cudnn_graph64_{{ soname }}.dll                                    # [win]
+      - lib/libcudnn.so.{{ majorminorpatch }}                                         # [linux]
+      - lib/libcudnn.so.{{ soname }}                                                  # [linux]
+      - lib/libcudnn_engines_runtime_compiled.so.{{ majorminorpatch }}                # [linux]
+      - lib/libcudnn_engines_runtime_compiled.so.{{ soname }}                         # [linux]
+      - lib/libcudnn_graph.so.{{ majorminorpatch }}                                   # [linux]
+      - lib/libcudnn_graph.so.{{ soname }}                                            # [linux]
+    requirements:
+      build:
+        - {{ compiler('c') }}
+        - {{ compiler('cxx') }}
+        - {{ compiler('cuda') }}
+        - {{ stdlib('c') }}
+        - arm-variant * {{ arm_variant_type }}  # [aarch64]
+        - patchelf >=0.12  # [linux]
+      host:
+        - cuda-version {{ cuda_compiler_version }}
+        # For Windows, zlib is statically linked into CUDNN since version 9.2
+        # https://docs.nvidia.com/deeplearning/cudnn/latest/release-notes.html#cudnn-9-2-0
+        # For Linux, zlib remains a dynamically linked dependency
+        - zlib  # [not win]
+      run:
+        - {{ pin_compatible("cuda-version", min_pin="x", max_pin="x") }}
+        - arm-variant * {{ arm_variant_type }}  # [aarch64]
+        - cudatoolkit       # [(cuda_compiler_version or "").startswith("11")]
+        - cuda-nvrtc        # [(cuda_compiler_version or "").startswith("12")]
+        - libcublas         # [(cuda_compiler_version or "").startswith("12")]
+    test:
+      commands:
+        - if not exist %LIBRARY_BIN%/cudnn64_{{ soname }}.dll exit 1                                 # [win]
+        - if not exist %LIBRARY_BIN%/cudnn_engines_runtime_compiled64_{{ soname }}.dll exit 1        # [win]
+        - if not exist %LIBRARY_BIN%/cudnn_graph64_{{ soname }}.dll exit 1                           # [win]
+        - test -f $PREFIX/lib/libcudnn.so.{{ majorminorpatch }}                                      # [linux]
+        - test -f $PREFIX/lib/libcudnn.so.{{ soname }}                                               # [linux]
+        - test -f $PREFIX/lib/libcudnn_engines_runtime_compiled.so.{{ majorminorpatch }}             # [linux]
+        - test -f $PREFIX/lib/libcudnn_engines_runtime_compiled.so.{{ soname }}                      # [linux]
+        - test -f $PREFIX/lib/libcudnn_graph.so.{{ majorminorpatch }}                                # [linux]
+        - test -f $PREFIX/lib/libcudnn_graph.so.{{ soname }}                                         # [linux]
+    about:
+      license: LicenseRef-NVIDIA-End-User-License-Agreement
+      license_file: LICENSE
+      license_url: https://docs.nvidia.com/deeplearning/cudnn/sla/index.html
+      summary: Graph JIT configuration for NVIDIA's cuDNN deep neural network acceleration library
+      description: |
+        This is a runtime package for Graph JIT configuration for NVIDIA's cuDNN deep neural network acceleration library.
+        Developers should install libcudnn-jit-dev.
+
+  - name: libcudnn-jit-dev
+    files:
+      - Library/include/cudnn*.h                                                                  # [win]
+      - Library/lib/cudnn.lib                                                                     # [win]
+      - Library/lib/cudnn64_{{ soname }}.lib                                                      # [win]
+      - Library/lib/cudnn_engines_runtime_compiled.lib                                            # [win]
+      - Library/lib/cudnn_engines_runtime_compiled64_{{ soname }}.lib                             # [win]
+      - Library/lib/cudnn_graph.lib                                                               # [win]
+      - Library/lib/cudnn_graph64_{{ soname }}.lib                                                # [win]
+      - include/cudnn*.h                                                                          # [linux]
+      - lib/libcudnn.so                                                                           # [linux]
+      - lib/libcudnn_engines_runtime_compiled.so                                                  # [linux]
+      - lib/libcudnn_graph.so                                                                     # [linux]
+    requirements:
+      host:
+        - {{ pin_subpackage("libcudnn-jit", exact=True) }}
+      run:
+        - {{ pin_subpackage("libcudnn-jit", exact=True) }}
+        - arm-variant * {{ arm_variant_type }}  # [aarch64]
+    test:
+      commands:
+        - if not exist %LIBRARY_INC%/cudnn.h exit 1                                                  # [win]
+        - if not exist %LIBRARY_INC%/cudnn_adv.h exit 1                                              # [win]
+        - if not exist %LIBRARY_INC%/cudnn_backend.h exit 1                                          # [win]
+        - if not exist %LIBRARY_INC%/cudnn_cnn.h exit 1                                              # [win]
+        - if not exist %LIBRARY_INC%/cudnn_graph.h exit 1                                            # [win]
+        - if not exist %LIBRARY_INC%/cudnn_ops.h exit 1                                              # [win]
+        - if not exist %LIBRARY_INC%/cudnn_version.h exit 1                                          # [win]
+        - if not exist %LIBRARY_LIB%/cudnn.lib exit 1                                                # [win]
+        - if not exist %LIBRARY_LIB%/cudnn64_{{ soname }}.lib exit 1                                 # [win]
+        - if not exist %LIBRARY_LIB%/cudnn_engines_runtime_compiled.lib exit 1                       # [win]
+        - if not exist %LIBRARY_LIB%/cudnn_engines_runtime_compiled64_{{ soname }}.lib exit 1        # [win]
+        - if not exist %LIBRARY_LIB%/cudnn_graph.lib exit 1                                          # [win]
+        - if not exist %LIBRARY_LIB%/cudnn_graph64_{{ soname }}.lib exit 1                           # [win]
+        - test -f $PREFIX/include/cudnn.h                                                            # [linux]
+        - test -f $PREFIX/include/cudnn_adv.h                                                        # [linux]
+        - test -f $PREFIX/include/cudnn_adv_v{{ soname }}.h                                          # [linux]
+        - test -f $PREFIX/include/cudnn_backend.h                                                    # [linux]
+        - test -f $PREFIX/include/cudnn_backend_v{{ soname }}.h                                      # [linux]
+        - test -f $PREFIX/include/cudnn_cnn.h                                                        # [linux]
+        - test -f $PREFIX/include/cudnn_cnn_v{{ soname }}.h                                          # [linux]
+        - test -f $PREFIX/include/cudnn_graph.h                                                      # [linux]
+        - test -f $PREFIX/include/cudnn_graph_v{{ soname }}.h                                        # [linux]
+        - test -f $PREFIX/include/cudnn_ops.h                                                        # [linux]
+        - test -f $PREFIX/include/cudnn_ops_v{{ soname }}.h                                          # [linux]
+        - test -f $PREFIX/include/cudnn_v{{ soname }}.h                                              # [linux]
+        - test -f $PREFIX/include/cudnn_version.h                                                    # [linux]
+        - test -f $PREFIX/include/cudnn_version_v{{ soname }}.h                                      # [linux]
+        - test -L $PREFIX/lib/libcudnn.so                                                            # [linux]
+        - test -L $PREFIX/lib/libcudnn_engines_runtime_compiled.so                                   # [linux]
+        - test -L $PREFIX/lib/libcudnn_graph.so                                                      # [linux]
+    about:
+      license: LicenseRef-NVIDIA-End-User-License-Agreement
+      license_file: LICENSE
+      license_url: https://docs.nvidia.com/deeplearning/cudnn/sla/index.html
+      summary: Graph JIT configuration for NVIDIA's cuDNN deep neural network acceleration library
+      description: |
+        This is a development package for Graph JIT configuration for NVIDIA's cuDNN deep neural network acceleration library
 
 about:
   home: https://developer.nvidia.com/cudnn
