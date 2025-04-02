@@ -20,12 +20,12 @@ source:
   sha256: d8a23705e3884b137b7e05449fb2b61bfa524e7cfc3fda80743d633f423c6ce4  # [win and (cuda_compiler_version or "").startswith("12")]
 
 build:
-  number: 0
-  skip: True  # [cuda_compiler_version in ("None", None)]
+  number: 1
+  skip: true  # [cuda_compiler_version in ("None", None)]
   # Disable binary relocation to workaround patchelf issue
   # xref: https://github.com/NixOS/patchelf/issues/492
   binary_relocation: false
-  script:  # [win]
+  script:   # [win]
     - mkdir %LIBRARY_INC%                                   # [win]
     - copy %SRC_DIR%\\include\\cudnn*.h %LIBRARY_INC%\\     # [win]
     - mkdir %LIBRARY_LIB%                                   # [win]
@@ -46,6 +46,7 @@ requirements:
     - {{ compiler('cuda') }}
     - arm-variant * {{ arm_variant_type }}  # [aarch64]
     - patchelf >=0.12  # [linux]
+    - cf-nvidia-tools 1  # [linux]
   host:
     - cuda-version {{ cuda_compiler_version }}
     # For Windows, zlib is statically linked into CUDNN since version 9.2
