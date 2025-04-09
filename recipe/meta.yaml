@@ -36,12 +36,12 @@ outputs:
   - name: cudnn
     build:
       ignore_run_exports_from:
-        - {{ compiler("cuda") }}
+        - {{ compiler('cuda') }}
     requirements:
       build:
-        - {{ compiler("c") }}
-        - {{ compiler("cxx") }}
-        - {{ compiler("cuda") }}
+        - {{ compiler('c') }}
+        - {{ compiler('cxx') }}
+        - {{ compiler('cuda') }}
         - {{ stdlib("c") }}
         - arm-variant * {{ arm_variant_type }}  # [aarch64]
       host:
@@ -60,15 +60,15 @@ outputs:
       # xref: https://github.com/NixOS/patchelf/issues/492
       binary_relocation: false
       ignore_run_exports_from:
-        - {{ compiler("cuda") }}
+        - {{ compiler('cuda') }}
     files:
       - lib/libcudnn*.so.*                  # [linux]
       - Library/bin/cudnn*.dll              # [win]
     requirements:
       build:
-        - {{ compiler("c") }}
-        - {{ compiler("cxx") }}
-        - {{ compiler("cuda") }}
+        - {{ compiler('c') }}
+        - {{ compiler('cxx') }}
+        - {{ compiler('cuda') }}
         - {{ stdlib("c") }}
         - arm-variant * {{ arm_variant_type }}  # [aarch64]
       host:
@@ -121,7 +121,7 @@ outputs:
   - name: libcudnn-dev
     build:
       ignore_run_exports_from:
-        - {{ compiler("cuda") }}
+        - {{ compiler('cuda') }}
     files:
       - include/cudnn*.h                                                                             # [linux]
       - Library/include/cudnn*.h                                                                     # [win]
@@ -129,9 +129,9 @@ outputs:
       - Library/lib/cudnn*.lib                                                                       # [win]
     requirements:
       build:
-        - {{ compiler("c") }}
-        - {{ compiler("cxx") }}
-        - {{ compiler("cuda") }}
+        - {{ compiler('c') }}
+        - {{ compiler('cxx') }}
+        - {{ compiler('cuda') }}
         - {{ stdlib("c") }}
         - arm-variant * {{ arm_variant_type }}  # [aarch64]
       host:
@@ -196,12 +196,12 @@ outputs:
   - name: cudnn-jit
     build:
       ignore_run_exports_from:
-        - {{ compiler("cuda") }}
+        - {{ compiler('cuda') }}
     requirements:
       build:
-        - {{ compiler("c") }}
-        - {{ compiler("cxx") }}
-        - {{ compiler("cuda") }}
+        - {{ compiler('c') }}
+        - {{ compiler('cxx') }}
+        - {{ compiler('cuda') }}
         - {{ stdlib("c") }}
         - arm-variant * {{ arm_variant_type }}  # [aarch64]
       host:
@@ -220,7 +220,7 @@ outputs:
       # xref: https://github.com/NixOS/patchelf/issues/492
       binary_relocation: false
       ignore_run_exports_from:
-        - {{ compiler("cuda") }}
+        - {{ compiler('cuda') }}
     files:
       - Library/bin/cudnn64_{{ soname }}.dll                                          # [win]
       - Library/bin/cudnn_engines_runtime_compiled64_{{ soname }}.dll                 # [win]
@@ -276,7 +276,7 @@ outputs:
   - name: libcudnn-jit-dev
     build:
       ignore_run_exports_from:
-        - {{ compiler("cuda") }}
+        - {{ compiler('cuda') }}
     files:
       - Library/include/cudnn*.h                                                                  # [win]
       - Library/lib/cudnn.lib                                                                     # [win]
@@ -291,9 +291,9 @@ outputs:
       - lib/libcudnn_graph.so                                                                     # [linux]
     requirements:
       build:
-        - {{ compiler("c") }}
-        - {{ compiler("cxx") }}
-        - {{ compiler("cuda") }}
+        - {{ compiler('c') }}
+        - {{ compiler('cxx') }}
+        - {{ compiler('cuda') }}
         - {{ stdlib("c") }}
         - arm-variant * {{ arm_variant_type }}  # [aarch64]
       host:
