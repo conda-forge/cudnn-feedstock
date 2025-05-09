@@ -4,8 +4,7 @@ set -e
 check-glibc lib/lib*.so*
 
 mkdir -p $PREFIX/include
-cp include/cudnn*.h $PREFIX/include/
+cp -vp include/cudnn*.h $PREFIX/include/
 
 mkdir -p $PREFIX/lib
-mv lib/libcudnn*.so* $PREFIX/lib/
-
+cp -vpP lib/libcudnn*.so* $PREFIX/lib/

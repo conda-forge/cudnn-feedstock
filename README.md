@@ -96,6 +96,8 @@ Current release info
 | Name | Downloads | Version | Platforms |
 | --- | --- | --- | --- |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-cudnn-green.svg)](https://anaconda.org/conda-forge/cudnn) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/cudnn.svg)](https://anaconda.org/conda-forge/cudnn) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/cudnn.svg)](https://anaconda.org/conda-forge/cudnn) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/cudnn.svg)](https://anaconda.org/conda-forge/cudnn) |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-libcudnn-green.svg)](https://anaconda.org/conda-forge/libcudnn) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/libcudnn.svg)](https://anaconda.org/conda-forge/libcudnn) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/libcudnn.svg)](https://anaconda.org/conda-forge/libcudnn) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/libcudnn.svg)](https://anaconda.org/conda-forge/libcudnn) |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-libcudnn--dev-green.svg)](https://anaconda.org/conda-forge/libcudnn-dev) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/libcudnn-dev.svg)](https://anaconda.org/conda-forge/libcudnn-dev) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/libcudnn-dev.svg)](https://anaconda.org/conda-forge/libcudnn-dev) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/libcudnn-dev.svg)](https://anaconda.org/conda-forge/libcudnn-dev) |
 
 Installing cudnn
 ================
@@ -107,16 +109,16 @@ conda config --add channels conda-forge
 conda config --set channel_priority strict
 ```
 
-Once the `conda-forge` channel has been enabled, `cudnn` can be installed with `conda`:
+Once the `conda-forge` channel has been enabled, `cudnn, libcudnn, libcudnn-dev` can be installed with `conda`:
 
 ```
-conda install cudnn
+conda install cudnn libcudnn libcudnn-dev
 ```
 
 or with `mamba`:
 
 ```
-mamba install cudnn
+mamba install cudnn libcudnn libcudnn-dev
 ```
 
 It is possible to list all of the versions of `cudnn` available on your platform with `conda`:
