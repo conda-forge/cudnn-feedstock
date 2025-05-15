@@ -22,7 +22,7 @@ source:
   sha256: 214f21e4a6fdc7121b2463f55937ebf097ab7c96232c3d575b39b9b030503fca  # [win and (cuda_compiler_version or "").startswith("12")]
 
 build:
-  number: 0
+  number: 1
   skip: true  # [cuda_compiler_version in ("None", None)]
 
 requirements:
@@ -52,6 +52,9 @@ outputs:
         - {{ pin_subpackage("libcudnn-dev", exact=True) }}
       run_constrained:
         - cudnn-jit <0a
+      # The run_exports is present on cudnn for backward compatibility
+      run_exports:
+        - {{ pin_subpackage("libcudnn", max_pin="x") }}
 
   - name: libcudnn
     build:
@@ -142,6 +145,8 @@ outputs:
         - {{ pin_subpackage("libcudnn", exact=True) }}
       run_constrained:
         - libcudnn-jit-dev <0a
+      run_exports:
+        - {{ pin_subpackage("libcudnn", max_pin="x") }}
     test:
       commands:
         - if not exist %LIBRARY_INC%/cudnn.h exit 1                                                  # [win]
@@ -307,6 +312,8 @@ outputs:
         - {{ pin_subpackage("libcudnn-jit", exact=True) }}
       run_constrained:
         - libcudnn-dev <0a
+      run_exports:
+        - {{ pin_subpackage("libcudnn-jit", max_pin="x") }}
     test:
       commands:
         - if not exist %LIBRARY_INC%/cudnn.h exit 1                                                  # [win]
