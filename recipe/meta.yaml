@@ -54,7 +54,7 @@ outputs:
         - cudnn-jit <0a
       # The run_exports is present on cudnn for backward compatibility
       run_exports:
-        - {{ pin_subpackage("libcudnn", max_pin="x") }}
+        - {{ pin_subpackage("cudnn", max_pin="x") }}
 
   - name: libcudnn
     build:
