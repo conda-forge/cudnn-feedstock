@@ -22,7 +22,7 @@ source:
   sha256: 320ef15635397b00100ca9e18a94fc75de16a8408f4eb9994d18673377dec4fd  # [win and (cuda_compiler_version or "").startswith("12")]
 
 build:
-  number: 0
+  number: 1
   skip: true  # [cuda_compiler_version in ("None", None)]
 
 requirements:
