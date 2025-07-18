@@ -1,4 +1,4 @@
-{% set version = "9.10.1.4" %}
+{% set version = "9.11.0.98" %}
 {% set soname = version.split('.')[0] %}
 {% set majorminorpatch = '.'.join(version.split('.')[:3]) %}
 {% set platform = "linux-x86_64" %}  # [linux64]
@@ -15,15 +15,15 @@ source:
   url: https://developer.download.nvidia.com/compute/cudnn/redist/cudnn/{{ platform }}/cudnn-{{ platform }}-{{ version }}_cuda11-archive.{{ extension }}  # [(cuda_compiler_version or "").startswith("11")]
   url: https://developer.download.nvidia.com/compute/cudnn/redist/cudnn/{{ platform }}/cudnn-{{ platform }}-{{ version }}_cuda12-archive.{{ extension }}  # [(cuda_compiler_version or "").startswith("12")]
   sha256: f92286c1e84792759c39dc4d79db21ede2f96bf939f6a2f355e7e607e2184a37  # [linux64 and (cuda_compiler_version or "").startswith("11")]
-  sha256: be759754e5bd1fcd9b490e224796c87f093c1e92b2b6357854d5371b6aeeb8be  # [linux64 and (cuda_compiler_version or "").startswith("12")]
+  sha256: b60c8fad01fa1521d2e71ed38887b90478d7f07b3da49fd68ab118a9fee4da48  # [linux64 and (cuda_compiler_version or "").startswith("12")]
   sha256: 04b93f4ddb010cde223aeb7713209f37a7bda0b56d72740bc819310876f0d329  # [aarch64 and (cuda_compiler_version or "").startswith("11")]
-  sha256: d5cd68d4d09a151ad839a352f6fa01c3f86ccfb498704456892b992c3d8e4c88  # [aarch64 and (cuda_compiler_version or "").startswith("12")]
+  sha256: 5fcd6451d88a9d3b7facbc00481fa5e2bb15f2ca6dc6f86e0b2b201bc42ecd56  # [aarch64 and (cuda_compiler_version or "").startswith("12")]
   sha256: 586b2b2347e17ffe95c24b0da3766b67c4b2b98c1fee6fd3c4b4bbd91b2ebbb5  # [win and (cuda_compiler_version or "").startswith("11")]
-  sha256: 320ef15635397b00100ca9e18a94fc75de16a8408f4eb9994d18673377dec4fd  # [win and (cuda_compiler_version or "").startswith("12")]
+  sha256: 947988b49209d0d22c81809f20f8e7a703e9347d519317e1468e11fd70bb195a  # [win and (cuda_compiler_version or "").startswith("12")]
 
 build:
   number: 0
-  skip: true  # [cuda_compiler_version in ("None", None)]
+  skip: true  # [cuda_compiler_version in (None, "None") or (cuda_compiler_version or "").startswith("11")]
 
 requirements:
   build:
@@ -199,7 +199,7 @@ outputs:
   # for each build variant.
   - name: cudnn-jit
     build:
-      skip: true # not shipping for v9.10
+      skip: true # not shipping for v9.11
       ignore_run_exports_from:
         - {{ compiler('cuda') }}
     requirements:
@@ -221,7 +221,7 @@ outputs:
 
   - name: libcudnn-jit
     build:
-      skip: true # not shipping for v9.10
+      skip: true # not shipping for v9.11
       # Disable binary relocation to workaround patchelf issue
       # xref: https://github.com/NixOS/patchelf/issues/492
       binary_relocation: false
@@ -281,7 +281,7 @@ outputs:
 
   - name: libcudnn-jit-dev
     build:
-      skip: true # not shipping for v9.10
+      skip: true # not shipping for v9.11
       ignore_run_exports_from:
         - {{ compiler('cuda') }}
       run_exports:
