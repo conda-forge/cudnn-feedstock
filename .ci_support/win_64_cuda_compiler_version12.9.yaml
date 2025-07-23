@@ -1,5 +1,5 @@
 c_compiler:
-- vs2019
+- vs2022
 c_stdlib:
 - vs
 channel_sources:
@@ -9,13 +9,10 @@ channel_targets:
 cuda_compiler:
 - cuda-nvcc
 cuda_compiler_version:
-- '12.6'
+- '12.9'
 cudnn:
 - '9'
 cxx_compiler:
-- vs2019
+- vs2022
 target_platform:
 - win-64
-zip_keys:
-- - cuda_compiler
-  - cuda_compiler_version
