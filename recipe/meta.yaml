@@ -12,13 +12,9 @@ package:
   version: {{ version }}
 
 source:
-  url: https://developer.download.nvidia.com/compute/cudnn/redist/cudnn/{{ platform }}/cudnn-{{ platform }}-{{ version }}_cuda11-archive.{{ extension }}  # [(cuda_compiler_version or "").startswith("11")]
   url: https://developer.download.nvidia.com/compute/cudnn/redist/cudnn/{{ platform }}/cudnn-{{ platform }}-{{ version }}_cuda12-archive.{{ extension }}  # [(cuda_compiler_version or "").startswith("12")]
-  sha256: f92286c1e84792759c39dc4d79db21ede2f96bf939f6a2f355e7e607e2184a37  # [linux64 and (cuda_compiler_version or "").startswith("11")]
   sha256: b60c8fad01fa1521d2e71ed38887b90478d7f07b3da49fd68ab118a9fee4da48  # [linux64 and (cuda_compiler_version or "").startswith("12")]
-  sha256: 04b93f4ddb010cde223aeb7713209f37a7bda0b56d72740bc819310876f0d329  # [aarch64 and (cuda_compiler_version or "").startswith("11")]
   sha256: 5fcd6451d88a9d3b7facbc00481fa5e2bb15f2ca6dc6f86e0b2b201bc42ecd56  # [aarch64 and (cuda_compiler_version or "").startswith("12")]
-  sha256: 586b2b2347e17ffe95c24b0da3766b67c4b2b98c1fee6fd3c4b4bbd91b2ebbb5  # [win and (cuda_compiler_version or "").startswith("11")]
   sha256: 947988b49209d0d22c81809f20f8e7a703e9347d519317e1468e11fd70bb195a  # [win and (cuda_compiler_version or "").startswith("12")]
 
 build:
