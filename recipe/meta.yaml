@@ -198,7 +198,6 @@ outputs:
   # for each build variant.
   - name: cudnn-jit
     build:
-      skip: true # not shipping for v9.11
       ignore_run_exports_from:
         - {{ compiler('cuda') }}
     requirements:
@@ -220,7 +219,6 @@ outputs:
 
   - name: libcudnn-jit
     build:
-      skip: true # not shipping for v9.11
       # Disable binary relocation to workaround patchelf issue
       # xref: https://github.com/NixOS/patchelf/issues/492
       binary_relocation: false
@@ -279,7 +277,6 @@ outputs:
 
   - name: libcudnn-jit-dev
     build:
-      skip: true # not shipping for v9.11
       ignore_run_exports_from:
         - {{ compiler('cuda') }}
       run_exports:
