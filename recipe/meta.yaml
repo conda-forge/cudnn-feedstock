@@ -13,9 +13,13 @@ package:
 
 source:
   url: https://developer.download.nvidia.com/compute/cudnn/redist/cudnn/{{ platform }}/cudnn-{{ platform }}-{{ version }}_cuda12-archive.{{ extension }}  # [(cuda_compiler_version or "").startswith("12")]
-  sha256: b60c8fad01fa1521d2e71ed38887b90478d7f07b3da49fd68ab118a9fee4da48  # [linux64 and (cuda_compiler_version or "").startswith("12")]
-  sha256: 5fcd6451d88a9d3b7facbc00481fa5e2bb15f2ca6dc6f86e0b2b201bc42ecd56  # [aarch64 and (cuda_compiler_version or "").startswith("12")]
-  sha256: 947988b49209d0d22c81809f20f8e7a703e9347d519317e1468e11fd70bb195a  # [win and (cuda_compiler_version or "").startswith("12")]
+  url: https://developer.download.nvidia.com/compute/cudnn/redist/cudnn/{{ platform }}/cudnn-{{ platform }}-{{ version }}_cuda13-archive.{{ extension }}  # [(cuda_compiler_version or "").startswith("13")]
+  sha256: be759754e5bd1fcd9b490e224796c87f093c1e92b2b6357854d5371b6aeeb8be  # [linux64 and (cuda_compiler_version or "").startswith("12")]
+  sha256: be759754e5bd1fcd9b490e224796c87f093c1e92b2b6357854d5371b6aeeb8be  # [linux64 and (cuda_compiler_version or "").startswith("13")]
+  sha256: d5cd68d4d09a151ad839a352f6fa01c3f86ccfb498704456892b992c3d8e4c88  # [aarch64 and (cuda_compiler_version or "").startswith("12")]
+  sha256: d5cd68d4d09a151ad839a352f6fa01c3f86ccfb498704456892b992c3d8e4c88  # [aarch64 and (cuda_compiler_version or "").startswith("13")]
+  sha256: 320ef15635397b00100ca9e18a94fc75de16a8408f4eb9994d18673377dec4fd  # [win and (cuda_compiler_version or "").startswith("12")]
+  sha256: 320ef15635397b00100ca9e18a94fc75de16a8408f4eb9994d18673377dec4fd  # [win and (cuda_compiler_version or "").startswith("13")]
 
 build:
   number: 0
@@ -78,9 +82,8 @@ outputs:
       run:
         - arm-variant * {{ arm_variant_type }}  # [aarch64]
         - {{ pin_compatible("cuda-version", min_pin="x", max_pin="x") }}
-        - cudatoolkit       # [(cuda_compiler_version or "").startswith("11")]
-        - cuda-nvrtc        # [(cuda_compiler_version or "").startswith("12")]
-        - libcublas         # [(cuda_compiler_version or "").startswith("12")]
+        - cuda-nvrtc        # [(cuda_compiler_version or "").startswith(("12", "13"))]
+        - libcublas         # [(cuda_compiler_version or "").startswith(("12", "13"))]
       run_constrained:
         - libcudnn-jit <0a
     test:
@@ -250,9 +253,8 @@ outputs:
       run:
         - {{ pin_compatible("cuda-version", min_pin="x", max_pin="x") }}
         - arm-variant * {{ arm_variant_type }}  # [aarch64]
-        - cudatoolkit       # [(cuda_compiler_version or "").startswith("11")]
-        - cuda-nvrtc        # [(cuda_compiler_version or "").startswith("12")]
-        - libcublas         # [(cuda_compiler_version or "").startswith("12")]
+        - cuda-nvrtc        # [(cuda_compiler_version or "").startswith(("12", "13"))]
+        - libcublas         # [(cuda_compiler_version or "").startswith(("12", "13"))]
       run_constrained:
         - libcudnn <0a
     test:
