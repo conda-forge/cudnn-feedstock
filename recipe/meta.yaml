@@ -34,8 +34,8 @@ outputs:
   # for each build variant.
   - name: cudnn
     build:
-      ignore_run_exports_from:
-        - {{ compiler('cuda') }}
+      ignore_run_exports:
+        - cuda-version
       # The run_exports is present on cudnn for backward compatibility
       run_exports:
         - {{ pin_subpackage("cudnn", max_pin="x") }}
@@ -45,12 +45,10 @@ outputs:
         - {{ compiler('cxx') }}
         - {{ compiler('cuda') }}
         - {{ stdlib("c") }}
-        - arm-variant * {{ arm_variant_type }}  # [aarch64]
       host:
         - cuda-version {{ cuda_compiler_version }}
         - {{ pin_subpackage("libcudnn-dev", exact=True) }}
       run:
-        - arm-variant * {{ arm_variant_type }}  # [aarch64]
         - {{ pin_compatible("cuda-version", min_pin="x", max_pin="x") }}
         - {{ pin_subpackage("libcudnn-dev", exact=True) }}
       run_constrained:
@@ -61,8 +59,8 @@ outputs:
       # Disable binary relocation to workaround patchelf issue
       # xref: https://github.com/NixOS/patchelf/issues/492
       binary_relocation: false
-      ignore_run_exports_from:
-        - {{ compiler('cuda') }}
+      ignore_run_exports:
+        - cuda-version
     files:
       - lib/libcudnn*.so.*                  # [linux]
       - Library/bin/cudnn*.dll              # [win]
@@ -72,7 +70,6 @@ outputs:
         - {{ compiler('cxx') }}
         - {{ compiler('cuda') }}
         - {{ stdlib("c") }}
-        - arm-variant * {{ arm_variant_type }}  # [aarch64]
       host:
         - cuda-version {{ cuda_compiler_version }}
         # For Windows, zlib is statically linked into CUDNN since version 9.2
@@ -80,10 +77,9 @@ outputs:
         # For Linux, zlib remains a dynamically linked dependency
         - zlib  # [not win]
       run:
-        - arm-variant * {{ arm_variant_type }}  # [aarch64]
         - {{ pin_compatible("cuda-version", min_pin="x", max_pin="x") }}
-        - cuda-nvrtc        # [(cuda_compiler_version or "").startswith(("12", "13"))]
-        - libcublas         # [(cuda_compiler_version or "").startswith(("12", "13"))]
+        - cuda-nvrtc
+        - libcublas
       run_constrained:
         - libcudnn-jit <0a
     test:
@@ -121,8 +117,8 @@ outputs:
 
   - name: libcudnn-dev
     build:
-      ignore_run_exports_from:
-        - {{ compiler('cuda') }}
+      ignore_run_exports:
+        - cuda-version
       run_exports:
         - {{ pin_subpackage("libcudnn", max_pin="x") }}
     files:
@@ -136,12 +132,10 @@ outputs:
         - {{ compiler('cxx') }}
         - {{ compiler('cuda') }}
         - {{ stdlib("c") }}
-        - arm-variant * {{ arm_variant_type }}  # [aarch64]
       host:
         - cuda-version {{ cuda_compiler_version }}
         - {{ pin_subpackage("libcudnn", exact=True) }}
       run:
-        - arm-variant * {{ arm_variant_type }}  # [aarch64]
         - {{ pin_compatible("cuda-version", min_pin="x", max_pin="x") }}
         - {{ pin_subpackage("libcudnn", exact=True) }}
       run_constrained:
@@ -199,20 +193,18 @@ outputs:
   - name: cudnn-jit
     build:
       skip: true  # [win]
-      ignore_run_exports_from:
-        - {{ compiler('cuda') }}
+      ignore_run_exports:
+        - cuda-version
     requirements:
       build:
         - {{ compiler('c') }}
         - {{ compiler('cxx') }}
         - {{ compiler('cuda') }}
         - {{ stdlib("c") }}
-        - arm-variant * {{ arm_variant_type }}  # [aarch64]
       host:
         - cuda-version {{ cuda_compiler_version }}
         - {{ pin_subpackage("libcudnn-jit-dev", exact=True) }}
       run:
-        - arm-variant * {{ arm_variant_type }}  # [aarch64]
         - {{ pin_compatible("cuda-version", min_pin="x", max_pin="x") }}
         - {{ pin_subpackage("libcudnn-jit-dev", exact=True) }}
       run_constrained:
@@ -224,8 +216,8 @@ outputs:
       # Disable binary relocation to workaround patchelf issue
       # xref: https://github.com/NixOS/patchelf/issues/492
       binary_relocation: false
-      ignore_run_exports_from:
-        - {{ compiler('cuda') }}
+      ignore_run_exports:
+        - cuda-version
     files:
       - Library/bin/cudnn64_{{ soname }}.dll                                          # [win]
       - Library/bin/cudnn_engines_runtime_compiled64_{{ soname }}.dll                 # [win]
@@ -242,7 +234,6 @@ outputs:
         - {{ compiler('cxx') }}
         - {{ compiler('cuda') }}
         - {{ stdlib('c') }}
-        - arm-variant * {{ arm_variant_type }}  # [aarch64]
         - patchelf >=0.12  # [linux]
       host:
         - cuda-version {{ cuda_compiler_version }}
@@ -252,9 +243,8 @@ outputs:
         - zlib  # [not win]
       run:
         - {{ pin_compatible("cuda-version", min_pin="x", max_pin="x") }}
-        - arm-variant * {{ arm_variant_type }}  # [aarch64]
-        - cuda-nvrtc        # [(cuda_compiler_version or "").startswith(("12", "13"))]
-        - libcublas         # [(cuda_compiler_version or "").startswith(("12", "13"))]
+        - cuda-nvrtc
+        - libcublas
       run_constrained:
         - libcudnn <0a
     test:
@@ -280,8 +270,8 @@ outputs:
   - name: libcudnn-jit-dev
     build:
       skip: true  # [win]
-      ignore_run_exports_from:
-        - {{ compiler('cuda') }}
+      ignore_run_exports:
+        - cuda-version
       run_exports:
         - {{ pin_subpackage("libcudnn-jit", max_pin="x") }}
     files:
@@ -302,12 +292,10 @@ outputs:
         - {{ compiler('cxx') }}
         - {{ compiler('cuda') }}
         - {{ stdlib("c") }}
-        - arm-variant * {{ arm_variant_type }}  # [aarch64]
       host:
         - cuda-version {{ cuda_compiler_version }}
         - {{ pin_subpackage("libcudnn-jit", exact=True) }}
       run:
-        - arm-variant * {{ arm_variant_type }}  # [aarch64]
         - {{ pin_compatible("cuda-version", min_pin="x", max_pin="x") }}
         - {{ pin_subpackage("libcudnn-jit", exact=True) }}
       run_constrained:
