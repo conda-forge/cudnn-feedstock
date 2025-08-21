@@ -33,6 +33,7 @@ xz:
 zip_keys:
 - - c_compiler_version
   - cxx_compiler_version
+  - c_stdlib_version
   - cuda_compiler_version
 zlib:
 - '1'
