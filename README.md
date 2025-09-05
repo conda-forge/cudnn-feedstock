@@ -3,6 +3,10 @@ About cudnn-feedstock
 
 Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/cudnn-feedstock/blob/main/LICENSE.txt)
 
+
+About cudnn
+-----------
+
 Home: https://developer.nvidia.com/cudnn
 
 Package license: [LicenseRef-cuDNN-Software-License-Agreement](https://docs.nvidia.com/deeplearning/cudnn/sla/index.html)
@@ -23,6 +27,31 @@ you accept the terms and conditions of the NVIDIA cuDNN EULA -
 https://docs.nvidia.com/deeplearning/cudnn/sla/index.html
 
 
+About libcudnn-jit
+------------------
+
+
+
+Package license: [LicenseRef-NVIDIA-End-User-License-Agreement](https://docs.nvidia.com/deeplearning/cudnn/sla/index.html)
+
+Summary: Graph JIT configuration for NVIDIA's cuDNN deep neural network acceleration library
+
+This is a runtime package for Graph JIT configuration for NVIDIA's cuDNN deep neural network acceleration library.
+Developers should install libcudnn-jit-dev.
+
+
+About libcudnn-jit-dev
+----------------------
+
+
+
+Package license: [LicenseRef-NVIDIA-End-User-License-Agreement](https://docs.nvidia.com/deeplearning/cudnn/sla/index.html)
+
+Summary: Graph JIT configuration for NVIDIA's cuDNN deep neural network acceleration library
+
+This is a development package for Graph JIT configuration for NVIDIA's cuDNN deep neural network acceleration library
+
+
 Current build status
 ====================
 
@@ -41,31 +70,31 @@ Current build status
         <table>
           <thead><tr><th>Variant</th><th>Status</th></tr></thead>
           <tbody><tr>
-              <td>linux_64_cuda_compiler_version12.9</td>
+              <td>linux_64_c_stdlib_version2.28cuda_compiler_version12.9</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=11465&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/cudnn-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_64_cuda_compiler_version12.9" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/cudnn-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_64_c_stdlib_version2.28cuda_compiler_version12.9" alt="variant">
                 </a>
               </td>
             </tr><tr>
-              <td>linux_64_cuda_compiler_version13.0</td>
+              <td>linux_64_c_stdlib_version2.28cuda_compiler_version13.0</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=11465&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/cudnn-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_64_cuda_compiler_version13.0" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/cudnn-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_64_c_stdlib_version2.28cuda_compiler_version13.0" alt="variant">
                 </a>
               </td>
             </tr><tr>
-              <td>linux_aarch64_cuda_compiler_version12.9</td>
+              <td>linux_aarch64_c_stdlib_version2.28cuda_compiler_version12.9</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=11465&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/cudnn-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_aarch64_cuda_compiler_version12.9" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/cudnn-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_aarch64_c_stdlib_version2.28cuda_compiler_version12.9" alt="variant">
                 </a>
               </td>
             </tr><tr>
-              <td>linux_aarch64_cuda_compiler_version13.0</td>
+              <td>linux_aarch64_c_stdlib_version2.28cuda_compiler_version13.0</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=11465&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/cudnn-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_aarch64_cuda_compiler_version13.0" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/cudnn-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_aarch64_c_stdlib_version2.28cuda_compiler_version13.0" alt="variant">
                 </a>
               </td>
             </tr><tr>
@@ -96,8 +125,11 @@ Current release info
 | Name | Downloads | Version | Platforms |
 | --- | --- | --- | --- |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-cudnn-green.svg)](https://anaconda.org/conda-forge/cudnn) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/cudnn.svg)](https://anaconda.org/conda-forge/cudnn) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/cudnn.svg)](https://anaconda.org/conda-forge/cudnn) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/cudnn.svg)](https://anaconda.org/conda-forge/cudnn) |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-cudnn--jit-green.svg)](https://anaconda.org/conda-forge/cudnn-jit) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/cudnn-jit.svg)](https://anaconda.org/conda-forge/cudnn-jit) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/cudnn-jit.svg)](https://anaconda.org/conda-forge/cudnn-jit) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/cudnn-jit.svg)](https://anaconda.org/conda-forge/cudnn-jit) |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-libcudnn-green.svg)](https://anaconda.org/conda-forge/libcudnn) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/libcudnn.svg)](https://anaconda.org/conda-forge/libcudnn) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/libcudnn.svg)](https://anaconda.org/conda-forge/libcudnn) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/libcudnn.svg)](https://anaconda.org/conda-forge/libcudnn) |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-libcudnn--dev-green.svg)](https://anaconda.org/conda-forge/libcudnn-dev) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/libcudnn-dev.svg)](https://anaconda.org/conda-forge/libcudnn-dev) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/libcudnn-dev.svg)](https://anaconda.org/conda-forge/libcudnn-dev) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/libcudnn-dev.svg)](https://anaconda.org/conda-forge/libcudnn-dev) |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-libcudnn--jit-green.svg)](https://anaconda.org/conda-forge/libcudnn-jit) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/libcudnn-jit.svg)](https://anaconda.org/conda-forge/libcudnn-jit) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/libcudnn-jit.svg)](https://anaconda.org/conda-forge/libcudnn-jit) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/libcudnn-jit.svg)](https://anaconda.org/conda-forge/libcudnn-jit) |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-libcudnn--jit--dev-green.svg)](https://anaconda.org/conda-forge/libcudnn-jit-dev) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/libcudnn-jit-dev.svg)](https://anaconda.org/conda-forge/libcudnn-jit-dev) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/libcudnn-jit-dev.svg)](https://anaconda.org/conda-forge/libcudnn-jit-dev) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/libcudnn-jit-dev.svg)](https://anaconda.org/conda-forge/libcudnn-jit-dev) |
 
 Installing cudnn
 ================
@@ -109,16 +141,16 @@ conda config --add channels conda-forge
 conda config --set channel_priority strict
 ```
 
-Once the `conda-forge` channel has been enabled, `cudnn, libcudnn, libcudnn-dev` can be installed with `conda`:
+Once the `conda-forge` channel has been enabled, `cudnn, cudnn-jit, libcudnn, libcudnn-dev, libcudnn-jit, libcudnn-jit-dev` can be installed with `conda`:
 
 ```
-conda install cudnn libcudnn libcudnn-dev
+conda install cudnn cudnn-jit libcudnn libcudnn-dev libcudnn-jit libcudnn-jit-dev
 ```
 
 or with `mamba`:
 
 ```
-mamba install cudnn libcudnn libcudnn-dev
+mamba install cudnn cudnn-jit libcudnn libcudnn-dev libcudnn-jit libcudnn-jit-dev
 ```
 
 It is possible to list all of the versions of `cudnn` available on your platform with `conda`:

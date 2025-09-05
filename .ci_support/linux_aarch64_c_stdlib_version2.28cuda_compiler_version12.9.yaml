@@ -1,5 +1,3 @@
-arm_variant_type:
-- sbsa
 c_compiler:
 - gcc
 c_compiler_version:
