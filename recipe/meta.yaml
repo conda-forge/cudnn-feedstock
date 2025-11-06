@@ -1,4 +1,4 @@
-{% set version = "9.14.0.64" %}
+{% set version = "9.15.0.58" %}
 {% set soname = version.split('.')[0] %}
 {% set majorminorpatch = '.'.join(version.split('.')[:3]) %}
 {% set platform = "linux-x86_64" %}  # [linux64]
@@ -15,11 +15,11 @@ source:
   url: https://developer.download.nvidia.com/compute/cudnn/redist/cudnn/{{ platform }}/cudnn-{{ platform }}-{{ version }}_cuda12-archive.{{ extension }}  # [(cuda_compiler_version or "").startswith("12")]
   url: https://developer.download.nvidia.com/compute/cudnn/redist/cudnn/{{ platform }}/cudnn-{{ platform }}-{{ version }}_cuda13-archive.{{ extension }}  # [(cuda_compiler_version or "").startswith("13")]
   sha256: fcaf904938b5bab4e782f4d064dd5b5fca7d9872a7f21a9491cf145634be4473  # [linux64 and (cuda_compiler_version or "").startswith("12")]
-  sha256: 75b8c5feb7e65107dc8881af2cf245f9be77274f607c019a966347e36d1526e7  # [linux64 and (cuda_compiler_version or "").startswith("13")]
+  sha256: 6ddfeaa00ba534c7917f15666d7fc1e8f05f822a7681eb9adbe4b86beaebe8bc  # [linux64 and (cuda_compiler_version or "").startswith("13")]
   sha256: 971edb53eb694fc94d3d167d5332ac9e79a6eefb85b1668b21c070940da353e5  # [aarch64 and (cuda_compiler_version or "").startswith("12")]
-  sha256: 79b052a3c78784b7010fe07ffa56c86f731abe365678851dc92a6ee1c1ee5452  # [aarch64 and (cuda_compiler_version or "").startswith("13")]
+  sha256: ea86b8270cb31c397425d123d0d64ab483e695a81155e798ad9324024bcfa0ed  # [aarch64 and (cuda_compiler_version or "").startswith("13")]
   sha256: 27db1cf50f830a1335de991cf1edde43afb4fc65c365dbf013245f1364ec2b12  # [win and (cuda_compiler_version or "").startswith("12")]
-  sha256: 9b98b51bcead704e32640eca1770cadecec1bdf67c6db4093ff4fbcc4a206bd8  # [win and (cuda_compiler_version or "").startswith("13")]
+  sha256: da017a9408005a2a4a79903de19f7e70848e4f9424ba4980f65ea24a59944dbb  # [win and (cuda_compiler_version or "").startswith("13")]
 
 build:
   number: 0
