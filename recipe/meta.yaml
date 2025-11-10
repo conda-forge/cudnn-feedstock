@@ -37,8 +37,8 @@ outputs:
   # for each build variant.
   - name: cudnn
     build:
-      ignore_run_exports_from:
-        - {{ compiler('cuda') }}
+      ignore_run_exports:
+        - cuda-version
       # The run_exports is present on cudnn for backward compatibility
       run_exports:
         - {{ pin_subpackage("cudnn", max_pin="x") }}
@@ -63,8 +63,8 @@ outputs:
       # Disable binary relocation to workaround patchelf issue
       # xref: https://github.com/NixOS/patchelf/issues/492
       binary_relocation: false
-      ignore_run_exports_from:
-        - {{ compiler('cuda') }}
+      ignore_run_exports:
+        - cuda-version
     files:
       - lib/libcudnn*.so.*                  # [linux]
       - Library/bin/cudnn*.dll              # [win]
@@ -83,9 +83,8 @@ outputs:
         - zlib  # [not win]
       run:
         - {{ pin_compatible("cuda-version", min_pin="x", max_pin="x") }}
-        - cudatoolkit       # [(cuda_compiler_version or "").startswith("11")]
-        - cuda-nvrtc        # [(cuda_compiler_version or "").startswith("12")]
-        - libcublas         # [(cuda_compiler_version or "").startswith("12")]
+        - cuda-nvrtc
+        - libcublas
       run_constrained:
         - libcudnn-jit <0a
     test:
@@ -123,8 +122,8 @@ outputs:
 
   - name: libcudnn-dev
     build:
-      ignore_run_exports_from:
-        - {{ compiler('cuda') }}
+      ignore_run_exports:
+        - cuda-version
       run_exports:
         - {{ pin_subpackage("libcudnn", max_pin="x") }}
     files:
@@ -200,8 +199,8 @@ outputs:
   - name: cudnn-jit
     build:
       skip: true # not shipping for v9.10
-      ignore_run_exports_from:
-        - {{ compiler('cuda') }}
+      ignore_run_exports:
+        - cuda-version
     requirements:
       build:
         - {{ compiler('c') }}
@@ -224,8 +223,8 @@ outputs:
       # Disable binary relocation to workaround patchelf issue
       # xref: https://github.com/NixOS/patchelf/issues/492
       binary_relocation: false
-      ignore_run_exports_from:
-        - {{ compiler('cuda') }}
+      ignore_run_exports:
+        - cuda-version
     files:
       - Library/bin/cudnn64_{{ soname }}.dll                                          # [win]
       - Library/bin/cudnn_engines_runtime_compiled64_{{ soname }}.dll                 # [win]
@@ -252,9 +251,8 @@ outputs:
         - zlib  # [not win]
       run:
         - {{ pin_compatible("cuda-version", min_pin="x", max_pin="x") }}
-        - cudatoolkit       # [(cuda_compiler_version or "").startswith("11")]
-        - cuda-nvrtc        # [(cuda_compiler_version or "").startswith("12")]
-        - libcublas         # [(cuda_compiler_version or "").startswith("12")]
+        - cuda-nvrtc
+        - libcublas
       run_constrained:
         - libcudnn <0a
     test:
@@ -280,8 +278,8 @@ outputs:
   - name: libcudnn-jit-dev
     build:
       skip: true # not shipping for v9.10
-      ignore_run_exports_from:
-        - {{ compiler('cuda') }}
+      ignore_run_exports:
+        - cuda-version
       run_exports:
         - {{ pin_subpackage("libcudnn-jit", max_pin="x") }}
     files:
