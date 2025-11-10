@@ -26,7 +26,7 @@ source:
     sha256: "1bb3df3c05480832b0498e317996b54ea8a48a3b6ec5f8c734d02302093d43d9"  # [linux and aarch64 and (cuda_compiler_version or "").startswith("12") and arm_variant_type == "tegra"]
 build:
   number: 0
-  skip: true  # [cuda_compiler_version in ("None", None, "11.8")]
+  skip: true  # [cuda_compiler_version in ("None", None)]
 
 requirements:
   build:
