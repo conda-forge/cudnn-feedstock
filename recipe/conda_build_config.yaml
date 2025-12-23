@@ -1,6 +1,0 @@
-# https://docs.nvidia.com/deeplearning/cudnn/v9.3.0/reference/support-matrix.html#cpu-architecture-and-os-requirements
-c_stdlib_version:  # [linux]
-  - 2.28  # [linux]
-arm_variant_type:  # [linux and aarch64]
-  - sbsa           # [linux and aarch64]
-  - tegra          # [linux and aarch64]
