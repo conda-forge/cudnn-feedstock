@@ -8,12 +8,16 @@ jobs:
     vmImage: ubuntu-latest
   strategy:
     matrix:
-      linux_64_cuda_compiler_version12.9:
-        CONFIG: linux_64_cuda_compiler_version12.9
+      linux_64_c_stdlib_version2.28cuda_compiler_version12.9:
+        CONFIG: linux_64_c_stdlib_version2.28cuda_compiler_version12.9
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: quay.io/condaforge/linux-anvil-x86_64:alma9
-      linux_aarch64_cuda_compiler_version12.9:
-        CONFIG: linux_aarch64_cuda_compiler_version12.9
+      linux_aarch64_arm_variant_typesbsac_stdlib_version2.28cuda_compiler_version12.9:
+        CONFIG: linux_aarch64_arm_variant_typesbsac_stdlib_version2.28cuda_compiler_version12.9
+        UPLOAD_PACKAGES: 'True'
+        DOCKER_IMAGE: quay.io/condaforge/linux-anvil-x86_64:alma9
+      linux_aarch64_arm_variant_typetegrac_stdlib_version2.34cuda_compiler_version12.9:
+        CONFIG: linux_aarch64_arm_variant_typetegrac_stdlib_version2.34cuda_compiler_version12.9
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: quay.io/condaforge/linux-anvil-x86_64:alma9
   timeoutInMinutes: 360

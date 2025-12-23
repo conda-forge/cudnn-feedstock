@@ -7,6 +7,7 @@ __migrator:
   build_number:
     1
   paused: false
+  use_local: true
   override_cbc_keys:
     - cuda_compiler_stub
   check_solvable: false
@@ -18,6 +19,7 @@ __migrator:
       - 12.8
       - None
       - 12.9
+      - 13.0
       # to allow manual opt-in for CUDA 11.8, see
       # https://github.com/conda-forge/conda-forge-pinning-feedstock/pull/7472
       # must be last due to how cuda_compiler ordering in that migrator works
@@ -43,6 +45,15 @@ __migrator:
 
 cuda_compiler_version:         # [((linux and (x86_64 or aarch64)) or win64) and os.environ.get("CF_CUDA_ENABLED", "False") == "True"]
   - 12.9                       # [((linux and (x86_64 or aarch64)) or win64) and os.environ.get("CF_CUDA_ENABLED", "False") == "True"]
+
+cuda_compiler_version_min:     # [((linux and (x86_64 or aarch64)) or win64) and os.environ.get("CF_CUDA_ENABLED", "False") == "True"]
+  - 12.9                       # [((linux and (x86_64 or aarch64)) or win64) and os.environ.get("CF_CUDA_ENABLED", "False") == "True"]
+
+cudnn:                         # [((linux and (x86_64 or aarch64)) or win64) and os.environ.get("CF_CUDA_ENABLED", "False") == "True"]
+  - 9                          # [((linux and (x86_64 or aarch64)) or win64) and os.environ.get("CF_CUDA_ENABLED", "False") == "True"]
+
+c_stdlib_version:              # [(linux and (x86_64 or aarch64)) and os.environ.get("CF_CUDA_ENABLED", "False") == "True"]
+  - 2.28                       # [(linux and (x86_64 or aarch64)) and os.environ.get("CF_CUDA_ENABLED", "False") == "True"]
 
 c_compiler_version:            # [(linux and (x86_64 or aarch64)) and os.environ.get("CF_CUDA_ENABLED", "False") == "True"]
   - 14                         # [(linux and (x86_64 or aarch64)) and os.environ.get("CF_CUDA_ENABLED", "False") == "True"]
