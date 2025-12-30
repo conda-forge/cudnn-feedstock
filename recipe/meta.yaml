@@ -1,41 +1,45 @@
-{% set version = "9.10.1.4" %}
+{% set version = "9.10.2.21" %}
 {% set soname = version.split('.')[0] %}
 {% set majorminorpatch = '.'.join(version.split('.')[:3]) %}
-{% set platform = "linux-x86_64" %}  # [linux64]
-{% set platform = "linux-sbsa" %}  # [aarch64]
-{% set platform = "windows-x86_64" %}  # [win]
-{% set extension = "tar.xz" %}  # [not win]
-{% set extension = "zip" %}  # [win]
 
 package:
   name: cudnn-split
   version: {{ version }}
 
-source:
-  url: https://developer.download.nvidia.com/compute/cudnn/redist/cudnn/{{ platform }}/cudnn-{{ platform }}-{{ version }}_cuda11-archive.{{ extension }}  # [(cuda_compiler_version or "").startswith("11")]
-  url: https://developer.download.nvidia.com/compute/cudnn/redist/cudnn/{{ platform }}/cudnn-{{ platform }}-{{ version }}_cuda12-archive.{{ extension }}  # [(cuda_compiler_version or "").startswith("12")]
-  sha256: f92286c1e84792759c39dc4d79db21ede2f96bf939f6a2f355e7e607e2184a37  # [linux64 and (cuda_compiler_version or "").startswith("11")]
-  sha256: be759754e5bd1fcd9b490e224796c87f093c1e92b2b6357854d5371b6aeeb8be  # [linux64 and (cuda_compiler_version or "").startswith("12")]
-  sha256: 04b93f4ddb010cde223aeb7713209f37a7bda0b56d72740bc819310876f0d329  # [aarch64 and (cuda_compiler_version or "").startswith("11")]
-  sha256: d5cd68d4d09a151ad839a352f6fa01c3f86ccfb498704456892b992c3d8e4c88  # [aarch64 and (cuda_compiler_version or "").startswith("12")]
-  sha256: 586b2b2347e17ffe95c24b0da3766b67c4b2b98c1fee6fd3c4b4bbd91b2ebbb5  # [win and (cuda_compiler_version or "").startswith("11")]
-  sha256: 320ef15635397b00100ca9e18a94fc75de16a8408f4eb9994d18673377dec4fd  # [win and (cuda_compiler_version or "").startswith("12")]
+{% set arm_variant_type = arm_variant_type | default("sbsa") %}
+{% set cuda_compiler_version = cuda_compiler_version | default("None") %}
 
+source:
+  - url: "https://developer.download.nvidia.com/compute/cudnn/redist/cudnn/linux-x86_64/cudnn-linux-x86_64-{{ version }}_cuda11-archive.tar.xz"  # [linux and x86_64 and (cuda_compiler_version or "").startswith("11")]
+    sha256: "ab05bc70a120425b8b811544a6bc6458ca1f3cc54a8ccc51a1113749ecab1442"  # [linux and x86_64 and (cuda_compiler_version or "").startswith("11")]
+  - url: "https://developer.download.nvidia.com/compute/cudnn/redist/cudnn/linux-x86_64/cudnn-linux-x86_64-{{ version }}_cuda12-archive.tar.xz"  # [linux and x86_64 and (cuda_compiler_version or "").startswith("12")]
+    sha256: "d0defcbc4c6dad711ff4cb66d254036a300c9071b07c7b64199aacab534313c1"  # [linux and x86_64 and (cuda_compiler_version or "").startswith("12")]
+  - url: "https://developer.download.nvidia.com/compute/cudnn/redist/cudnn/linux-sbsa/cudnn-linux-sbsa-{{ version }}_cuda11-archive.tar.xz"  # [linux and aarch64 and (cuda_compiler_version or "").startswith("11") and arm_variant_type == "sbsa"]
+    sha256: "6461e6037a3b8ab5a9c17f527877d493f7cde9eb855fadf686140c7e3fb41aaf"  # [linux and aarch64 and (cuda_compiler_version or "").startswith("11") and arm_variant_type == "sbsa"]
+  - url: "https://developer.download.nvidia.com/compute/cudnn/redist/cudnn/linux-sbsa/cudnn-linux-sbsa-{{ version }}_cuda12-archive.tar.xz"  # [linux and aarch64 and (cuda_compiler_version or "").startswith("12") and arm_variant_type == "sbsa"]
+    sha256: "4d57dceba3be27a68b078ce8630525bf40ab7f1b546eb45d0b363c3eeb55f8fa"  # [linux and aarch64 and (cuda_compiler_version or "").startswith("12") and arm_variant_type == "sbsa"]
+  - url: "https://developer.download.nvidia.com/compute/cudnn/redist/cudnn/windows-x86_64/cudnn-windows-x86_64-{{ version }}_cuda11-archive.zip"  # [win and x86_64 and (cuda_compiler_version or "").startswith("11")]
+    sha256: "dc837ef00beffab937979ba5a72c27facd0443c7e3fa71fc7c2e29adf5262f36"  # [win and x86_64 and (cuda_compiler_version or "").startswith("11")]
+  - url: "https://developer.download.nvidia.com/compute/cudnn/redist/cudnn/windows-x86_64/cudnn-windows-x86_64-{{ version }}_cuda12-archive.zip"  # [win and x86_64 and (cuda_compiler_version or "").startswith("12")]
+    sha256: "c1a4567d822ebda7373fa1f19255dff4942302de741f830160b6c7d1fb31af23"  # [win and x86_64 and (cuda_compiler_version or "").startswith("12")]
+  - url: "https://developer.download.nvidia.com/compute/cudnn/redist/cudnn/linux-aarch64/cudnn-linux-aarch64-{{ version }}_cuda12-archive.tar.xz"  # [linux and aarch64 and (cuda_compiler_version or "").startswith("12") and arm_variant_type == "tegra"]
+    sha256: "1bb3df3c05480832b0498e317996b54ea8a48a3b6ec5f8c734d02302093d43d9"  # [linux and aarch64 and (cuda_compiler_version or "").startswith("12") and arm_variant_type == "tegra"]
 build:
-  number: 1
+  number: 0
   skip: true  # [cuda_compiler_version in ("None", None)]
 
 requirements:
   build:
     - cf-nvidia-tools 1  # [linux]
+    - cuda-cuobjdump  # [linux]
 
 outputs:
   # Even though cudnn is a meta package, need build/host/run to be set in order to generate unique outputs with unique hash
   # for each build variant.
   - name: cudnn
     build:
-      ignore_run_exports_from:
-        - {{ compiler('cuda') }}
+      ignore_run_exports:
+        - cuda-version
       # The run_exports is present on cudnn for backward compatibility
       run_exports:
         - {{ pin_subpackage("cudnn", max_pin="x") }}
@@ -45,12 +49,11 @@ outputs:
         - {{ compiler('cxx') }}
         - {{ compiler('cuda') }}
         - {{ stdlib("c") }}
-        - arm-variant * {{ arm_variant_type }}  # [aarch64]
+        - arm-variant * {{ arm_variant_type }}  # [linux and aarch64]
       host:
         - cuda-version {{ cuda_compiler_version }}
         - {{ pin_subpackage("libcudnn-dev", exact=True) }}
       run:
-        - arm-variant * {{ arm_variant_type }}  # [aarch64]
         - {{ pin_compatible("cuda-version", min_pin="x", max_pin="x") }}
         - {{ pin_subpackage("libcudnn-dev", exact=True) }}
       run_constrained:
@@ -61,8 +64,8 @@ outputs:
       # Disable binary relocation to workaround patchelf issue
       # xref: https://github.com/NixOS/patchelf/issues/492
       binary_relocation: false
-      ignore_run_exports_from:
-        - {{ compiler('cuda') }}
+      ignore_run_exports:
+        - cuda-version
     files:
       - lib/libcudnn*.so.*                  # [linux]
       - Library/bin/cudnn*.dll              # [win]
@@ -72,7 +75,7 @@ outputs:
         - {{ compiler('cxx') }}
         - {{ compiler('cuda') }}
         - {{ stdlib("c") }}
-        - arm-variant * {{ arm_variant_type }}  # [aarch64]
+        - arm-variant * {{ arm_variant_type }}  # [linux and aarch64]
       host:
         - cuda-version {{ cuda_compiler_version }}
         # For Windows, zlib is statically linked into CUDNN since version 9.2
@@ -80,11 +83,9 @@ outputs:
         # For Linux, zlib remains a dynamically linked dependency
         - zlib  # [not win]
       run:
-        - arm-variant * {{ arm_variant_type }}  # [aarch64]
         - {{ pin_compatible("cuda-version", min_pin="x", max_pin="x") }}
-        - cudatoolkit       # [(cuda_compiler_version or "").startswith("11")]
-        - cuda-nvrtc        # [(cuda_compiler_version or "").startswith("12")]
-        - libcublas         # [(cuda_compiler_version or "").startswith("12")]
+        - cuda-nvrtc
+        - libcublas
       run_constrained:
         - libcudnn-jit <0a
     test:
@@ -122,8 +123,8 @@ outputs:
 
   - name: libcudnn-dev
     build:
-      ignore_run_exports_from:
-        - {{ compiler('cuda') }}
+      ignore_run_exports:
+        - cuda-version
       run_exports:
         - {{ pin_subpackage("libcudnn", max_pin="x") }}
     files:
@@ -137,12 +138,11 @@ outputs:
         - {{ compiler('cxx') }}
         - {{ compiler('cuda') }}
         - {{ stdlib("c") }}
-        - arm-variant * {{ arm_variant_type }}  # [aarch64]
+        - arm-variant * {{ arm_variant_type }}  # [linux and aarch64]
       host:
         - cuda-version {{ cuda_compiler_version }}
         - {{ pin_subpackage("libcudnn", exact=True) }}
       run:
-        - arm-variant * {{ arm_variant_type }}  # [aarch64]
         - {{ pin_compatible("cuda-version", min_pin="x", max_pin="x") }}
         - {{ pin_subpackage("libcudnn", exact=True) }}
       run_constrained:
@@ -200,20 +200,19 @@ outputs:
   - name: cudnn-jit
     build:
       skip: true # not shipping for v9.10
-      ignore_run_exports_from:
-        - {{ compiler('cuda') }}
+      ignore_run_exports:
+        - cuda-version
     requirements:
       build:
         - {{ compiler('c') }}
         - {{ compiler('cxx') }}
         - {{ compiler('cuda') }}
         - {{ stdlib("c") }}
-        - arm-variant * {{ arm_variant_type }}  # [aarch64]
+        - arm-variant * {{ arm_variant_type }}  # [linux and aarch64]
       host:
         - cuda-version {{ cuda_compiler_version }}
         - {{ pin_subpackage("libcudnn-jit-dev", exact=True) }}
       run:
-        - arm-variant * {{ arm_variant_type }}  # [aarch64]
         - {{ pin_compatible("cuda-version", min_pin="x", max_pin="x") }}
         - {{ pin_subpackage("libcudnn-jit-dev", exact=True) }}
       run_constrained:
@@ -225,8 +224,8 @@ outputs:
       # Disable binary relocation to workaround patchelf issue
       # xref: https://github.com/NixOS/patchelf/issues/492
       binary_relocation: false
-      ignore_run_exports_from:
-        - {{ compiler('cuda') }}
+      ignore_run_exports:
+        - cuda-version
     files:
       - Library/bin/cudnn64_{{ soname }}.dll                                          # [win]
       - Library/bin/cudnn_engines_runtime_compiled64_{{ soname }}.dll                 # [win]
@@ -243,7 +242,7 @@ outputs:
         - {{ compiler('cxx') }}
         - {{ compiler('cuda') }}
         - {{ stdlib('c') }}
-        - arm-variant * {{ arm_variant_type }}  # [aarch64]
+        - arm-variant * {{ arm_variant_type }}  # [linux and aarch64]
         - patchelf >=0.12  # [linux]
       host:
         - cuda-version {{ cuda_compiler_version }}
@@ -253,10 +252,8 @@ outputs:
         - zlib  # [not win]
       run:
         - {{ pin_compatible("cuda-version", min_pin="x", max_pin="x") }}
-        - arm-variant * {{ arm_variant_type }}  # [aarch64]
-        - cudatoolkit       # [(cuda_compiler_version or "").startswith("11")]
-        - cuda-nvrtc        # [(cuda_compiler_version or "").startswith("12")]
-        - libcublas         # [(cuda_compiler_version or "").startswith("12")]
+        - cuda-nvrtc
+        - libcublas
       run_constrained:
         - libcudnn <0a
     test:
@@ -282,8 +279,8 @@ outputs:
   - name: libcudnn-jit-dev
     build:
       skip: true # not shipping for v9.10
-      ignore_run_exports_from:
-        - {{ compiler('cuda') }}
+      ignore_run_exports:
+        - cuda-version
       run_exports:
         - {{ pin_subpackage("libcudnn-jit", max_pin="x") }}
     files:
@@ -304,12 +301,11 @@ outputs:
         - {{ compiler('cxx') }}
         - {{ compiler('cuda') }}
         - {{ stdlib("c") }}
-        - arm-variant * {{ arm_variant_type }}  # [aarch64]
+        - arm-variant * {{ arm_variant_type }}  # [linux and aarch64]
       host:
         - cuda-version {{ cuda_compiler_version }}
         - {{ pin_subpackage("libcudnn-jit", exact=True) }}
       run:
-        - arm-variant * {{ arm_variant_type }}  # [aarch64]
         - {{ pin_compatible("cuda-version", min_pin="x", max_pin="x") }}
         - {{ pin_subpackage("libcudnn-jit", exact=True) }}
       run_constrained:
