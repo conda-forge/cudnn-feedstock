@@ -19,5 +19,5 @@ if not exist %LIBRARY_BIN% (
     if errorlevel 1 exit 1
 )
 
-copy %SRC_DIR%\bin\cudnn*.dll %LIBRARY_BIN%\
+copy %SRC_DIR%\bin\x64\cudnn*.dll %LIBRARY_BIN%\
 if errorlevel 1 exit 1
