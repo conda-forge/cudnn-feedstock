@@ -1,4 +1,4 @@
-{% set version = "9.19.1.2" %}
+{% set version = "9.20.0.48" %}
 {% set soname = version.split('.')[0] %}
 {% set majorminorpatch = '.'.join(version.split('.')[:3]) %}
 {% set platform = "linux-x86_64" %}  # [linux64]
@@ -14,12 +14,12 @@ package:
 source:
   url: https://developer.download.nvidia.com/compute/cudnn/redist/cudnn/{{ platform }}/cudnn-{{ platform }}-{{ version }}_cuda12-archive.{{ extension }}  # [(cuda_compiler_version or "").startswith("12")]
   url: https://developer.download.nvidia.com/compute/cudnn/redist/cudnn/{{ platform }}/cudnn-{{ platform }}-{{ version }}_cuda13-archive.{{ extension }}  # [(cuda_compiler_version or "").startswith("13")]
-  sha256: 80e57a4880458ec14c394291ed891452a80ebbdae6ca81a1472bdf8d98cf2992  # [linux64 and (cuda_compiler_version or "").startswith("12")]
-  sha256: 0c1315a013a140a1e9f6425ddd494ac346410acc78f64d4449ff4cf061fae2ae  # [linux64 and (cuda_compiler_version or "").startswith("13")]
-  sha256: ba61845ec6cc5e5b8076b4547616333b1afc17f345b5edb3de44e6b718cee7c8  # [aarch64 and (cuda_compiler_version or "").startswith("12")]
-  sha256: 608eb48bb928adae8268f4f9b639835996d918495fb46ef2b96764d836699ac8  # [aarch64 and (cuda_compiler_version or "").startswith("13")]
-  sha256: f4935f02b0512304139806ebb6275d8445fa873ade142b7672f631ed0995ae8a  # [win and (cuda_compiler_version or "").startswith("12")]
-  sha256: ffe9788ec702b8b0d26f43cf1fd6f099e312e62dd0b82e9793ff5ee21bd8e00a  # [win and (cuda_compiler_version or "").startswith("13")]
+  sha256: c10623d2ee9fd4cd0a5d809237958b80884405c2f8a122712dd7b98c1d780a92  # [linux64 and (cuda_compiler_version or "").startswith("12")]
+  sha256: 73f091ee57668dc18e8b1b61811c0ddff2ec0b762efe613e9f27f9ebfd6c20c0  # [linux64 and (cuda_compiler_version or "").startswith("13")]
+  sha256: 6ca43b54656cd3f65585b289cace425dccb421e4e8bba0ad3cb4d844db3cc01e  # [aarch64 and (cuda_compiler_version or "").startswith("12")]
+  sha256: 21140178191c620799ec09620ae1d89649c9b95441163f8ef956e1493a0e3704  # [aarch64 and (cuda_compiler_version or "").startswith("13")]
+  sha256: 003a5d022899268f7deef0c3530f1587a3195a93905a16fd0e3c9da0c46b88ab  # [win and (cuda_compiler_version or "").startswith("12")]
+  sha256: d3ccce59130f10f68fe09365feea65b622bcecace79a0682fe43ee07b88a6a29  # [win and (cuda_compiler_version or "").startswith("13")]
 
 build:
   number: 0
