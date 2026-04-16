@@ -1,4 +1,4 @@
-{% set version = "9.20.0.48" %}
+{% set version = "9.21.0.82" %}
 {% set soname = version.split('.')[0] %}
 {% set majorminorpatch = '.'.join(version.split('.')[:3]) %}
 {% set platform = "linux-x86_64" %}  # [linux64]
@@ -12,14 +12,18 @@ package:
   version: {{ version }}
 
 source:
-  url: https://developer.download.nvidia.com/compute/cudnn/redist/cudnn/{{ platform }}/cudnn-{{ platform }}-{{ version }}_cuda12-archive.{{ extension }}  # [(cuda_compiler_version or "").startswith("12")]
-  url: https://developer.download.nvidia.com/compute/cudnn/redist/cudnn/{{ platform }}/cudnn-{{ platform }}-{{ version }}_cuda13-archive.{{ extension }}  # [(cuda_compiler_version or "").startswith("13")]
-  sha256: c10623d2ee9fd4cd0a5d809237958b80884405c2f8a122712dd7b98c1d780a92  # [linux64 and (cuda_compiler_version or "").startswith("12")]
-  sha256: 73f091ee57668dc18e8b1b61811c0ddff2ec0b762efe613e9f27f9ebfd6c20c0  # [linux64 and (cuda_compiler_version or "").startswith("13")]
-  sha256: 6ca43b54656cd3f65585b289cace425dccb421e4e8bba0ad3cb4d844db3cc01e  # [aarch64 and (cuda_compiler_version or "").startswith("12")]
-  sha256: 21140178191c620799ec09620ae1d89649c9b95441163f8ef956e1493a0e3704  # [aarch64 and (cuda_compiler_version or "").startswith("13")]
-  sha256: 003a5d022899268f7deef0c3530f1587a3195a93905a16fd0e3c9da0c46b88ab  # [win and (cuda_compiler_version or "").startswith("12")]
-  sha256: d3ccce59130f10f68fe09365feea65b622bcecace79a0682fe43ee07b88a6a29  # [win and (cuda_compiler_version or "").startswith("13")]
+  - url: "https://developer.download.nvidia.com/compute/cudnn/redist/cudnn/linux-x86_64/cudnn-linux-x86_64-{{ version }}_cuda12-archive.tar.xz"  # [linux and x86_64 and (cuda_compiler_version or "").startswith("12")]
+    sha256: "9f97dde6528a1733550c79ee3f5ba3e9a0638e0e1670e4b167d56e0ef6d5910b"  # [linux and x86_64 and (cuda_compiler_version or "").startswith("12")]
+  - url: "https://developer.download.nvidia.com/compute/cudnn/redist/cudnn/linux-x86_64/cudnn-linux-x86_64-{{ version }}_cuda13-archive.tar.xz"  # [linux and x86_64 and (cuda_compiler_version or "").startswith("13")]
+    sha256: "f52b44a8cd5e9560ace9e2656771b2f03598ddee2cf41cf252b8a29867e5381c"  # [linux and x86_64 and (cuda_compiler_version or "").startswith("13")]
+  - url: "https://developer.download.nvidia.com/compute/cudnn/redist/cudnn/linux-sbsa/cudnn-linux-sbsa-{{ version }}_cuda12-archive.tar.xz"  # [linux and aarch64 and (cuda_compiler_version or "").startswith("12") and arm_variant_type == "sbsa"]
+    sha256: "f12e2ad2c0722c8feaeefe416a697cdb117817d73d8ddab5d45ba65a51b01b46"  # [linux and aarch64 and (cuda_compiler_version or "").startswith("12") and arm_variant_type == "sbsa"]
+  - url: "https://developer.download.nvidia.com/compute/cudnn/redist/cudnn/linux-sbsa/cudnn-linux-sbsa-{{ version }}_cuda13-archive.tar.xz"  # [linux and aarch64 and (cuda_compiler_version or "").startswith("13") and arm_variant_type == "sbsa"]
+    sha256: "ef9f4c11a8d42056d531cb71a8b9a9c483143447f45f68a5d9ce4b763a80e7a1"  # [linux and aarch64 and (cuda_compiler_version or "").startswith("13") and arm_variant_type == "sbsa"]
+  - url: "https://developer.download.nvidia.com/compute/cudnn/redist/cudnn/windows-x86_64/cudnn-windows-x86_64-{{ version }}_cuda12-archive.zip"  # [win and x86_64 and (cuda_compiler_version or "").startswith("12")]
+    sha256: "9c054b33f0e8f074f3b68fd446cdffe2cf875de5f01ed4541fa675e8fdd5ceed"  # [win and x86_64 and (cuda_compiler_version or "").startswith("12")]
+  - url: "https://developer.download.nvidia.com/compute/cudnn/redist/cudnn/windows-x86_64/cudnn-windows-x86_64-{{ version }}_cuda13-archive.zip"  # [win and x86_64 and (cuda_compiler_version or "").startswith("13")]
+    sha256: "83128bf93786dd485498752033b6188612422eb6f8f90a466438d5904fa5978f"  # [win and x86_64 and (cuda_compiler_version or "").startswith("13")]
 
 build:
   number: 0
