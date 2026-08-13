@@ -1,5 +1,5 @@
-azure:
-  free_disk_space: true
+workflow_settings:
+  free_disk_space: quick
 build_platform:
   linux_aarch64: linux_64
 conda_build:

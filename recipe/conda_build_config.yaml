@@ -1,0 +1,5 @@
+cuda_arch_version:
+  - 7.5
+c_stdlib_version:
+  - 2.28
+  - 2.28

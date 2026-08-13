@@ -27,12 +27,13 @@ source:
 
 build:
   number: 0
-  # Skip CTK12 variants. See https://github.com/conda-forge/cudnn-feedstock/issues/124
-  skip: true  # [cuda_compiler_version in (None, "None", "") or (cuda_compiler_version or "").startswith("12")]
+  skip: true  # [cuda_compiler_version in (None, "None", "")]
 
 requirements:
   build:
     - cf-nvidia-tools 1  # [linux]
+    - python
+    - cuda-cuobjdump
 
 outputs:
   # Even though cudnn is a meta package, need build/host/run to be set in order to generate unique outputs with unique hash
@@ -77,6 +78,7 @@ outputs:
         - {{ stdlib("c") }}
       host:
         - cuda-version {{ cuda_compiler_version }}
+        - cuda-arch {{ cuda_arch_version }}
         # For Windows, zlib is statically linked into CUDNN since version 9.2
         # https://docs.nvidia.com/deeplearning/cudnn/latest/release-notes.html#cudnn-9-2-0
         # For Linux, zlib remains a dynamically linked dependency
@@ -242,6 +244,7 @@ outputs:
         - patchelf >=0.12  # [linux]
       host:
         - cuda-version {{ cuda_compiler_version }}
+        - cuda-arch {{ cuda_arch_version }}
         # For Windows, zlib is statically linked into CUDNN since version 9.2
         # https://docs.nvidia.com/deeplearning/cudnn/latest/release-notes.html#cudnn-9-2-0
         # For Linux, zlib remains a dynamically linked dependency
