@@ -1,0 +1,6 @@
+# The global conda-forge pinning only enables a CUDA compiler on win64, so
+# win-arm64 would otherwise get cuda_compiler_version None and be skipped by
+# the build/skip rule in meta.yaml. cuda-nvcc_win-arm64 is published only for
+# CUDA 13.4 and newer, so that is the version pinned here.
+cuda_compiler_version:  # [win and arm64]
+  - '13.4'              # [win and arm64]

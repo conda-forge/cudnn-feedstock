@@ -6,6 +6,7 @@ github:
   tooling_branch_name: main
 provider:
   linux_aarch64: default
+  win_arm64: github_actions
 bot:
   automerge: true
 workflow_settings:

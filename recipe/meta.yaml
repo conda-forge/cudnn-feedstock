@@ -3,7 +3,8 @@
 {% set majorminorpatch = '.'.join(version.split('.')[:3]) %}
 {% set platform = "linux-x86_64" %}  # [linux64]
 {% set platform = "linux-sbsa" %}  # [aarch64]
-{% set platform = "windows-x86_64" %}  # [win]
+{% set platform = "windows-x86_64" %}  # [win and not arm64]
+{% set platform = "windows-arm64" %}  # [win and arm64]
 {% set extension = "tar.xz" %}  # [not win]
 {% set extension = "zip" %}  # [win]
 
@@ -24,6 +25,9 @@ source:
     sha256: "b9bbe801c03faf30c0fcc60c25b2a21ace9e3c0db3b025900421101fca3cc95d"  # [win and x86_64 and (cuda_compiler_version or "").startswith("12")]
   - url: "https://developer.download.nvidia.com/compute/cudnn/redist/cudnn/windows-x86_64/cudnn-windows-x86_64-{{ version }}_cuda13-archive.zip"  # [win and x86_64 and (cuda_compiler_version or "").startswith("13")]
     sha256: "f8610d403685c918e690de5b1ec68da0b4b1358a6be62627591362b7eb811644"  # [win and x86_64 and (cuda_compiler_version or "").startswith("13")]
+  # NVIDIA does not publish a CUDA 12 redist archive for windows-arm64.
+  - url: "https://developer.download.nvidia.com/compute/cudnn/redist/cudnn/windows-arm64/cudnn-windows-arm64-{{ version }}_cuda13-archive.zip"  # [win and arm64 and (cuda_compiler_version or "").startswith("13")]
+    sha256: "483743d8600ae57ba8c91da6edf268bd74bd9d3610043b8c2d3e9895d62af758"  # [win and arm64 and (cuda_compiler_version or "").startswith("13")]
 
 build:
   number: 0
