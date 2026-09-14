@@ -30,7 +30,7 @@ source:
     sha256: "483743d8600ae57ba8c91da6edf268bd74bd9d3610043b8c2d3e9895d62af758"  # [win and arm64 and (cuda_compiler_version or "").startswith("13")]
 
 build:
-  number: 0
+  number: 1
   # Skip CTK12 variants. See https://github.com/conda-forge/cudnn-feedstock/issues/124
   skip: true  # [cuda_compiler_version in (None, "None", "") or (cuda_compiler_version or "").startswith("12")]
 
