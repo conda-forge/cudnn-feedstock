@@ -26,5 +26,5 @@ if not exist %LIBRARY_BIN% (
 copy %SRC_DIR%\bin\%ARCH_DIR%\cudnn*.dll %LIBRARY_BIN%\
 if errorlevel 1 exit 1
 
-python "%RECIPE_DIR%\check_cuda_arch.py" "%LIBRARY_BIN%\cudnn*.dll"
+check-cuda-arch "%LIBRARY_BIN%\cudnn*.dll"
 if errorlevel 1 exit 1

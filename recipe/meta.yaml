@@ -35,9 +35,7 @@ build:
 
 requirements:
   build:
-    - cf-nvidia-tools 1  # [linux]
-    - python
-    - cuda-cuobjdump
+    - cf-nvidia-tools >=1.1,<2
 
 outputs:
   # Even though cudnn is a meta package, need build/host/run to be set in order to generate unique outputs with unique hash
