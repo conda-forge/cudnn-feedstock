@@ -25,3 +25,6 @@ if not exist %LIBRARY_BIN% (
 
 copy %SRC_DIR%\bin\%ARCH_DIR%\cudnn*.dll %LIBRARY_BIN%\
 if errorlevel 1 exit 1
+
+check-cuda-arch "%LIBRARY_BIN%\cudnn*.dll"
+if errorlevel 1 exit 1

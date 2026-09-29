@@ -6,10 +6,12 @@ channel_sources:
 - conda-forge
 channel_targets:
 - conda-forge main
+cuda_arch_version:
+- '7.5'
 cuda_compiler:
 - cuda-nvcc
 cuda_compiler_version:
-- '13.0'
+- '12.9'
 cudnn:
 - '9'
 cxx_compiler:
