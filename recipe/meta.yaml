@@ -94,6 +94,7 @@ outputs:
     test:
       requires:
         - {{ compiler('c') }}  # [linux]
+        - cuda-driver-dev      # [linux]
       files:
         - test_load_elf.c      # [linux]
       commands:
@@ -122,7 +123,8 @@ outputs:
         - test -f $PREFIX/lib/libcudnn_ops.so.{{ majorminorpatch }}                                  # [linux]
         - test -f $PREFIX/lib/libcudnn_ops.so.{{ soname }}                                           # [linux]
         - ${GCC} test_load_elf.c -std=c99 -Werror -ldl -o test_load_elf                              # [linux]
-        - for f in $PREFIX/lib/libcudnn*.so.{{ majorminorpatch }}; do ./test_load_elf $f; done       # [linux]
+        # preload driver stub because libcudnn_engines_runtime_compiled.so.* depends on driver
+        - for f in $PREFIX/lib/libcudnn*.so.{{ majorminorpatch }}; do LD_PRELOAD=$PREFIX/lib/stubs/libcuda.so ./test_load_elf $f; done  # [linux]
 
   - name: libcudnn-dev
     build:
