@@ -1,4 +1,4 @@
-{% set version = "9.26.0.51" %}
+{% set version = "9.26.1.1" %}
 {% set soname = version.split('.')[0] %}
 {% set majorminorpatch = '.'.join(version.split('.')[:3]) %}
 {% set platform = "linux-x86_64" %}  # [linux64]
@@ -14,23 +14,23 @@ package:
 
 source:
   - url: "https://developer.download.nvidia.com/compute/cudnn/redist/cudnn/linux-x86_64/cudnn-linux-x86_64-{{ version }}_cuda12-archive.tar.xz"  # [linux and x86_64 and (cuda_compiler_version or "").startswith("12")]
-    sha256: "0e86a03070293426dc0f9e788f803b8d74103ce6c77dad70d69862bb07c69a67"  # [linux and x86_64 and (cuda_compiler_version or "").startswith("12")]
+    sha256: "9b3e4b774035bbd6865b434b50c8b1f68bb2898e9e64eeb0d91f3e3a1511ec61"  # [linux and x86_64 and (cuda_compiler_version or "").startswith("12")]
   - url: "https://developer.download.nvidia.com/compute/cudnn/redist/cudnn/linux-x86_64/cudnn-linux-x86_64-{{ version }}_cuda13-archive.tar.xz"  # [linux and x86_64 and (cuda_compiler_version or "").startswith("13")]
-    sha256: "e62c9b4af62ea130765ea5b13244c05c9452edf1690072373d193d19766d9850"  # [linux and x86_64 and (cuda_compiler_version or "").startswith("13")]
+    sha256: "e95a9b26b32dd11acfac00c9d68315b86a495167166a28fde1f6295f8b96b3e6"  # [linux and x86_64 and (cuda_compiler_version or "").startswith("13")]
   - url: "https://developer.download.nvidia.com/compute/cudnn/redist/cudnn/linux-sbsa/cudnn-linux-sbsa-{{ version }}_cuda12-archive.tar.xz"  # [linux and aarch64 and (cuda_compiler_version or "").startswith("12") and arm_variant_type == "sbsa"]
-    sha256: "7e30d3014a927f9f06e4d54bc8f8c2c4394b782040265143f356a63f079d7094"  # [linux and aarch64 and (cuda_compiler_version or "").startswith("12") and arm_variant_type == "sbsa"]
+    sha256: "d1dd4f36bf6dc0f8d2d1673c91e9ca53dfaa702aa07b48564ef33053220a0e7d"  # [linux and aarch64 and (cuda_compiler_version or "").startswith("12") and arm_variant_type == "sbsa"]
   - url: "https://developer.download.nvidia.com/compute/cudnn/redist/cudnn/linux-sbsa/cudnn-linux-sbsa-{{ version }}_cuda13-archive.tar.xz"  # [linux and aarch64 and (cuda_compiler_version or "").startswith("13") and arm_variant_type == "sbsa"]
-    sha256: "b7e9591b13d066aaaf79b72850615b82687a8aa42a0691ca7953da0163e4e7fd"  # [linux and aarch64 and (cuda_compiler_version or "").startswith("13") and arm_variant_type == "sbsa"]
+    sha256: "6ff36596b680223abf9737fb466acfe4607428cfe5da3ad4a4cdb9ec06de595a"  # [linux and aarch64 and (cuda_compiler_version or "").startswith("13") and arm_variant_type == "sbsa"]
   - url: "https://developer.download.nvidia.com/compute/cudnn/redist/cudnn/windows-x86_64/cudnn-windows-x86_64-{{ version }}_cuda12-archive.zip"  # [win and x86_64 and (cuda_compiler_version or "").startswith("12")]
-    sha256: "b9bbe801c03faf30c0fcc60c25b2a21ace9e3c0db3b025900421101fca3cc95d"  # [win and x86_64 and (cuda_compiler_version or "").startswith("12")]
+    sha256: "3269c419290cbc0281e99dcad95419fa97dc0ab87b0edbc68c59661d9fdb9d90"  # [win and x86_64 and (cuda_compiler_version or "").startswith("12")]
   - url: "https://developer.download.nvidia.com/compute/cudnn/redist/cudnn/windows-x86_64/cudnn-windows-x86_64-{{ version }}_cuda13-archive.zip"  # [win and x86_64 and (cuda_compiler_version or "").startswith("13")]
-    sha256: "f8610d403685c918e690de5b1ec68da0b4b1358a6be62627591362b7eb811644"  # [win and x86_64 and (cuda_compiler_version or "").startswith("13")]
+    sha256: "c826d866641fed2c266ae1c11e679fcc1ef8517801a32a51715843051ce8df52"  # [win and x86_64 and (cuda_compiler_version or "").startswith("13")]
   # NVIDIA does not publish a CUDA 12 redist archive for windows-arm64.
   - url: "https://developer.download.nvidia.com/compute/cudnn/redist/cudnn/windows-arm64/cudnn-windows-arm64-{{ version }}_cuda13-archive.zip"  # [win and arm64 and (cuda_compiler_version or "").startswith("13")]
-    sha256: "483743d8600ae57ba8c91da6edf268bd74bd9d3610043b8c2d3e9895d62af758"  # [win and arm64 and (cuda_compiler_version or "").startswith("13")]
+    sha256: "31ebe49c698a66e347c041df3463435a05315cf14b53d2fc98189bf3fab16b2b"  # [win and arm64 and (cuda_compiler_version or "").startswith("13")]
 
 build:
-  number: 2
+  number: 0
   skip: true  # [cuda_compiler_version in (None, "None", "")]
 
 requirements:
